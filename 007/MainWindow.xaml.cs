@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace _007
+namespace _Roulette007
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

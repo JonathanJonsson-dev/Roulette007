@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace _007
+namespace _Roulette007
 {
     /// <summary>
     /// Interaction logic for App.xaml
