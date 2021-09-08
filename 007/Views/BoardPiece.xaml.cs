@@ -21,6 +21,10 @@ namespace _007.Views
     {
 
 
+
+        
+
+
         public int BoardPieceNumber
         {
             get { return (int)GetValue(BoardPieceNumberProperty); }
