@@ -22,7 +22,7 @@ namespace _007.Models
         /// </summary>
         /// <param name="bet"></param>
         /// <returns></returns>
-        public int GetPayoutt(Bet bet)
+        public int GetPayout(Bet bet)
         {
             foreach (var number in bet.Numbers)//Loops through every number in the bet to check against the winning number
             {
