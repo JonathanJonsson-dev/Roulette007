@@ -5,6 +5,7 @@ using System.Text;
 
 namespace _007.Models
 {
+    public class Player : PlayerViewModel
     {
 
 
