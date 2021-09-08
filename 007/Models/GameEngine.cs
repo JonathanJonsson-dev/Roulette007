@@ -26,7 +26,7 @@ namespace _007.Models
         {
             foreach (var number in bet.Numbers)//Loops through every number in the bet to check against the winning number
             {
-                if(number == winningNumber)
+                if(number.BoardPieceNumber == winningNumber)
                 {
                     return bet.Amount * (int)bet.Type; //Returns the players payout, (int)bet.Type = payout ratio found in BetType.cs
                 }
