@@ -1,4 +1,5 @@
-﻿using _007.Views;
+﻿using _007.Models;
+using _007.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,20 +9,44 @@ namespace _007.ViewModels
 {
     public class PlayerViewModel : BaseViewModel
     {
-        public ObservableCollection<BoardPiece> Board { get; set; } = new ObservableCollection<BoardPiece>();
+        #region Properties
+        //Player collection as property
+        public ObservableCollection<Player> Players { get; set; } = new ObservableCollection<Player>();
+        #endregion
 
-        public PlayerViewModel()
+        #region Variables
+        //Player object
+        private Player player = new Player();
+        #endregion
+
+        #region Contructor
+        public PlayerViewModel(string name, double deposit)
         {
-            FillBoard();
+            FillPlayers(name, deposit);
         }
 
-        private void FillBoard()
+        //public PlayerViewModel( double bet)
+        //{
+        //    FillPlayers(bet);
+        //}
+
+        #endregion
+
+        #region Methods
+        //private void FillPlayers(double bet)
+        //{
+        //    player.BetAmount = bet;
+        //}
+        private void FillPlayers(string name, double deposit)
         {
-            for (int i = 0; i < 36; i++)
+            if (player != null)
             {
-                var piece = new BoardPiece();
-                Board.Add(piece);
+                player.NickName = name;
+                player.AccountBalance = deposit;
             }
+
+            Players.Add(player);
         }
+        #endregion
     }
 }

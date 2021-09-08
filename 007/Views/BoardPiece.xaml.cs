@@ -19,7 +19,14 @@ namespace _007.Views
     /// </summary>
     public partial class BoardPiece : UserControl
     {
+        #region UI Properties
         public int Number { get; set; }
+        public bool IsRedNumber { get; set; } = false;
+        public bool IsHighlighted { get; set; } = false;
+        public bool IsWinningNNumber { get; set; } = false;
+        #endregion
+
+
 
         public BoardPiece()
         {

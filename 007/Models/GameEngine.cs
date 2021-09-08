@@ -8,8 +8,12 @@ namespace _007.Models
     {
         private static readonly Random random = new Random();
 
+        public GameEngine()
+        {
+
+        }
        
-        private int GetRandomNumber()
+        public int GetRandomNumber()
         {
             return random.Next(37); //Returns a random integer between 0-36
         }
