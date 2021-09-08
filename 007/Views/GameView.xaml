@@ -19,7 +19,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <ItemsControl ItemsSource="{Binding Game.Board}">
+            <ItemsControl ItemsSource="{Binding Player.Board}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <UniformGrid Columns="10" Rows="10" MinHeight="500" MinWidth="500"/>

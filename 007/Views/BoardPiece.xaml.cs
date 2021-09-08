@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,6 +19,8 @@ namespace _007.Views
     /// </summary>
     public partial class BoardPiece : UserControl
     {
+        public int Number { get; set; }
+
         public BoardPiece()
         {
             InitializeComponent();

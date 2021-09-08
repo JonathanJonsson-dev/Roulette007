@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:_007.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="White">
-        <Label Content="1" FontSize="200" HorizontalAlignment="Left" Margin="311,63,0,0" VerticalAlignment="Top"/>
+    <Grid Background="Red">
+        
 
     </Grid>
 </UserControl>
