@@ -28,15 +28,12 @@ namespace _007.Models
             {
                 if(number == winningNumber)
                 {
-                    return bet.Amount * GetOdds(bet.Type); // Returns bet amount times the odds eg. Betting on a single number with the odds 36/1 and bet amount of 10 will be 10 * 36 = 360 as payout
+                    return bet.Amount * (int)bet.Type; //Returns the players payout, (int)bet.Type = payout ratio found in BetType.cs
                 }
             }
             return bet.Amount * -1; //Returns the negative number of the bet amount (1000 becomes -1000) as payout
         }
-        private int GetOdds(BetType type)
-        {
-            return 1;//placeholder for the actual method
-        }
+      
       
         
     }
