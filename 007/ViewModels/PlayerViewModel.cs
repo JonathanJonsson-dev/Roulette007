@@ -10,6 +10,7 @@ namespace _007.ViewModels
     public class PlayerViewModel : BaseViewModel
     {
         public ObservableCollection<BoardPiece> Board { get; set; } = new ObservableCollection<BoardPiece>();
+        
 
         public PlayerViewModel()
         {
@@ -22,20 +23,45 @@ namespace _007.ViewModels
             {
                 if (i == 0)
                 {
-                    BoardPiece boardPiece = new BoardPiece 
-                    { 
-                        BoardPieceColor = Brushes.Green,
-                        BoardPieceNumber = 0
+                    
+                        BoardPiece boardPiece = new BoardPiece
+                        {
+                            BoardPieceColor = Brushes.Green,
+                            BoardPieceNumber = 0
+                        };
+
+                    boardPiece.Width = 150;
+                    Board.Add(boardPiece);
+                    
+                }
+                else if(i == 11 || i == 13 || i==15 || i == 17 || i == 29 || i == 31 || i == 33 || i == 35)
+                {
+                    BoardPiece boardPiece = new BoardPiece
+                    {
+                        BoardPieceColor = Brushes.Black,
+                        BoardPieceNumber = i
                     };
+                    
                     Board.Add(boardPiece);
                 }
-                else if (i % 2 > 0)
+                else if (i == 12 || i == 14 || i == 16 || i == 18 || i == 30 || i == 32 || i == 34 || i == 36)
+                {
+                    BoardPiece boardPiece = new BoardPiece
+                    {
+                        BoardPieceColor = Brushes.Red,
+                        BoardPieceNumber = i
+                    };
+                    
+                    Board.Add(boardPiece);
+                }
+                else if (i % 2 == 0)
                 {
                     BoardPiece boardPiece = new BoardPiece 
                     { 
                         BoardPieceColor = Brushes.Black,
                         BoardPieceNumber = i
                     };
+                   
                     Board.Add(boardPiece);
                 }
                 else
@@ -45,6 +71,7 @@ namespace _007.ViewModels
                         BoardPieceColor = Brushes.Red,
                         BoardPieceNumber = i
                     };
+                    
                     Board.Add(boardPiece);
                 }
             }
