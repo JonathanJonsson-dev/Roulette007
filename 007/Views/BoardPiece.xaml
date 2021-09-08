@@ -7,10 +7,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="450">
     <Border BorderBrush="white" BorderThickness="2">
-        <Grid Background="Red">
-
-
+        <Grid Background="{Binding BoardPieceColor, RelativeSource={RelativeSource AncestorType=UserControl}}">
+            <Label 
+                Content="{Binding BoardPieceNumber, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                FontSize="20" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center"
+                Foreground="AntiqueWhite"/>
         </Grid>
     </Border>
-    
+
 </UserControl>

@@ -19,7 +19,27 @@ namespace _007.Views
     /// </summary>
     public partial class BoardPiece : UserControl
     {
-        public int Number { get; set; }
+
+
+        public int BoardPieceNumber
+        {
+            get { return (int)GetValue(BoardPieceNumberProperty); }
+            set { SetValue(BoardPieceNumberProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for BoardPieceNumber.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty BoardPieceNumberProperty =
+            DependencyProperty.Register("BoardPieceNumber", typeof(int), typeof(BoardPiece), new PropertyMetadata(0));
+
+        public SolidColorBrush BoardPieceColor
+        {
+            get { return (SolidColorBrush)GetValue(BoardPieceColorProperty); }
+            set { SetValue(BoardPieceColorProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for BoardPieceColor.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty BoardPieceColorProperty =
+            DependencyProperty.Register("BoardPieceColor", typeof(SolidColorBrush), typeof(BoardPiece), new PropertyMetadata(Brushes.Red));
 
         public BoardPiece()
         {
