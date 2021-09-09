@@ -1,4 +1,6 @@
-﻿using System;
+﻿using _007.Data;
+using _007.Models;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
@@ -22,7 +24,26 @@ namespace _007.Views
 
 
 
-        
+
+
+
+
+
+
+
+
+
+
+        public BetType Type
+        {
+            get { return (BetType)GetValue(TypeProperty); }
+            set { SetValue(TypeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Type.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TypeProperty =
+            DependencyProperty.Register("Type", typeof(BetType), typeof(BoardPiece), new PropertyMetadata(BetType.Straightup));
+
 
 
         public int BoardPieceNumber

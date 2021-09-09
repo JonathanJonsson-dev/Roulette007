@@ -7,14 +7,20 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="450">
     <Border BorderBrush="white" BorderThickness="2" MinWidth="50">
-        <Grid Background="{Binding BoardPieceColor, RelativeSource={RelativeSource AncestorType=UserControl}}">
-            <Label 
-                Content="{Binding BoardPieceNumber, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                FontSize="20" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Center"
-                Foreground="AntiqueWhite"/>
-        </Grid>
+        <Button Command="{Binding PickBetCommand}" CommandParameter="{Binding BoardPieceNumber, RelativeSource={RelativeSource AncestorType=UserControl}}">
+            <Button.Template>
+                <ControlTemplate>
+                    <Grid Background="{Binding BoardPieceColor, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                       <Label
+                       Content="{Binding BoardPieceNumber, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                       FontSize="20" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center"
+                       Foreground="AntiqueWhite"/>
+                     </Grid>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </Border>
 
 </UserControl>

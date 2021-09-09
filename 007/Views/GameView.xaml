@@ -30,6 +30,29 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
+            <ItemsControl Grid.Column="0" Grid.Row="1" ItemsSource="{Binding BoardViewModel.CurrentBet}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid Width="150" HorizontalAlignment="Right"/> 
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+            <StackPanel Grid.Row="0" Grid.Column="0">
+                <TextBlock FontSize="24">
+                    <TextBlock.Text>
+                        <Binding Path="BoardViewModel.LastWinningNumber" StringFormat="Last winning number: {0}"></Binding>
+                    </TextBlock.Text>
+                </TextBlock>
+              
+                <Button Content="Start Round" Command="{Binding StartGameCommand}" VerticalAlignment="Bottom"/>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Grid.Column="0">
+                <TextBlock FontSize="24">
+                    <TextBlock.Text>
+                        <Binding Path="BoardViewModel.Player.Pot" StringFormat="Current pot: {0}"></Binding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </StackPanel>
         </Grid>
     </Border>
 </UserControl>

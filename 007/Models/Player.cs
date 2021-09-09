@@ -7,7 +7,8 @@ namespace _007.Models
 {
     public class Player : PlayerViewModel
     {
-
+        public int Pot { get; set; } = 1000;
+        
 
     }
 }
