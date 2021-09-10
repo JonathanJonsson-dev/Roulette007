@@ -19,12 +19,6 @@ namespace _007.Views
     /// </summary>
     public partial class BoardPiece : UserControl
     {
-
-
-
-        
-
-
         public int BoardPieceNumber
         {
             get { return (int)GetValue(BoardPieceNumberProperty); }

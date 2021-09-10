@@ -11,10 +11,65 @@ namespace _007.ViewModels
     public class BoardViewModel : BaseViewModel
     {
         public ObservableCollection<BoardPiece> Board { get; set; } = new ObservableCollection<BoardPiece>();
+        public ObservableCollection<SpecialBoardPiece> BoardBottom { get; set; } = new ObservableCollection<SpecialBoardPiece>();
+        public ObservableCollection<SpecialBoardPiece> LeftBoard { get; set; } = new ObservableCollection<SpecialBoardPiece>();
 
         public BoardViewModel()
         {
             FillBoard();
+            FillBottomBoard();
+            FillLeftBoard();
+        }
+
+        private void FillLeftBoard()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (i == 0)
+                {
+                    SpecialBoardPiece specialBoardPiece = new SpecialBoardPiece
+                    {
+                        BoardPieceLabel = "1st 12"
+
+                    };
+                    specialBoardPiece.Height = 160;
+                    LeftBoard.Add(specialBoardPiece);
+                }
+                else if (i == 1)
+                {
+                    SpecialBoardPiece specialBoardPiece = new SpecialBoardPiece
+                    {
+                        BoardPieceLabel = "2nd 12"
+
+                    };
+                    specialBoardPiece.Height = 160;
+                    LeftBoard.Add(specialBoardPiece);
+                }
+                else
+                {
+                    SpecialBoardPiece specialBoardPiece = new SpecialBoardPiece
+                    {
+                        BoardPieceLabel = "3rd 12"
+
+                    };
+                    specialBoardPiece.Height = 160;
+                    LeftBoard.Add(specialBoardPiece);
+                }
+                
+            }
+        }
+
+        private void FillBottomBoard()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                SpecialBoardPiece specialBoardPiece = new SpecialBoardPiece 
+                {   
+                    BoardPieceLabel = "2 to 1"
+                };
+                specialBoardPiece.Width = 50;
+                BoardBottom.Add(specialBoardPiece);
+            }
         }
 
         private void FillBoard()
@@ -23,7 +78,6 @@ namespace _007.ViewModels
             {
                 if (i == 0)
                 {
-
                     BoardPiece boardPiece = new BoardPiece
                     {
                         BoardPieceColor = Brushes.Green,
