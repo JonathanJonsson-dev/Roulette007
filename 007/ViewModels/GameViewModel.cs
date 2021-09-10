@@ -9,6 +9,8 @@ namespace _007.ViewModels
     public class GameViewModel : BaseViewModel
     {
         public PlayerViewModel Player { get; set; } = new Player();
+
+        public WheelViewModel Wheel { get; set; } = new WheelViewModel();
         
     }
 }

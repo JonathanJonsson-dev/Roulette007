@@ -18,7 +18,8 @@ namespace _007.ViewModels
 
         //wheel numbers collection
 
-        public ObservableCollection<BoardPiece> Wheel { get; set; } = new ObservableCollection<BoardPiece>();
+        //a collection of wheel piesces
+        public ObservableCollection<BoardPiece> WheelCollection { get; set; } = new ObservableCollection<BoardPiece>();
 
         public WheelViewModel()
         {
@@ -30,7 +31,7 @@ namespace _007.ViewModels
         /// </summary>
         private void FillWheel()
         {
-             for(int i=0; i>wheel.wheelNumbers.Length; i++)
+             for(int i=0; i<wheel.wheelNumbers.Length; i++)
             {
                 if (i == 0)
                 {
@@ -40,7 +41,7 @@ namespace _007.ViewModels
                         BoardPieceNumber = wheel.wheelNumbers[i],
                     };
 
-                    Wheel.Add(boardPiece);
+                    WheelCollection.Add(boardPiece);
                 }
                 else if(i % 2 != 0)
                 {
@@ -50,7 +51,7 @@ namespace _007.ViewModels
                         BoardPieceNumber = wheel.wheelNumbers[i],
                     };
 
-                    Wheel.Add(boardPiece);
+                    WheelCollection.Add(boardPiece);
                 }
                 else
                 {
@@ -60,10 +61,9 @@ namespace _007.ViewModels
                         BoardPieceNumber = wheel.wheelNumbers[i],
                     };
 
-                    Wheel.Add(boardPiece);
+                    WheelCollection.Add(boardPiece);
                 }
             }
-
         }
 
         /// <summary>
@@ -80,5 +80,6 @@ namespace _007.ViewModels
 
             return wheel.wheelNumbers[determinant];
         }
+
     }
 }
