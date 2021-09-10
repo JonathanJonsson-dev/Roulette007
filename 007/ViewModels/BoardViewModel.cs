@@ -30,18 +30,27 @@ namespace _007.ViewModels
         }
         public void CreateBet(PlaceBet placeBet)
         {
-            if (!ExistingBet(placeBet.Id))
+            if (!ExistingBet(placeBet.Id) && placeBet.Amount != 0)
             {
-                List<int> numbers = CreateListOfBetNumbers(placeBet.Id);
-                Bet bet = new Bet()
+                if (Player.Pot >= placeBet.Amount)
                 {
-                    Numbers = numbers,
-                    Id = Board[placeBet.Id].BoardPieceNumber,
-                    Amount = placeBet.Amount
-                };
-                bets.Add(bet);
-                
-                Board[placeBet.Id].BoardPieceColor = Brushes.Yellow;
+
+
+                    List<int> numbers = CreateListOfBetNumbers(placeBet.Id);
+                    Bet bet = new Bet()
+                    {
+                        Numbers = numbers,
+                        Id = Board[placeBet.Id].BoardPieceNumber,
+                        Amount = placeBet.Amount
+                    };
+                    bets.Add(bet);
+                    Player.Pot -= bet.Amount;
+                    Board[placeBet.Id].BoardPieceColor = Brushes.Yellow;
+                }
+                else
+                {
+                    placeBet.Amount = 0;
+                }
             }
             else
             {
@@ -49,7 +58,9 @@ namespace _007.ViewModels
                 {
                     if(bet.Id == placeBet.Id)
                     {
+                        Player.Pot += bet.Amount;
                         bet.Amount = placeBet.Amount;
+                        Player.Pot -= bet.Amount;
                     }
                 }
             }

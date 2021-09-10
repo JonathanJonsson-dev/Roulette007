@@ -32,7 +32,7 @@ namespace _007.Models
                     return bet.Amount * GetPayoutRatio(bet.Type); //Returns the players payout, (int)bet.Type = payout ratio found in BetType.cs
                 }
             }
-            return bet.Amount * -1; //Returns the negative number of the bet amount (1000 becomes -1000) as payout
+            return 0; //Returns nothing for the player because the have lost
         }
         private int GetPayoutRatio(BetType type)
         {
