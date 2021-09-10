@@ -23,7 +23,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <ItemsControl Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Player.Board}">
+            <ItemsControl Grid.Column="1" Grid.Row="1" ItemsSource="{Binding BoardViewModel.Board}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Width="150"></WrapPanel>
