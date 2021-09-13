@@ -10,7 +10,7 @@ namespace _007.ViewModels
     {
         public BoardViewModel BoardViewModel { get; set; } = new BoardViewModel();
         
-        public PlayerViewModel Player { get; set; } = new Player();
+        public PlayerViewModel PlayerViewModel { get; set; } = new PlayerViewModel();
 
         public WheelViewModel Wheel { get; set; } = new WheelViewModel();
         

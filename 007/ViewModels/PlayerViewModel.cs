@@ -1,4 +1,5 @@
-﻿using _007.Views;
+﻿using _007.Models;
+using _007.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,6 +10,10 @@ namespace _007.ViewModels
 {
     public class PlayerViewModel : BaseViewModel
     {
-        
+
+        public Player Player { get; set; } = new Player();
     }
+
+
+}
 }
