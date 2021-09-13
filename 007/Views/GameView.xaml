@@ -14,7 +14,7 @@
         BorderThickness="5">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="135"/>
                 <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
@@ -57,10 +57,10 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Column="1" Grid.Row="1">
-                    <ItemsControl Grid.Column="1" ItemsSource="{Binding BoardViewModel.LeftBoard}"/>
+                    <ItemsControl Grid.Column="1" ItemsSource="{Binding BoardViewModel.SpecialBetBoardColumnTwo}"/>
                 </Grid>
                 <Grid Grid.Column="0" Grid.Row="1">
-                    <ItemsControl ItemsSource="{Binding BoardViewModel.Test}"/>
+                    <ItemsControl ItemsSource="{Binding BoardViewModel.SpecialBetBoardColumnOne}"/>
                 </Grid>
             </Grid>
 
