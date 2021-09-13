@@ -11,12 +11,10 @@ namespace _007.ViewModels
     public class BoardViewModel : BaseViewModel
     {
         public ObservableCollection<BoardPiece> Board { get; set; } = new ObservableCollection<BoardPiece>();
-
         public ObservableCollection<PlaceBet> CurrentBet { get; set; } = new ObservableCollection<PlaceBet>();
-        
         public ObservableCollection<SpecialBoardPiece> BoardBottom { get; set; } = new ObservableCollection<SpecialBoardPiece>();
-        public ObservableCollection<SpecialBoardPiece> LeftBoard { get; set; } = new ObservableCollection<SpecialBoardPiece>();
-        public ObservableCollection<SpecialBoardPiece> Test { get; set; } = new ObservableCollection<SpecialBoardPiece>();
+        public ObservableCollection<SpecialBoardPiece> SpecialBetBoardColumnTwo { get; set; } = new ObservableCollection<SpecialBoardPiece>();
+        public ObservableCollection<SpecialBoardPiece> SpecialBetBoardColumnOne { get; set; } = new ObservableCollection<SpecialBoardPiece>();
         
         public List<PlaceBet> Input { get; set; } = new List<PlaceBet>();
         public int LastWinningNumber { get; set; }
@@ -25,15 +23,8 @@ namespace _007.ViewModels
 
         private Player player;
 
-
-
         public List<Bet> bets { get; set; } = new List<Bet>();
 
-
-       
-
-        
-        
         public BoardViewModel(Player player, GameEngine gameEngine)
         {
             this.player = player;
@@ -41,11 +32,11 @@ namespace _007.ViewModels
             FillBoard();
             FillBetInput();
             FillBottomBoard();
-            FillLeftBoard();
-            FillTest();
+            FillSpecialBetBoardColumnTwo();
+            FillSpecialBetBoardColumnOne();
         }
 
-        private void FillTest()
+        private void FillSpecialBetBoardColumnOne()
         {
             for (int i = 0; i < 6; i++)
             {
@@ -58,7 +49,7 @@ namespace _007.ViewModels
 
                     };
                     specialBoardPiece.Height = 80;
-                    Test.Add(specialBoardPiece);
+                    SpecialBetBoardColumnOne.Add(specialBoardPiece);
                 }
                 else if (i == 1)
                 {
@@ -69,7 +60,7 @@ namespace _007.ViewModels
 
                     };
                     specialBoardPiece.Height = 80;
-                    Test.Add(specialBoardPiece);
+                    SpecialBetBoardColumnOne.Add(specialBoardPiece);
                 }
                 else if (i == 2)
                 {
@@ -81,22 +72,44 @@ namespace _007.ViewModels
 
                     };
                     specialBoardPiece.Height = 80;
-                    Test.Add(specialBoardPiece);
+                    SpecialBetBoardColumnOne.Add(specialBoardPiece);
+                }
+                else if (i == 3)
+                {
+                    SpecialBoardPiece specialBoardPiece = new SpecialBoardPiece
+                    {
+                        BoardPieceLabel = "",
+                        BetType = Data.BetType.Black,
+                        BoardPieceColor = Brushes.Black
+
+                    };
+                    specialBoardPiece.Height = 80;
+                    SpecialBetBoardColumnOne.Add(specialBoardPiece);
+                }
+                else if (i == 4)
+                {
+                    SpecialBoardPiece specialBoardPiece = new SpecialBoardPiece
+                    {
+                        BoardPieceLabel = "Odd",
+                        BetType = Data.BetType.Odd,
+                    };
+                    specialBoardPiece.Height = 80;
+                    SpecialBetBoardColumnOne.Add(specialBoardPiece);
                 }
                 else
                 {
                     SpecialBoardPiece specialBoardPiece = new SpecialBoardPiece
                     {
-                        BoardPieceLabel = "asdasd",
-                        BetType = Data.BetType.Dozen
+                        BoardPieceLabel = "19 to 36",
+                        BetType = Data.BetType.High
 
                     };
                     specialBoardPiece.Height = 80;
-                    Test.Add(specialBoardPiece);
+                    SpecialBetBoardColumnOne.Add(specialBoardPiece);
                 }
             }
         }
-        private void FillLeftBoard()
+        private void FillSpecialBetBoardColumnTwo()
         {
             for (int i = 0; i < 3; i++)
             {
@@ -109,7 +122,7 @@ namespace _007.ViewModels
 
                     };
                     specialBoardPiece.Height = 160;
-                    LeftBoard.Add(specialBoardPiece);
+                    SpecialBetBoardColumnTwo.Add(specialBoardPiece);
                 }
                 else if (i == 1)
                 {
@@ -120,7 +133,7 @@ namespace _007.ViewModels
 
                     };
                     specialBoardPiece.Height = 160;
-                    LeftBoard.Add(specialBoardPiece);
+                    SpecialBetBoardColumnTwo.Add(specialBoardPiece);
                 }
                 else
                 {
@@ -131,7 +144,7 @@ namespace _007.ViewModels
 
                     };
                     specialBoardPiece.Height = 160;
-                    LeftBoard.Add(specialBoardPiece);
+                    SpecialBetBoardColumnTwo.Add(specialBoardPiece);
                 }
                 
             }

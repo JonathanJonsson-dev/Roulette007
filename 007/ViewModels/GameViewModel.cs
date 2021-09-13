@@ -22,6 +22,7 @@ namespace _007.ViewModels
         
         public ICommand PickBetCommand { get; }
         public ICommand PlaceBetCommand { get; }
+        public ICommand CloseBetCommand { get; }
         public ICommand StartGameCommand { get; }
 
         
@@ -29,6 +30,7 @@ namespace _007.ViewModels
         {
             PickBetCommand = new PickBetCommand(this);
             PlaceBetCommand = new PlaceBetCommand(this);
+            CloseBetCommand = new CloseBetCommand(this);
             StartGameCommand = new StartGameCommand(this);
             BoardViewModel = new BoardViewModel(this.Player,this.GameEngine);
 
