@@ -54,7 +54,7 @@ namespace _007.ViewModels
                     SpecialBoardPiece specialBoardPiece = new SpecialBoardPiece
                     {
                         BoardPieceLabel = "1 to 18",
-                        BetType = Data.BetType.OneToEighteen
+                        BetType = Data.BetType.Low
 
                     };
                     specialBoardPiece.Height = 80;
