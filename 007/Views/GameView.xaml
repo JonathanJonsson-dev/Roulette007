@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:_007.Views"
              xmlns:models="clr-namespace:_007.Models"
+             xmlns:uc="clr-namespace:_007.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Border
@@ -14,6 +15,7 @@
         BorderThickness="5">
         <Grid>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="135"/>
                 <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="Auto"/>
@@ -63,6 +65,9 @@
                     <ItemsControl ItemsSource="{Binding BoardViewModel.SpecialBetBoardColumnOne}"/>
                 </Grid>
             </Grid>
+            <uc:WheelView Grid.Row="2"
+                        Grid.Column="0"
+                           />
 
         </Grid>
     </Border>

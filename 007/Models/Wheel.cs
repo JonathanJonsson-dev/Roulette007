@@ -17,8 +17,6 @@ namespace _007.Models
         public Wheel()
         {
             wheelAngle = randomAngle.Next(361);
-        }
-
-       
+        }       
     }
 }

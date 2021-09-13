@@ -36,10 +36,7 @@
                         VerticalAlignment="Stretch" 
                         HorizontalAlignment="Stretch"/>
 
-            <uc:WheelView Grid.Row="2"
-                        Grid.Column="1"
-                           VerticalAlignment="Stretch" 
-                        HorizontalAlignment="Stretch"/>
+           
             <!--<ContentControl Content="{Binding Wheel}"
                         Grid.Row="2"
                         Grid.Column="2"
