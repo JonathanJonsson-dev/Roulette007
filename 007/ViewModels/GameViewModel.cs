@@ -11,7 +11,7 @@ namespace _007.ViewModels
     public class GameViewModel : BaseViewModel
     {
         public BoardViewModel BoardViewModel { get; set; } = new BoardViewModel();
-       
+
         public ICommand PickBetCommand { get; }
         public ICommand PlaceBetCommand { get; }
         public ICommand StartGameCommand { get; }

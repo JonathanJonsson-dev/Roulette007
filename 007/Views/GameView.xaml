@@ -37,22 +37,7 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-            <StackPanel Grid.Row="0" Grid.Column="0">
-                <TextBlock FontSize="24">
-                    <TextBlock.Text>
-                        <Binding Path="BoardViewModel.LastWinningNumber" StringFormat="Last winning number: {0}"></Binding>
-                    </TextBlock.Text>
-                </TextBlock>
-              
-                <Button Content="Start Round" Command="{Binding StartGameCommand}" VerticalAlignment="Bottom"/>
-            </StackPanel>
-            <StackPanel Grid.Row="2" Grid.Column="0">
-                <TextBlock FontSize="24">
-                    <TextBlock.Text>
-                        <Binding Path="BoardViewModel.Player.Pot" StringFormat="Current pot: {0}"></Binding>
-                    </TextBlock.Text>
-                </TextBlock>
-            </StackPanel>
+            
         </Grid>
     </Border>
 </UserControl>

@@ -30,9 +30,9 @@ namespace _007.ViewModels
         }
         public void CreateBet(PlaceBet placeBet)
         {
-            if (!ExistingBet(placeBet.Id) && placeBet.Amount != 0)
+            if (!ExistingBet(placeBet.Id) && placeBet.Amount != 0)//If theres no existing bet of the same id number
             {
-                if (Player.Pot >= placeBet.Amount)
+                if (Player.Pot >= placeBet.Amount)//Checks the player can afford the bet
                 {
 
 
@@ -49,10 +49,10 @@ namespace _007.ViewModels
                 }
                 else
                 {
-                    placeBet.Amount = 0;
+                    placeBet.Amount = 0;//Returns inputbox to 0
                 }
             }
-            else
+            else//Updates existing bet
             {
                 foreach (var bet in bets)
                 {
@@ -67,12 +67,12 @@ namespace _007.ViewModels
             CurrentBet.Clear();
 
         }
-        public void ShowBet(BoardPiece piece)
+        public void ShowBet(BoardPiece piece)//Shows inputbox for current boardpiece
         {
             CurrentBet.Clear();
             CurrentBet.Add(Input[piece.BoardPieceNumber]);
         }
-        private List<int> CreateListOfBetNumbers(int id)
+        private List<int> CreateListOfBetNumbers(int id) //Adds all the numbers that the bet contains to a list 
         {
             BoardPiece piece = Board[id];
             List<int> numbers = new List<int>();
@@ -112,7 +112,7 @@ namespace _007.ViewModels
             }
             return numbers;
         }
-        private bool ExistingBet(int id)
+        private bool ExistingBet(int id)//Checks if the bet exist
         {
             bool itExist = false;
             foreach (var bet in bets)
@@ -125,12 +125,12 @@ namespace _007.ViewModels
             }
             return itExist;
         }
-        public void StartRound()
+        public void StartRound()//Starts the game temporary placement
         {
             LastWinningNumber = gameEngine.GenerateWinningNumber();
             Payout();
         }
-        public void Payout()
+        public void Payout()//Sends all bets made to gameEnigne for payout
         {
             foreach (var bet in bets)
             {
@@ -138,7 +138,7 @@ namespace _007.ViewModels
             }
             ResetRound();
         }
-        private void ResetRound()
+        private void ResetRound()//Resets for new round
         {
             bets.Clear();
             Board.Clear();
@@ -206,9 +206,9 @@ namespace _007.ViewModels
             }
         }
 
-        private void FillBetInput()
+        private void FillBetInput()//Creates inputboxes for every boardpiece
         {
-            for (int i = 0; i < 37; i++)
+            for (int i = 0; i < Board.Count; i++)
             {
                 PlaceBet placeBet = new PlaceBet
                 {
