@@ -30,6 +30,14 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
+            <ItemsControl Grid.Column="0" Grid.Row="3" ItemsSource="{Binding BoardViewModel.CurrentBet}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid Width="150" HorizontalAlignment="Right"/> 
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+
             <Grid Grid.Column="1" Grid.Row="2">
                 <ItemsControl ItemsSource="{Binding BoardViewModel.BoardBottom}">
                     <ItemsControl.ItemsPanel>
@@ -55,7 +63,7 @@
                     <ItemsControl ItemsSource="{Binding BoardViewModel.Test}"/>
                 </Grid>
             </Grid>
-            
+
         </Grid>
     </Border>
 </UserControl>
