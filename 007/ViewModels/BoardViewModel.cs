@@ -15,16 +15,19 @@ namespace _007.ViewModels
         public List<PlaceBet> Input { get; set; } = new List<PlaceBet>();
         public int LastWinningNumber { get; set; }
 
-        public GameEngine gameEngine = new GameEngine();
-        
-        public Player Player { get; set; } = new Player();
+        private GameEngine gameEngine;
+
+        private Player player;
+
 
 
         public List<Bet> bets { get; set; } = new List<Bet>();
 
 
-        public BoardViewModel()
+        public BoardViewModel(Player player, GameEngine gameEngine)
         {
+            this.player = player;
+            this.gameEngine = gameEngine;
             FillBoard();
             FillBetInput();
         }
@@ -32,7 +35,7 @@ namespace _007.ViewModels
         {
             if (!ExistingBet(placeBet.Id) && placeBet.Amount != 0)//If theres no existing bet of the same id number
             {
-                if (Player.Pot >= placeBet.Amount)//Checks the player can afford the bet
+                if (player.Pot >= placeBet.Amount)//Checks the player can afford the bet
                 {
 
 
@@ -44,7 +47,7 @@ namespace _007.ViewModels
                         Amount = placeBet.Amount
                     };
                     bets.Add(bet);
-                    Player.Pot -= bet.Amount;
+                    player.Pot -= bet.Amount;
                     Board[placeBet.Id].BoardPieceColor = Brushes.Yellow;
                 }
                 else
@@ -58,9 +61,9 @@ namespace _007.ViewModels
                 {
                     if(bet.Id == placeBet.Id)
                     {
-                        Player.Pot += bet.Amount;
+                        player.Pot += bet.Amount;
                         bet.Amount = placeBet.Amount;
-                        Player.Pot -= bet.Amount;
+                        player.Pot -= bet.Amount;
                     }
                 }
             }
@@ -134,7 +137,7 @@ namespace _007.ViewModels
         {
             foreach (var bet in bets)
             {
-                Player.Pot += gameEngine.GetPayout(bet);
+                player.Pot += gameEngine.GetPayout(bet);
             }
             ResetRound();
         }

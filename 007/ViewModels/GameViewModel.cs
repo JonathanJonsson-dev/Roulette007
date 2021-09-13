@@ -10,8 +10,9 @@ namespace _007.ViewModels
 {
     public class GameViewModel : BaseViewModel
     {
-        public BoardViewModel BoardViewModel { get; set; } = new BoardViewModel();
-
+        public BoardViewModel BoardViewModel { get; set; }
+        public Player Player { get; set; } = new Player();
+        public GameEngine GameEngine { get; set; } = new GameEngine();
         public ICommand PickBetCommand { get; }
         public ICommand PlaceBetCommand { get; }
         public ICommand StartGameCommand { get; }
@@ -20,6 +21,8 @@ namespace _007.ViewModels
             PickBetCommand = new PickBetCommand(this);
             PlaceBetCommand = new PlaceBetCommand(this);
             StartGameCommand = new StartGameCommand(this);
+            BoardViewModel = new BoardViewModel(this.Player,this.GameEngine);
+
         }
 
     }
