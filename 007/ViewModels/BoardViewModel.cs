@@ -21,11 +21,11 @@ namespace _007.ViewModels
 
         private GameEngine gameEngine;
 
-        private Player player;
+        private PlayerViewModel player;
 
         public List<Bet> bets { get; set; } = new List<Bet>();
 
-        public BoardViewModel(Player player, GameEngine gameEngine)
+        public BoardViewModel(PlayerViewModel player, GameEngine gameEngine)
         {
             this.player = player;
             this.gameEngine = gameEngine;

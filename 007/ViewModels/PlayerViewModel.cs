@@ -13,11 +13,10 @@ namespace _007.ViewModels
     public class PlayerViewModel : BaseViewModel
     {
 
-        public class Player
-        {
-            public string Name { get; set; } = "Player";
-            public int Pot { get; set; } = 1000;
-        }
+     
+        public string Name { get; set; } = "Player";
+        public int Pot { get; set; } = 1000;
+        
 
         
         public ICommand SetNameCommand { get; }

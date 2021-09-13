@@ -13,9 +13,8 @@ namespace _007.ViewModels
 
         public BoardViewModel BoardViewModel { get; set; }
         
-        public PlayerViewModel PlayerViewModel { get; set; } = new PlayerViewModel();
-        public Player Player { get; set; } = new Player();
-
+        public PlayerViewModel Player { get; set; } = new PlayerViewModel();
+       
         public WheelViewModel Wheel { get; set; } = new WheelViewModel();
         
         public GameEngine GameEngine { get; set; } = new GameEngine();
