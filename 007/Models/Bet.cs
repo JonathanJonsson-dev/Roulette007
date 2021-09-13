@@ -12,7 +12,9 @@ namespace _007.Models
 
         public int Amount { get; set; }
 
-        public List<BoardPiece> Numbers { get; set; } = new List<BoardPiece>();
+        public int Id { get; set; }
+
+        public List<int> Numbers { get; set; } = new List<int>();
         
     }
 }

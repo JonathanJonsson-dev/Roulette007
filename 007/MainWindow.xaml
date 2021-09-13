@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:_Roulette007" 
         xmlns:uc="clr-namespace:_007.Views"
         mc:Ignorable="d"
-        Title="Roulette 007" Height="1000" Width="1000">
+        Title="Roulette 007" Height="1000" Width="1200">
 
     <Border BorderBrush="Black" BorderThickness="1" Background="DarkGreen" SnapsToDevicePixels="True">
         <Grid>
