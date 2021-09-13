@@ -7,7 +7,7 @@
              xmlns:models="clr-namespace:_007.Models"
              xmlns:uc="clr-namespace:_007.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="600" d:DesignWidth="800">
     <Border
         Background="DarkGreen"
         BorderBrush="SaddleBrown" 
@@ -15,17 +15,19 @@
         BorderThickness="5">
         <Grid>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="500"/>
                 <ColumnDefinition Width="135"/>
                 <ColumnDefinition Width="150"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="150"/>
             </Grid.RowDefinitions>
-            <UniformGrid Grid.Column="0" Grid.Row="0">
+            
+            <UniformGrid Grid.Column="1" Grid.Row="1">
                 <local:WheelView Grid.Row="2"
                         Grid.Column="1"
                            VerticalAlignment="Stretch" 
@@ -72,10 +74,7 @@
                     <ItemsControl ItemsSource="{Binding BoardViewModel.SpecialBetBoardColumnOne}"/>
                 </Grid>
             </Grid>
-            <uc:WheelView Grid.Row="2"
-                        Grid.Column="0"
-                           />
-
+            
         </Grid>
     </Border>
 </UserControl>
