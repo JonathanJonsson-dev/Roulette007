@@ -8,6 +8,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+
+    <None Remove="Views\Images\SingleZeroWheel.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Views\Images\SingleZeroWheel.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+
     <PackageReference Include="Fody" Version="6.5.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

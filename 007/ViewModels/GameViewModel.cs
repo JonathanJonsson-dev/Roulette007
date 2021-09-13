@@ -10,12 +10,20 @@ namespace _007.ViewModels
 {
     public class GameViewModel : BaseViewModel
     {
+
         public BoardViewModel BoardViewModel { get; set; }
-        public Player Player { get; set; } = new Player();
+        
+        public PlayerViewModel Player { get; set; } = new Player();
+
+        public WheelViewModel Wheel { get; set; } = new WheelViewModel();
+        
         public GameEngine GameEngine { get; set; } = new GameEngine();
+        
         public ICommand PickBetCommand { get; }
         public ICommand PlaceBetCommand { get; }
         public ICommand StartGameCommand { get; }
+
+        
         public GameViewModel()
         {
             PickBetCommand = new PickBetCommand(this);

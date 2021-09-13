@@ -19,9 +19,9 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="150"/>
             </Grid.RowDefinitions>
             <ItemsControl Grid.Column="1" Grid.Row="1" ItemsSource="{Binding BoardViewModel.Board}">
                 <ItemsControl.ItemsPanel>
@@ -37,7 +37,33 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-          
+
+            <Grid Grid.Column="1" Grid.Row="2">
+                <ItemsControl ItemsSource="{Binding BoardViewModel.BoardBottom}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel VerticalAlignment="Top"></WrapPanel>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </Grid>
+            <Grid Grid.Column="0" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="65"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Column="1" Grid.Row="1">
+                    <ItemsControl Grid.Column="1" ItemsSource="{Binding BoardViewModel.LeftBoard}"/>
+                </Grid>
+                <Grid Grid.Column="0" Grid.Row="1">
+                    <ItemsControl ItemsSource="{Binding BoardViewModel.Test}"/>
+                </Grid>
+            </Grid>
+
         </Grid>
     </Border>
 </UserControl>

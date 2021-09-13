@@ -22,18 +22,6 @@ namespace _007.Views
     public partial class BoardPiece : UserControl
     {
 
-
-
-
-
-
-
-
-
-
-
-
-
         public BetType Type
         {
             get { return (BetType)GetValue(TypeProperty); }
@@ -43,8 +31,6 @@ namespace _007.Views
         // Using a DependencyProperty as the backing store for Type.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TypeProperty =
             DependencyProperty.Register("Type", typeof(BetType), typeof(BoardPiece), new PropertyMetadata(BetType.Straightup));
-
-
 
         public int BoardPieceNumber
         {
