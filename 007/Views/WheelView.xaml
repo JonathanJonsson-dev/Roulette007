@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:_007.Views"
+             xmlns:ViewModel="clr-namespace:_007.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="400">
     <UserControl.Resources>
@@ -54,11 +55,11 @@
                               Width="300"
                               Height="300" RenderTransformOrigin="1.267,0.767" 
                               Canvas.Left="50" Canvas.Top="50">
-                    <ItemsControl.ItemsPanel>
+                    <!--<ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <Grid/>
                         </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
+                    </ItemsControl.ItemsPanel>-->
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -119,7 +120,7 @@
                         </EventTrigger>
                     </Button.Triggers>
                 </Button>
-                <TextBlock Text="{Binding Wheel.CurrentAngle}"></TextBlock>
+                <TextBlock Text="{Binding WheelViewModel.CurrentAngle}"></TextBlock>
             </Canvas>
         </Grid>
     </Border>
