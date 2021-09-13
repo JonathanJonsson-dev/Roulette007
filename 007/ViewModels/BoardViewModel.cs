@@ -11,12 +11,35 @@ namespace _007.ViewModels
     public class BoardViewModel : BaseViewModel
     {
         public ObservableCollection<BoardPiece> Board { get; set; } = new ObservableCollection<BoardPiece>();
+
+        public ObservableCollection<PlaceBet> CurrentBet { get; set; } = new ObservableCollection<PlaceBet>();
+        
         public ObservableCollection<SpecialBoardPiece> BoardBottom { get; set; } = new ObservableCollection<SpecialBoardPiece>();
         public ObservableCollection<SpecialBoardPiece> LeftBoard { get; set; } = new ObservableCollection<SpecialBoardPiece>();
         public ObservableCollection<SpecialBoardPiece> Test { get; set; } = new ObservableCollection<SpecialBoardPiece>();
-        public BoardViewModel()
+        
+        public List<PlaceBet> Input { get; set; } = new List<PlaceBet>();
+        public int LastWinningNumber { get; set; }
+
+        private GameEngine gameEngine;
+
+        private Player player;
+
+
+
+        public List<Bet> bets { get; set; } = new List<Bet>();
+
+
+       
+
+        
+        
+        public BoardViewModel(Player player, GameEngine gameEngine)
         {
+            this.player = player;
+            this.gameEngine = gameEngine;
             FillBoard();
+            FillBetInput();
             FillBottomBoard();
             FillLeftBoard();
             FillTest();
@@ -31,7 +54,7 @@ namespace _007.ViewModels
                     SpecialBoardPiece specialBoardPiece = new SpecialBoardPiece
                     {
                         BoardPieceLabel = "1 to 18",
-                        BetType = Data.BetType.OneToEighteen
+                        BetType = Data.BetType.Low
 
                     };
                     specialBoardPiece.Height = 80;
@@ -127,8 +150,126 @@ namespace _007.ViewModels
                 specialBoardPiece.Width = 50;
                 BoardBottom.Add(specialBoardPiece);
             }
-        }
 
+        }
+        public void CreateBet(PlaceBet placeBet)
+        {
+            if (!ExistingBet(placeBet.Id) && placeBet.Amount != 0)//If theres no existing bet of the same id number
+            {
+                if (player.Pot >= placeBet.Amount)//Checks the player can afford the bet
+                {
+
+
+                    List<int> numbers = CreateListOfBetNumbers(placeBet.Id);
+                    Bet bet = new Bet()
+                    {
+                        Numbers = numbers,
+                        Id = Board[placeBet.Id].BoardPieceNumber,
+                        Amount = placeBet.Amount
+                    };
+                    bets.Add(bet);
+                    player.Pot -= bet.Amount;
+                    Board[placeBet.Id].BoardPieceColor = Brushes.Yellow;
+                }
+                else
+                {
+                    placeBet.Amount = 0;//Returns inputbox to 0
+                }
+            }
+            else//Updates existing bet
+            {
+                foreach (var bet in bets)
+                {
+                    if(bet.Id == placeBet.Id)
+                    {
+                        player.Pot += bet.Amount;
+                        bet.Amount = placeBet.Amount;
+                        player.Pot -= bet.Amount;
+                    }
+                }
+            }
+            CurrentBet.Clear();
+
+        }
+        public void ShowBet(BoardPiece piece)//Shows inputbox for current boardpiece
+        {
+            CurrentBet.Clear();
+            CurrentBet.Add(Input[piece.BoardPieceNumber]);
+        }
+        private List<int> CreateListOfBetNumbers(int id) //Adds all the numbers that the bet contains to a list 
+        {
+            BoardPiece piece = Board[id];
+            List<int> numbers = new List<int>();
+            switch (piece.Type)
+            {
+                case Data.BetType.Straightup:
+                    numbers.Add(piece.BoardPieceNumber);
+                    break;
+                case Data.BetType.Split:
+                    break;
+                case Data.BetType.Basket:
+                    break;
+                case Data.BetType.Street:
+                    break;
+                case Data.BetType.Corner:
+                    break;
+                case Data.BetType.Sixline:
+                    break;
+                case Data.BetType.Column:
+                    break;
+                case Data.BetType.Dozen:
+                    break;
+                case Data.BetType.Odd:
+                    break;
+                case Data.BetType.Even:
+                    break;
+                case Data.BetType.Red:
+                    break;
+                case Data.BetType.Black:
+                    break;
+                case Data.BetType.Low:
+                    break;
+                case Data.BetType.High:
+                    break;
+                default:
+                    break;
+            }
+            return numbers;
+        }
+        private bool ExistingBet(int id)//Checks if the bet exist
+        {
+            bool itExist = false;
+            foreach (var bet in bets)
+            {
+                if (bet.Id == id)
+                {
+                    itExist = true;
+                }
+               
+            }
+            return itExist;
+        }
+        public void StartRound()//Starts the game temporary placement
+        {
+            LastWinningNumber = gameEngine.GenerateWinningNumber();
+            Payout();
+        }
+        public void Payout()//Sends all bets made to gameEnigne for payout
+        {
+            foreach (var bet in bets)
+            {
+                player.Pot += gameEngine.GetPayout(bet);
+            }
+            ResetRound();
+        }
+        private void ResetRound()//Resets for new round
+        {
+            bets.Clear();
+            Board.Clear();
+            FillBoard();
+            Input.Clear();
+            FillBetInput();
+        }
         private void FillBoard()
         {
             for (int i = 0; i < 37; i++)
@@ -187,5 +328,18 @@ namespace _007.ViewModels
                 }
             }
         }
+
+        private void FillBetInput()//Creates inputboxes for every boardpiece
+        {
+            for (int i = 0; i < Board.Count; i++)
+            {
+                PlaceBet placeBet = new PlaceBet
+                {
+                    Id = i
+                };
+                Input.Add(placeBet);
+            }
+        }
+
     }
 }
