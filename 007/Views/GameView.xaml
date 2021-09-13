@@ -37,14 +37,7 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-            <StackPanel>
-                <TextBlock>
-                <TextBlock.Text>
-                    <Binding Path="Player.Pot" StringFormat="Current pot: {0}"></Binding>
-                </TextBlock.Text>
-                </TextBlock>
-
-            </StackPanel>
+          
         </Grid>
     </Border>
 </UserControl>
