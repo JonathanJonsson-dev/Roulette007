@@ -33,7 +33,6 @@ namespace _007.ViewModels
             CloseBetCommand = new CloseBetCommand(this);
             StartGameCommand = new StartGameCommand(this);
             BoardViewModel = new BoardViewModel(this.Player,this.GameEngine);
-
         }
 
     }

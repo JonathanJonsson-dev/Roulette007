@@ -30,27 +30,27 @@
                 <MenuItem Header="Övriga inställningar"/>
             </Menu>
 
-            <ContentControl Content="{Binding BoardViewModel}"
+            <ContentControl Content="{Binding CurrentViewModel}"
                         Grid.Row="2"
                         Grid.Column="3"
                         VerticalAlignment="Stretch" 
                         HorizontalAlignment="Stretch"/>
 
-            <!--<uc:WheelView Grid.Row="2"
+            <uc:WheelView Grid.Row="2"
                         Grid.Column="1"
                            VerticalAlignment="Stretch" 
-                        HorizontalAlignment="Stretch"/>-->
-            <ContentControl Content="{Binding Wheel}"
+                        HorizontalAlignment="Stretch"/>
+            <!--<ContentControl Content="{Binding Wheel}"
                         Grid.Row="2"
                         Grid.Column="2"
                         VerticalAlignment="Stretch" 
-                        HorizontalAlignment="Stretch"/>
+                        HorizontalAlignment="Stretch"/>-->
 
 
-            <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+            <!--<StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
                 <Label Content="Current angle:"></Label>
                 <TextBox Width="100" Text="{Binding CurrentViewModel.Wheel.CurrentAngle, Mode=TwoWay}"></TextBox>
-            </StackPanel>
+            </StackPanel>-->
             
 
         </Grid>
