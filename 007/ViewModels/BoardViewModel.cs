@@ -13,14 +13,66 @@ namespace _007.ViewModels
         public ObservableCollection<BoardPiece> Board { get; set; } = new ObservableCollection<BoardPiece>();
         public ObservableCollection<SpecialBoardPiece> BoardBottom { get; set; } = new ObservableCollection<SpecialBoardPiece>();
         public ObservableCollection<SpecialBoardPiece> LeftBoard { get; set; } = new ObservableCollection<SpecialBoardPiece>();
-
+        public ObservableCollection<SpecialBoardPiece> Test { get; set; } = new ObservableCollection<SpecialBoardPiece>();
         public BoardViewModel()
         {
             FillBoard();
             FillBottomBoard();
             FillLeftBoard();
+            FillTest();
         }
 
+        private void FillTest()
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                if (i == 0)
+                {
+                    SpecialBoardPiece specialBoardPiece = new SpecialBoardPiece
+                    {
+                        BoardPieceLabel = "1 to 18",
+                        BetType = Data.BetType.OneToEighteen
+
+                    };
+                    specialBoardPiece.Height = 80;
+                    Test.Add(specialBoardPiece);
+                }
+                else if (i == 1)
+                {
+                    SpecialBoardPiece specialBoardPiece = new SpecialBoardPiece
+                    {
+                        BoardPieceLabel = "Even",
+                        BetType = Data.BetType.Even
+
+                    };
+                    specialBoardPiece.Height = 80;
+                    Test.Add(specialBoardPiece);
+                }
+                else if (i == 2)
+                {
+                    SpecialBoardPiece specialBoardPiece = new SpecialBoardPiece
+                    {
+                        BoardPieceLabel = "",
+                        BetType = Data.BetType.Red,
+                        BoardPieceColor = Brushes.Red
+
+                    };
+                    specialBoardPiece.Height = 80;
+                    Test.Add(specialBoardPiece);
+                }
+                else
+                {
+                    SpecialBoardPiece specialBoardPiece = new SpecialBoardPiece
+                    {
+                        BoardPieceLabel = "asdasd",
+                        BetType = Data.BetType.Dozen
+
+                    };
+                    specialBoardPiece.Height = 80;
+                    Test.Add(specialBoardPiece);
+                }
+            }
+        }
         private void FillLeftBoard()
         {
             for (int i = 0; i < 3; i++)
@@ -29,7 +81,8 @@ namespace _007.ViewModels
                 {
                     SpecialBoardPiece specialBoardPiece = new SpecialBoardPiece
                     {
-                        BoardPieceLabel = "1st 12"
+                        BoardPieceLabel = "1st 12",
+                        BetType = Data.BetType.Dozen
 
                     };
                     specialBoardPiece.Height = 160;
@@ -39,7 +92,8 @@ namespace _007.ViewModels
                 {
                     SpecialBoardPiece specialBoardPiece = new SpecialBoardPiece
                     {
-                        BoardPieceLabel = "2nd 12"
+                        BoardPieceLabel = "2nd 12",
+                        BetType = Data.BetType.Dozen
 
                     };
                     specialBoardPiece.Height = 160;
@@ -49,7 +103,8 @@ namespace _007.ViewModels
                 {
                     SpecialBoardPiece specialBoardPiece = new SpecialBoardPiece
                     {
-                        BoardPieceLabel = "3rd 12"
+                        BoardPieceLabel = "3rd 12",
+                        BetType = Data.BetType.Dozen
 
                     };
                     specialBoardPiece.Height = 160;
@@ -65,7 +120,9 @@ namespace _007.ViewModels
             {
                 SpecialBoardPiece specialBoardPiece = new SpecialBoardPiece 
                 {   
-                    BoardPieceLabel = "2 to 1"
+                    BoardPieceLabel = "2 to 1",
+                    BetType = Data.BetType.Column
+                    
                 };
                 specialBoardPiece.Width = 50;
                 BoardBottom.Add(specialBoardPiece);

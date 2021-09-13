@@ -27,7 +27,7 @@ namespace _007.Views
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MyPropertyProperty =
-            DependencyProperty.Register("MyProperty", typeof(BetType), typeof(SpecialBoardPiece), new PropertyMetadata(BetType.Column));
+            DependencyProperty.Register("MyProperty", typeof(BetType), typeof(SpecialBoardPiece), new PropertyMetadata(BetType.Zero));
 
         public string BoardPieceLabel
         {
@@ -37,7 +37,7 @@ namespace _007.Views
 
         // Using a DependencyProperty as the backing store for BoardPieceLabel.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty BoardPieceLabelProperty =
-            DependencyProperty.Register("BoardPieceLabel", typeof(string), typeof(SpecialBoardPiece), new PropertyMetadata("Error"));
+            DependencyProperty.Register("BoardPieceLabel", typeof(string), typeof(SpecialBoardPiece), new PropertyMetadata("Custom Label Not Set, Check DependencyProperty BoardPieceLabelProperty in SpecialBoardPiece.xaml.cs"));
 
         public SolidColorBrush BoardPieceColor
         {
