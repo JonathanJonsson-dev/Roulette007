@@ -16,7 +16,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="135"/>
                 <ColumnDefinition Width="150"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
@@ -30,7 +30,7 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-            <ItemsControl Grid.Column="0" Grid.Row="3" ItemsSource="{Binding BoardViewModel.CurrentBet}">
+            <ItemsControl Grid.Column="2" Grid.Row="1" ItemsSource="{Binding BoardViewModel.CurrentBet}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Grid Width="150" HorizontalAlignment="Right"/> 

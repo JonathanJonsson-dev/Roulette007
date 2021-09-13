@@ -9,22 +9,33 @@
     <Border Background="LightGray" BorderBrush="Gray" BorderThickness="2" CornerRadius="15" Width="150" Height="75">
         <Grid Background="Transparent" Width="Auto" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="25"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="25"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
-            <Label Content="Enter Amount " Grid.Column="0" Grid.Row="0"/>
-            <TextBox Grid.Row="1" Grid.Column="0" Width="Auto" Text="{Binding Amount, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+            <Label Content="Enter Amount " Grid.Column="1" Grid.Row="0"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Width="Auto" Text="{Binding Amount, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
             <Button Grid.Row="2" 
-                    Grid.Column="0" 
+                    Grid.Column="1" 
                     Content="Place bet" 
                     Width="Auto"
                     Height="20"
                     Command="{Binding PlaceBetCommand}"
                     CommandParameter="{Binding Id,RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+            <Button Grid.Row="0" 
+                    Grid.Column="2" 
+                    Content="X" 
+                    Width="20"
+                    Height="20"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Right"
+                    
+                    Command="{Binding CloseBetCommand}"/>
         </Grid>
     </Border>
 </UserControl>
