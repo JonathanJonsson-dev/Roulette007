@@ -9,21 +9,22 @@ using System.Windows.Shapes;
 
 namespace _007.ViewModels
 {
-    public class WheelViewModel
+    public class WheelViewModel : BaseViewModel
     {
         //variables
         private readonly Wheel wheel = new Wheel();
 
         //int wheelAngel;
 
-        //wheel numbers collection
-
         //a collection of wheel piesces
-        public ObservableCollection<BoardPiece> WheelCollection { get; set; } = new ObservableCollection<BoardPiece>();
+        public ObservableCollection<WheelPiece> WheelCollection { get; set; } = new ObservableCollection<WheelPiece>();
+
+        public double CurrentAngle { get; set; }
 
         public WheelViewModel()
         {
             FillWheel();
+            //GetAngle();
         }
 
         /// <summary>
@@ -35,33 +36,33 @@ namespace _007.ViewModels
             {
                 if (i == 0)
                 {
-                    BoardPiece boardPiece = new BoardPiece
+                    WheelPiece piece = new WheelPiece
                     {
-                        BoardPieceColor = Brushes.Green,
-                        BoardPieceNumber = wheel.wheelNumbers[i],
+                       IsGreenNumber = true,
+                       Label = wheel.wheelNumbers[i],
                     };
 
-                    WheelCollection.Add(boardPiece);
+                    WheelCollection.Add(piece);
                 }
                 else if(i % 2 != 0)
                 {
-                    BoardPiece boardPiece = new BoardPiece
+                    WheelPiece piece = new WheelPiece
                     {
-                        BoardPieceColor = Brushes.Red,
-                        BoardPieceNumber = wheel.wheelNumbers[i],
+                        IsRedNumber = true,
+                        Label = wheel.wheelNumbers[i],
                     };
 
-                    WheelCollection.Add(boardPiece);
+                    WheelCollection.Add(piece);
                 }
                 else
                 {
-                    BoardPiece boardPiece = new BoardPiece
+                    WheelPiece piece = new WheelPiece
                     {
-                        BoardPieceColor = Brushes.Black,
-                        BoardPieceNumber = wheel.wheelNumbers[i],
+                        IsBlackNumber = true,
+                        Label = wheel.wheelNumbers[i],
                     };
 
-                    WheelCollection.Add(boardPiece);
+                    WheelCollection.Add(piece);
                 }
             }
         }
@@ -80,6 +81,12 @@ namespace _007.ViewModels
 
             return wheel.wheelNumbers[determinant];
         }
+
+        //public void GetAngle(double angle)
+        //{
+           
+        //    CurrentAngle = angle;
+        //}
 
     }
 }

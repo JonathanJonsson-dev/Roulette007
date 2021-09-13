@@ -21,7 +21,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5">
                 <MenuItem Header="Sätt in penger"/>
@@ -30,16 +30,29 @@
                 <MenuItem Header="Övriga inställningar"/>
             </Menu>
 
-            <ContentControl Content="{Binding CurrentViewModel}"
+            <ContentControl Content="{Binding BoardViewModel}"
                         Grid.Row="2"
                         Grid.Column="3"
                         VerticalAlignment="Stretch" 
                         HorizontalAlignment="Stretch"/>
 
-            <uc:WheelView Grid.Row="2"
+            <!--<uc:WheelView Grid.Row="2"
                         Grid.Column="1"
                            VerticalAlignment="Stretch" 
+                        HorizontalAlignment="Stretch"/>-->
+            <ContentControl Content="{Binding Wheel}"
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        VerticalAlignment="Stretch" 
                         HorizontalAlignment="Stretch"/>
+
+
+            <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+                <Label Content="Current angle:"></Label>
+                <TextBox Width="100" Text="{Binding CurrentViewModel.Wheel.CurrentAngle, Mode=TwoWay}"></TextBox>
+            </StackPanel>
+            
+
         </Grid>
     </Border>
 </Window>

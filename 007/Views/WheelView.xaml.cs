@@ -23,5 +23,13 @@ namespace _007.Views
         {
             InitializeComponent();
         }
+
+        //private void SetAngle()
+        //{
+        //    double angle = 0.0;
+        //    Transform transform = WheelSpin.RenderTransform;
+        //    rotate = (RotateTransform);
+        //    angle = rotate.Angle;
+        //}
     }
 }
