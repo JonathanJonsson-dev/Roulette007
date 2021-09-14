@@ -1,4 +1,5 @@
 ﻿using _007.Commands;
+using _007.Data;
 using _007.Models;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,6 @@ namespace _007.ViewModels
         public ICommand PlaceBetCommand { get; }
         public ICommand CloseBetCommand { get; }
         public ICommand StartGameCommand { get; }
-
         
         public GameViewModel()
         {
