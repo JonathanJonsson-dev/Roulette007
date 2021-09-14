@@ -125,8 +125,6 @@ namespace _007.ViewModels
                         IsGreenNumber = true,
                         Label = wheel.wheelNumbers[i],
                         AngularPosition = i * Constants.WheelPieceDegrees,
-                        //CenterPointX = Constants.MainBorderWidth / 2,
-                        //CenterPointY = Constants.MainBorderWidth / 2,
                         XPosition = CenterPointX + Constants.WheelRadius * Math.Cos((i * Constants.WheelPieceDegrees) * Math.PI / 180.0),
                         YPosition = CenterPointY + Constants.WheelRadius * Math.Sin((i * Constants.WheelPieceDegrees) * Math.PI / 180.0),
                         PieceWidth = wheelPieceWidth,
@@ -142,8 +140,6 @@ namespace _007.ViewModels
                         IsRedNumber = true,
                         Label = wheel.wheelNumbers[i],
                         AngularPosition = i * Constants.WheelPieceDegrees,
-                        //CenterPointX = Constants.MainBorderWidth / 2,
-                        //CenterPointY = Constants.MainBorderWidth / 2,
                         XPosition = Constants.MainBorderWidth / 2 + Constants.WheelRadius * Math.Cos((i * Constants.WheelPieceDegrees) * Math.PI / 180.0),
                         YPosition = Constants.MainBorderWidth / 2 + Constants.WheelRadius * Math.Sin((i * Constants.WheelPieceDegrees) * Math.PI / 180.0),
                         PieceWidth = wheelPieceWidth,
@@ -159,8 +155,6 @@ namespace _007.ViewModels
                         IsBlackNumber = true,
                         Label = wheel.wheelNumbers[i],
                         AngularPosition = i * Constants.WheelPieceDegrees,
-                        //CenterPointX = Constants.MainBorderWidth / 2,
-                        //CenterPointY = Constants.MainBorderWidth / 2,
                         XPosition = Constants.MainBorderWidth / 2 + Constants.WheelRadius * Math.Cos((i * Constants.WheelPieceDegrees) * Math.PI / 180.0),
                         YPosition = Constants.MainBorderWidth / 2 + Constants.WheelRadius * Math.Sin((i * Constants.WheelPieceDegrees) * Math.PI / 180.0),
                         PieceWidth = wheelPieceWidth,
@@ -179,10 +173,7 @@ namespace _007.ViewModels
         /// <returns></returns>
         private int DetermineWinningNumber(int angel)
         {
-            //Each number represents a sector of a circle. Determine angle of each sector out of 37
-            decimal sectorAngle = 360 / 37;
-
-            int determinant = (int)Math.Truncate(angel / sectorAngle); //gives position of winning number in array of wheel numbers
+            int determinant = (int)Math.Truncate(angel / Constants.WheelPieceDegrees); //gives position of winning number in array of wheel numbers
 
             return wheel.wheelNumbers[determinant];
         }

@@ -7,7 +7,7 @@ namespace _007.Data
     public static class Constants
     {
         public const double NumberOfWheelPieces = 37;
-        public const double WheelPieceDegrees = 9.7297;
+        public const double WheelPieceDegrees = 9.7297; //Each number represents a sector of a circle. Agle of each sector out of 37 (360/37)
         public const double WheelPieceHeightPercentage = 0.15;
         public const double WheelPieceWidth1Percentage = 0.85;
         public const double WheelPieceWidth2Percentage = 0.15;
@@ -22,9 +22,6 @@ namespace _007.Data
         public const double FullCircleDegrees = 360;
         public const int WheelRadius = 50;
         public const int MainBorderWidth = 250;
-        public const int MainBorderHeight = 250;
-        //public const int CenterPointX = MainBorderWidth/2;
-        //public const int CenterPointY = MainBorderHeight/2;
-        
+        public const int MainBorderHeight = 250;        
     }
 }

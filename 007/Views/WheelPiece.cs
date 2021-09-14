@@ -40,12 +40,6 @@ namespace _007.Models
                 new System.Windows.Point(xPositionPixels + (Constants.WheelPieceWidth1Percentage * widthPixels), yPositionPixels + heightPixels),
                 new System.Windows.Point(xPositionPixels + (Constants.WheelPieceWidth2Percentage * widthPixels), yPositionPixels + heightPixels)
             };
-            //RaisePropertyChanged("Points");
-
-            // Update the x/y position and width of the pocket.
-            //XPosition = xPositionPixels;
-            //YPosition = yPositionPixels;
-            //PieceWidth = widthPixels;
 
             //Update wheel center point.
             CenterPointX = wheelCenterPointXPixels;
