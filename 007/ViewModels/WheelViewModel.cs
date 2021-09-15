@@ -11,13 +11,14 @@ namespace _007.ViewModels
         private readonly Wheel wheel = new Wheel();
 
         //wheel piece variables
-        private double wheelPieceWidth;
-        private double wheelPieceHeight;
-        private double centerPointX;
-        private double centerPointY;
+        //private double WheelPieceWidth;
+        //private double WheelPieceHeight;
+        //private double CenterPointX;
+        //private double CenterPointY;
+        //private double wheelPieceDiameter;
         //private double xPosition ;
         //private double yPosition;
-        
+
         //int wheelAngel;
 
         //a collection of wheel piesces
@@ -29,7 +30,15 @@ namespace _007.ViewModels
         public double AngularPOsition { get; set; }
         public double MainBoardHeight { get; set; }
         public double MainBoardWidth { get; set; }
-
+        public double WheelPieceWidth { get; set; }
+        public double WheelPieceHeight { get; set; }
+        public double WheelPieceDiameter { get; set; }
+        public double CenterCircleDiameter { get; set; }
+        public double OuterCircleDiameter { get; set; }
+        public double OuterCircleOffsetX { get; set; }
+        public double OuterCircleOffsetY { get; set; }
+        public double CenterCircleOffsetX { get; set; }
+        public double CenterCircleOffsetY { get; set; }
 
         public double CurrentAngle { get; set; }
 
@@ -50,7 +59,7 @@ namespace _007.ViewModels
         {
             foreach(WheelPiece piece in WheelCollection)
             {
-                piece.UpdateWheelPiece(wheelPieceWidth, wheelPieceHeight, piece.XPosition, piece.YPosition, centerPointX, centerPointY);
+                piece.UpdateWheelPiece(WheelPieceWidth, WheelPieceHeight, piece.XPosition, piece.YPosition, CenterPointX, CenterPointY);
             }
         }
 
@@ -59,11 +68,24 @@ namespace _007.ViewModels
         /// </summary>
         private void DetermineWheelPieceValues()
         {
-            wheelPieceWidth = (2* Math.PI * Constants.WheelRadius) / Constants.NumberOfWheelPieces;
-            wheelPieceHeight = 2 * Constants.WheelRadius * Constants.WheelPieceHeightPercentage;
-            centerPointX = Constants.MainBorderWidth / 2;
-            centerPointY = Constants.MainBorderWidth / 2;
-                        
+            MainBoardHeight = Constants.MainBorderHeight;
+            MainBoardWidth = Constants.MainBorderWidth;
+            WheelPieceDiameter = Constants.MainBorderWidth > Constants.MainBorderHeight ? Constants.InnerWheelDiameterPercentage * Constants.MainBorderHeight : Constants.InnerWheelDiameterPercentage * Constants.MainBorderWidth;
+            WheelPieceWidth = (Math.PI * WheelPieceDiameter) / Constants.NumberOfWheelPieces;
+            //wheelPieceHeight = 2 * Constants.WheelRadius * Constants.WheelPieceHeightPercentage;
+            WheelPieceHeight = WheelPieceDiameter * Constants.WheelPieceHeightPercentage;
+            CenterPointX = MainBoardWidth / 2;
+            CenterPointY = MainBoardHeight / 2;
+
+            //center and outer circles diameter and offsets
+            CenterCircleDiameter = Constants.MainBorderWidth > Constants.MainBorderHeight ? Constants.CenterWheelDiameterPercentage * Constants.MainBorderHeight : Constants.CenterWheelDiameterPercentage * Constants.MainBorderWidth;
+            OuterCircleDiameter = Constants.MainBorderWidth > Constants.MainBorderHeight ? Constants.OuterWheelDiameterPercentage * Constants.MainBorderHeight : Constants.OuterWheelDiameterPercentage * Constants.MainBorderWidth;
+
+            OuterCircleOffsetX = (MainBoardWidth / 2) - (OuterCircleDiameter / 2);
+            OuterCircleOffsetY = (MainBoardHeight / 2) - (CenterCircleDiameter / 2);
+
+            CenterCircleOffsetX = (MainBoardWidth / 2) - (OuterCircleDiameter / 2);
+            CenterCircleOffsetY = (MainBoardHeight / 2) - (CenterCircleDiameter / 2);
         }
 
         //private void DrawWheelLabels()
@@ -123,12 +145,14 @@ namespace _007.ViewModels
                     WheelPiece piece = new WheelPiece
                     {
                         IsGreenNumber = true,
-                        Label = wheel.wheelNumbers[i],
+                        Number = wheel.wheelNumbers[i],
                         AngularPosition = i * Constants.WheelPieceDegrees,
-                        XPosition = CenterPointX + Constants.WheelRadius * Math.Cos((i * Constants.WheelPieceDegrees) * Math.PI / 180.0),
-                        YPosition = CenterPointY + Constants.WheelRadius * Math.Sin((i * Constants.WheelPieceDegrees) * Math.PI / 180.0),
-                        PieceWidth = wheelPieceWidth,
-                        PieceHeight = wheelPieceHeight,
+                        //XPosition = CenterPointX + (WheelPieceDiameter / 2) * Math.Cos((i * Constants.WheelPieceDegrees) * Math.PI / 180.0),
+                        //YPosition = CenterPointY + (WheelPieceDiameter / 2) * Math.Sin((i * Constants.WheelPieceDegrees) * Math.PI / 180.0),
+                        XPosition = CenterPointX - (WheelPieceWidth / 2),
+                        YPosition = CenterPointY - (WheelPieceDiameter / 2),
+                        PieceWidth = WheelPieceWidth,
+                        PieceHeight = WheelPieceHeight,
                     };
 
                     WheelCollection.Add(piece);
@@ -138,12 +162,14 @@ namespace _007.ViewModels
                     WheelPiece piece = new WheelPiece
                     {
                         IsRedNumber = true,
-                        Label = wheel.wheelNumbers[i],
+                        Number = wheel.wheelNumbers[i],
                         AngularPosition = i * Constants.WheelPieceDegrees,
-                        XPosition = Constants.MainBorderWidth / 2 + Constants.WheelRadius * Math.Cos((i * Constants.WheelPieceDegrees) * Math.PI / 180.0),
-                        YPosition = Constants.MainBorderWidth / 2 + Constants.WheelRadius * Math.Sin((i * Constants.WheelPieceDegrees) * Math.PI / 180.0),
-                        PieceWidth = wheelPieceWidth,
-                        PieceHeight = wheelPieceHeight,
+                        //XPosition = CenterPointX + (WheelPieceDiameter / 2) * Math.Cos((i * Constants.WheelPieceDegrees) * Math.PI / 180.0),
+                        //YPosition = CenterPointY / 2 + (WheelPieceDiameter / 2) * Math.Sin((i * Constants.WheelPieceDegrees) * Math.PI / 180.0),
+                        XPosition = CenterPointX - (WheelPieceWidth / 2),
+                        YPosition = CenterPointY - (WheelPieceDiameter / 2),
+                        PieceWidth = WheelPieceWidth,
+                        PieceHeight = WheelPieceHeight,
                     };
 
                     WheelCollection.Add(piece);
@@ -153,12 +179,14 @@ namespace _007.ViewModels
                     WheelPiece piece = new WheelPiece
                     {
                         IsBlackNumber = true,
-                        Label = wheel.wheelNumbers[i],
+                        Number = wheel.wheelNumbers[i],
                         AngularPosition = i * Constants.WheelPieceDegrees,
-                        XPosition = Constants.MainBorderWidth / 2 + Constants.WheelRadius * Math.Cos((i * Constants.WheelPieceDegrees) * Math.PI / 180.0),
-                        YPosition = Constants.MainBorderWidth / 2 + Constants.WheelRadius * Math.Sin((i * Constants.WheelPieceDegrees) * Math.PI / 180.0),
-                        PieceWidth = wheelPieceWidth,
-                        PieceHeight = wheelPieceHeight,
+                        //XPosition = CenterPointX + (WheelPieceDiameter / 2) * Math.Cos((i * Constants.WheelPieceDegrees) * Math.PI / 180.0),
+                        //YPosition = CenterPointY + (WheelPieceDiameter / 2) * Math.Sin((i * Constants.WheelPieceDegrees) * Math.PI / 180.0),
+                        XPosition = CenterPointX - (WheelPieceWidth / 2),
+                        YPosition = CenterPointY - (WheelPieceDiameter / 2),
+                        PieceWidth = WheelPieceWidth,
+                        PieceHeight = WheelPieceHeight,
                     };
 
                     WheelCollection.Add(piece);

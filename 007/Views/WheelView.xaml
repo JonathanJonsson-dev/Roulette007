@@ -7,61 +7,48 @@
              xmlns:ViewModel="clr-namespace:_007.ViewModels"
              mc:Ignorable="d" Height="Auto" Width="Auto">
     <UserControl.Resources>
-        <Storyboard x:Key="RotateWheel">
+        <!--<Storyboard x:Key="RotateWheel">
             <DoubleAnimation By=" 360"
                              Duration="0:0:0:1"
-                             Storyboard.TargetProperty ="Angle"
-                             Storyboard.TargetName ="WheelSpin"
+                             Storyboard.TargetProperty ="Text"
+                             Storyboard.TargetName ="lblWheel"
                              RepeatBehavior="20x"
                              FillBehavior="Stop">
             </DoubleAnimation>
-        </Storyboard>
+        </Storyboard>-->
     </UserControl.Resources>
-    <Border x:Name="MainBorder" Background="Transparent" Margin="0,0,-17,0"
+    <Border x:Name="MainBorder" Background="Transparent" 
             Height="250" Width="250">
-        <Grid x:Name="MainGrid" Margin="0,0,-15,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="99*"/>
-                <RowDefinition Height="0*"/>
-                <RowDefinition Height="0*"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="0*"/>
-            </Grid.ColumnDefinitions>
-            <Canvas Background="Transparent" Margin="0,0,-100,0" Grid.ColumnSpan="2">
+        <Grid x:Name="MainGrid" Margin="-50,-25,50,25" >
+
+            <Canvas Background="Transparent">
                 <!--Outermost wheel-->
                 <Ellipse Height="400" 
                          Width="400"
-                         HorizontalAlignment="Center"
-                         VerticalAlignment="Center"
-                         Fill="Gray"
-                         RenderTransformOrigin="0.5, 0.5">
+                         Fill="Gray" Canvas.Top="-74" Canvas.Left="-55">
                     <Ellipse.RenderTransform>
-                        <TranslateTransform X="25" Y="25"/>
+                        <TranslateTransform X="25" 
+                                            Y="50"/>
                     </Ellipse.RenderTransform>
                 </Ellipse>
-                
+
                 <!--innermost wheel-->
-                
-                <Ellipse Height="210" 
-                         Width="210"
-                         HorizontalAlignment="Center"
-                         VerticalAlignment="Center"
+
+                <Ellipse Height="200" 
+                         Width="200"
                          Fill="DimGray"
-                         RenderTransformOrigin="0.5, 0.5">
+                         Stroke="Goldenrod"
+                         StrokeThickness="5" Canvas.Top="-44" Canvas.Left="-30">
                     <Ellipse.RenderTransform>
-                        <TranslateTransform X="120" Y="120"/>
+                        <TranslateTransform X="100" 
+                                            Y="120"/>
                     </Ellipse.RenderTransform>
                 </Ellipse>
 
                 <ItemsControl x:Name="WheelControl"
                               ItemsSource="{Binding WheelViewModel.WheelCollection}"
-                              Width="300"
-                              Height="300" 
-                              RenderTransformOrigin="1.267,0.767" 
-                              Canvas.Left="105" Canvas.Top="105">
+                              Width="{Binding WheelViewModel.MainBoardWidth, Mode=OneWay}"
+                              Height="{Binding WheelViewModel.MainBoardHeight, Mode=OneWay}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <Grid/>
@@ -69,14 +56,16 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Grid>
+                            <Grid >
                                 <Label HorizontalAlignment="Left" VerticalAlignment="Top" 
-                                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                                           Width="50" Height="50"
+                                           HorizontalContentAlignment="Center" 
+                                       VerticalContentAlignment="Center" 
+                                           Width="auto" Height="Auto"
                                            Foreground="White"  Content="{Binding Label, Mode=OneWay}">
                                     <Label.RenderTransform>
                                         <TransformGroup>
-                                            <TranslateTransform X="0.5" Y="0.5"></TranslateTransform>
+                                            <TranslateTransform X="{Binding XPosition, Mode=OneWay}" 
+                                                                Y="{Binding YPosition, Mode=OneWay}"></TranslateTransform>
                                             <RotateTransform CenterX="{Binding CenterPointX, Mode=OneWay}" 
                                                             CenterY="{Binding CenterPointY, Mode=OneWay}" 
                                                             Angle="{Binding AngularPosition, Mode=OneWay}">
@@ -86,7 +75,8 @@
                                     <Label.Background>
                                         <VisualBrush>
                                             <VisualBrush.Visual>
-                                                <Polygon Stroke="White"  StrokeThickness="1" Points="{Binding Points, Mode=OneWay}">
+                                                <Polygon Stroke="Goldenrod"  StrokeThickness="2" 
+                                                         Points="{Binding Points, Mode=OneWay}">
                                                     <Polygon.RenderTransform>
                                                         <TransformGroup>
                                                             <RotateTransform CenterX="{Binding CenterPointX, Mode=OneWay}" 
@@ -122,17 +112,14 @@
 
                 <Button x:Name="btnSpin" 
                         BorderBrush="SaddleBrown" BorderThickness="5" 
-                        Content="Spin Wheel" Width="150" Height="55" FontSize="20" 
-                        Canvas.Left="126" Canvas.Top="470" RenderTransformOrigin="0.633,1.455">
-                    <Button.Triggers>
+                        Content="Spin Wheel" Width="150" Height="55" FontSize="20" Canvas.Top="405" RenderTransformOrigin="0.633,1.455" Canvas.Left="95">
+                    <!--<Button.Triggers>
                         <EventTrigger RoutedEvent="Button.Click">
                             <BeginStoryboard Storyboard="{StaticResource RotateWheel}">
                             </BeginStoryboard>
                         </EventTrigger>
-                    </Button.Triggers>
+                    </Button.Triggers>-->
                 </Button>
-                <!--<Polygon Stroke="White" StrokeThickness="3" Points="0,0 90,0 70,100 20,100"/>-->
-
             </Canvas>
         </Grid>
     </Border>

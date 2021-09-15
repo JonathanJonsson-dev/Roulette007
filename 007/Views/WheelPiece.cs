@@ -13,8 +13,14 @@ namespace _007.Models
         public bool IsBlackNumber { get; set; } = false; //if number is black
         public bool IsGreenNumber { get; set; } = false; //if number is green
 
-        public int Label { get; set; } //Wheel piece number
+        public int Number { get; set; } //Wheel piece number
         public double AngularPosition { get; set; } //Wheel piece position in a circle as an angle
+
+        //Piece label
+        public string Label 
+        {
+            get { return Number.ToString(); }
+        }
         
         public double XPosition { get; set; }
         public double YPosition { get; set; }

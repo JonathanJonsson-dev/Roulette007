@@ -20,8 +20,8 @@ namespace _007.Data
         public const double StartPosition = 0;
         public const int WheelSpinDurationSeconds = 23;
         public const double FullCircleDegrees = 360;
-        public const int WheelRadius = 50;
-        public const int MainBorderWidth = 250;
-        public const int MainBorderHeight = 250;        
+        //public const int WheelRadius = 50;
+        public const int MainBorderWidth = 350;
+        public const int MainBorderHeight = 350;        
     }
 }

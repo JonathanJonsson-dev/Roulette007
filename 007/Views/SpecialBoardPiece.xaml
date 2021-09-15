@@ -14,9 +14,9 @@
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center"
                 Foreground="AntiqueWhite">
-                <Label.LayoutTransform>
+                <!--<Label.LayoutTransform>
                     <RotateTransform Angle="{Binding AngleConverter}"/>
-                </Label.LayoutTransform>
+                </Label.LayoutTransform>-->
             </Label>
         </Grid>
     </Border>
