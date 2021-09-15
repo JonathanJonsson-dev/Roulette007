@@ -55,6 +55,7 @@ namespace _007.ViewModels
                         BoardPieceLabel = "1 to 18",
                         BoardPieceNumber = i + 40,
                         Numbers = numbers,
+                        BoardPieceFontSize = 15,
                         Type = Data.BetType.Low
 
                     };
@@ -77,6 +78,7 @@ namespace _007.ViewModels
                         BoardPieceLabel = "Even",
                         BoardPieceNumber = i + 40,
                         Numbers = numbers,
+                        BoardPieceFontSize = 15,
                         Type = Data.BetType.Even
 
                     };
@@ -99,6 +101,7 @@ namespace _007.ViewModels
                         BoardPieceLabel = "",
                         BoardPieceNumber = i + 40,
                         Numbers = numbers,
+                        BoardPieceFontSize = 15,
                         Type = Data.BetType.Red,
                         BoardPieceColor = Brushes.Red
 
@@ -121,6 +124,7 @@ namespace _007.ViewModels
                         BoardPieceLabel = "",
                         BoardPieceNumber = i + 40,
                         Numbers = numbers,
+                        BoardPieceFontSize = 15,
                         Type = Data.BetType.Black,
                         BoardPieceColor = Brushes.Black
 
@@ -144,6 +148,7 @@ namespace _007.ViewModels
                         BoardPieceLabel = "Odd",
                         BoardPieceNumber = i + 40,
                         Numbers = numbers,
+                        BoardPieceFontSize = 15,
                         Type = Data.BetType.Odd,
                     };
                     specialBoardPiece.Height = 80;
@@ -164,6 +169,7 @@ namespace _007.ViewModels
                         BoardPieceLabel = "19 to 36",
                         BoardPieceNumber = i + 40,
                         Numbers = numbers,
+                        BoardPieceFontSize = 15,
                         Type = Data.BetType.High
 
                     };
@@ -188,6 +194,7 @@ namespace _007.ViewModels
                         BoardPieceLabel = "1st 12",
                         BoardPieceNumber = i + 46,
                         Numbers = numbers,
+                        BoardPieceFontSize = 15,
                         Type = Data.BetType.Dozen
 
                     };
@@ -206,6 +213,7 @@ namespace _007.ViewModels
                         BoardPieceLabel = "2nd 12",
                         BoardPieceNumber = i + 46,
                         Numbers = numbers,
+                        BoardPieceFontSize = 15,
                         Type = Data.BetType.Dozen
 
                     };
@@ -224,6 +232,7 @@ namespace _007.ViewModels
                         BoardPieceLabel = "3rd 12",
                         BoardPieceNumber = i + 46,
                         Numbers = numbers,
+                        BoardPieceFontSize = 15,
                         Type = Data.BetType.Dozen
 
                     };
@@ -267,10 +276,11 @@ namespace _007.ViewModels
 
                 }
                 BoardPiece specialBoardPiece = new BoardPiece
-                {   
+                {
                     BoardPieceLabel = "2 to 1",
                     BoardPieceNumber = i + 37,
                     Numbers = numbers,
+                    BoardPieceFontSize = 15,
                     Type = Data.BetType.Column
                     
                 };
