@@ -6,16 +6,18 @@ using System.Text;
 using System.Windows.Input;
 using System.Windows.Media;
 
+
+
 namespace _007.ViewModels
 {
+
     public class GameViewModel : BaseViewModel
     {
 
         public BoardViewModel BoardViewModel { get; set; }
         
-        public PlayerViewModel PlayerViewModel { get; set; } = new PlayerViewModel();
-        public Player Player { get; set; } = new Player();
-
+        public PlayerViewModel Player { get; set; } = new PlayerViewModel();
+       
         public WheelViewModel Wheel { get; set; } = new WheelViewModel();
         
         public GameEngine GameEngine { get; set; } = new GameEngine();
@@ -35,6 +37,8 @@ namespace _007.ViewModels
             BoardViewModel = new BoardViewModel(this.Player,this.GameEngine);
 
         }
+
+
 
     }
 }
