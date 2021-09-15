@@ -24,7 +24,7 @@ namespace _007.Commands
 
         public void Execute(object parameter)
         {
-            //smart kod här som plockar in metoden för att starta om spelet.
+            playerViewModel.ResetGame();
 
         }
 
