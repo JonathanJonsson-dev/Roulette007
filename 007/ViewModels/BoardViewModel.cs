@@ -43,29 +43,22 @@ namespace _007.ViewModels
         {
             for (int i = 0; i < 6; i++)
             {
+                List<int> numbers = new List<int>();
+                string label = "";
+                SolidColorBrush color = Brushes.Transparent;
                 if (i == 0)
                 {
-                    List<int> numbers = new List<int>();
+                    
                     for (int n = 1; n < 19; n++)
                     {
                         numbers.Add(n);
                     }
-                    BoardPiece specialBoardPiece = new BoardPiece
-                    {
-                        BoardPieceLabel = "1 to 18",
-                        BoardPieceNumber = i + 40,
-                        Numbers = numbers,
-                        BoardPieceFontSize = 15,
-                        BoardPieceColor = Brushes.Transparent,
-                        Type = Data.BetType.Low
-
-                    };
-                    specialBoardPiece.Height = 80;
-                    CompleteBoard.Add(specialBoardPiece);
+                    label = "1 to 18";
+                   
                 }
                 else if (i == 1)
                 {
-                    List<int> numbers = new List<int>();
+                    
                     for (int n = 1; n < 37; n++)
                     {
                         if (n % 2 == 0)
@@ -73,23 +66,14 @@ namespace _007.ViewModels
                             numbers.Add(n);
                         }
                         
+                        
                     }
-                    BoardPiece specialBoardPiece = new BoardPiece
-                    {
-                        BoardPieceLabel = "Even",
-                        BoardPieceNumber = i + 40,
-                        Numbers = numbers,
-                        BoardPieceFontSize = 15,
-                        BoardPieceColor = Brushes.Transparent,
-                        Type = Data.BetType.Even
+                    label = "Even";
 
-                    };
-                    specialBoardPiece.Height = 80;
-                    CompleteBoard.Add(specialBoardPiece);
                 }
                 else if (i == 2)
                 {
-                    List<int> numbers = new List<int>();
+                   
                   
                     foreach (var piece in Board)
                     {
@@ -98,22 +82,12 @@ namespace _007.ViewModels
                             numbers.Add(piece.BoardPieceNumber);
                         }
                     }
-                    BoardPiece specialBoardPiece = new BoardPiece
-                    {
-                        BoardPieceLabel = "",
-                        BoardPieceNumber = i + 40,
-                        Numbers = numbers,
-                        BoardPieceFontSize = 15,
-                        Type = Data.BetType.Red,
-                        BoardPieceColor = Brushes.Red
-
-                    };
-                    specialBoardPiece.Height = 80;
-                    CompleteBoard.Add(specialBoardPiece);
+                    color = Brushes.Red;
+                    
                 }
                 else if (i == 3)
                 {
-                    List<int> numbers = new List<int>();
+                    
                     foreach (var piece in Board)
                     {
                         if (piece.BoardPieceColor == Brushes.Black)
@@ -121,22 +95,11 @@ namespace _007.ViewModels
                             numbers.Add(piece.BoardPieceNumber);
                         }
                     }
-                    BoardPiece specialBoardPiece = new BoardPiece
-                    {
-                        BoardPieceLabel = "",
-                        BoardPieceNumber = i + 40,
-                        Numbers = numbers,
-                        BoardPieceFontSize = 15,
-                        Type = Data.BetType.Black,
-                        BoardPieceColor = Brushes.Black
-
-                    };
-                    specialBoardPiece.Height = 80;
-                    CompleteBoard.Add(specialBoardPiece);
+                    color = Brushes.Black;
                 }
                 else if (i == 4)
                 {
-                    List<int> numbers = new List<int>();
+                   
                     for (int n = 1; n < 37; n++)
                     {
                         if (n % 2 != 0)
@@ -145,21 +108,12 @@ namespace _007.ViewModels
                         }
 
                     }
-                    BoardPiece specialBoardPiece = new BoardPiece
-                    {
-                        BoardPieceLabel = "Odd",
-                        BoardPieceNumber = i + 40,
-                        Numbers = numbers,
-                        BoardPieceFontSize = 15,
-                        BoardPieceColor = Brushes.Transparent,
-                        Type = Data.BetType.Odd,
-                    };
-                    specialBoardPiece.Height = 80;
-                    CompleteBoard.Add(specialBoardPiece);
+                    label = "Odd";
+                  
                 }
                 else
                 {
-                    List<int> numbers = new List<int>();
+                    
                     for (int n = 19; n < 37; n++)
                     {
                        
@@ -167,86 +121,70 @@ namespace _007.ViewModels
                         
                         
                     }
-                    BoardPiece specialBoardPiece = new BoardPiece
-                    {
-                        BoardPieceLabel = "19 to 36",
-                        BoardPieceNumber = i + 40,
-                        Numbers = numbers,
-                        BoardPieceFontSize = 15,
-                        BoardPieceColor = Brushes.Transparent,
-                        Type = Data.BetType.High
-
-                    };
-                    specialBoardPiece.Height = 80;
-                    CompleteBoard.Add(specialBoardPiece);
+                    label = "19 to 36";
+                   
                 }
+                BoardPiece specialBoardPiece = new BoardPiece
+                {
+                    BoardPieceLabel = label,
+                    BoardPieceNumber = i + 40,
+                    Numbers = numbers,
+                    BoardPieceFontSize = 15,
+                    BoardPieceColor = color,
+                    Type = Data.BetType.Low
+
+                };
+                specialBoardPiece.Height = 80;
+                CompleteBoard.Add(specialBoardPiece);
             }
         }
         private void FillSpecialBetBoardColumnTwo()
         {
             for (int i = 0; i < 3; i++)
             {
+                List<int> numbers = new List<int>();
+                string label = "";
+                SolidColorBrush color = Brushes.Transparent;
                 if (i == 0)
                 {
-                    List<int> numbers = new List<int>();
+                   
                     for (int n = 1; n < 13; n++)
                     {
                         numbers.Add(n);
                     }
-                    BoardPiece specialBoardPiece = new BoardPiece
-                    {
-                        BoardPieceLabel = "1st 12",
-                        BoardPieceNumber = i + 46,
-                        Numbers = numbers,
-                        BoardPieceFontSize = 15,
-                        BoardPieceColor = Brushes.Transparent,
-                        Type = Data.BetType.Dozen
-
-                    };
-                    specialBoardPiece.Height = 160;
-                    CompleteBoard.Add(specialBoardPiece);
+                    label = "1st 12";
                 }
                 else if (i == 1)
                 {
-                    List<int> numbers = new List<int>();
+                    
                     for (int n = 13; n < 25; n++)
                     {
                         numbers.Add(n);
                     }
-                    BoardPiece specialBoardPiece = new BoardPiece
-                    {
-                        BoardPieceLabel = "2nd 12",
-                        BoardPieceNumber = i + 46,
-                        Numbers = numbers,
-                        BoardPieceFontSize = 15,
-                        BoardPieceColor = Brushes.Transparent,
-                        Type = Data.BetType.Dozen
-
-                    };
-                    specialBoardPiece.Height = 160;
-                    CompleteBoard.Add(specialBoardPiece);
+                    label = "2nd 12";
                 }
                 else
                 {
-                    List<int> numbers = new List<int>();
+                    
                     for(int n = 25; n< 37; n++)
                     {
                         numbers.Add(n);
                     }
-                    BoardPiece specialBoardPiece = new BoardPiece
-                    {
-                        BoardPieceLabel = "3rd 12",
-                        BoardPieceNumber = i + 46,
-                        Numbers = numbers,
-                        BoardPieceFontSize = 15,
-                        BoardPieceColor = Brushes.Transparent,
-                        Type = Data.BetType.Dozen
-
-                    };
-                    specialBoardPiece.Height = 160;
-                    CompleteBoard.Add(specialBoardPiece);
+                    label = "3rd 12";
                 }
-                
+                BoardPiece specialBoardPiece = new BoardPiece
+                {
+                    BoardPieceLabel = label,
+                    BoardPieceNumber = i + 46,
+                    Numbers = numbers,
+                    BoardPieceFontSize = 15,
+                    BoardPieceColor = color,
+                    Type = Data.BetType.Dozen
+
+                };
+                specialBoardPiece.Height = 160;
+                CompleteBoard.Add(specialBoardPiece);
+
             }
         }
 
