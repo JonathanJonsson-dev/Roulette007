@@ -27,5 +27,9 @@ namespace _007.Views
             DataContext = new PlayerViewModel();
 
         }
+
+
+        
+
     }
 }

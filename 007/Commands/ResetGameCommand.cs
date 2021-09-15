@@ -6,13 +6,13 @@ using System.Windows.Input;
 
 namespace _007.Commands
 {
-    public class SetNameCommand : ICommand
+    public class ResetGameCommand : ICommand
     {
         private PlayerViewModel playerViewModel;
         public event EventHandler CanExecuteChanged;
-        
 
-        public SetNameCommand(PlayerViewModel playerViewModel)
+
+        public ResetGameCommand(PlayerViewModel playerViewModel)
         {
             this.playerViewModel = playerViewModel;
         }
@@ -24,18 +24,12 @@ namespace _007.Commands
 
         public void Execute(object parameter)
         {
-            //smart kod här som plockar in metoden för att sätta namn.
-            playerViewModel.SetPlayerName();
-            {
-
-            }
-            
+            //smart kod här som plockar in metoden för att starta om spelet.
 
         }
 
 
-       
+
 
     }
 }
-

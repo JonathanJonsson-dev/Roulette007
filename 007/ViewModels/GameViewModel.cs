@@ -6,8 +6,11 @@ using System.Text;
 using System.Windows.Input;
 using System.Windows.Media;
 
+
+
 namespace _007.ViewModels
 {
+
     public class GameViewModel : BaseViewModel
     {
 
@@ -34,6 +37,8 @@ namespace _007.ViewModels
             BoardViewModel = new BoardViewModel(this.Player,this.GameEngine);
 
         }
+
+
 
     }
 }
