@@ -56,6 +56,7 @@ namespace _007.ViewModels
                         BoardPieceNumber = i + 40,
                         Numbers = numbers,
                         BoardPieceFontSize = 15,
+                        BoardPieceColor = Brushes.Transparent,
                         Type = Data.BetType.Low
 
                     };
@@ -79,6 +80,7 @@ namespace _007.ViewModels
                         BoardPieceNumber = i + 40,
                         Numbers = numbers,
                         BoardPieceFontSize = 15,
+                        BoardPieceColor = Brushes.Transparent,
                         Type = Data.BetType.Even
 
                     };
@@ -149,6 +151,7 @@ namespace _007.ViewModels
                         BoardPieceNumber = i + 40,
                         Numbers = numbers,
                         BoardPieceFontSize = 15,
+                        BoardPieceColor = Brushes.Transparent,
                         Type = Data.BetType.Odd,
                     };
                     specialBoardPiece.Height = 80;
@@ -170,6 +173,7 @@ namespace _007.ViewModels
                         BoardPieceNumber = i + 40,
                         Numbers = numbers,
                         BoardPieceFontSize = 15,
+                        BoardPieceColor = Brushes.Transparent,
                         Type = Data.BetType.High
 
                     };
@@ -195,6 +199,7 @@ namespace _007.ViewModels
                         BoardPieceNumber = i + 46,
                         Numbers = numbers,
                         BoardPieceFontSize = 15,
+                        BoardPieceColor = Brushes.Transparent,
                         Type = Data.BetType.Dozen
 
                     };
@@ -214,6 +219,7 @@ namespace _007.ViewModels
                         BoardPieceNumber = i + 46,
                         Numbers = numbers,
                         BoardPieceFontSize = 15,
+                        BoardPieceColor = Brushes.Transparent,
                         Type = Data.BetType.Dozen
 
                     };
@@ -233,6 +239,7 @@ namespace _007.ViewModels
                         BoardPieceNumber = i + 46,
                         Numbers = numbers,
                         BoardPieceFontSize = 15,
+                        BoardPieceColor = Brushes.Transparent,
                         Type = Data.BetType.Dozen
 
                     };
@@ -281,6 +288,7 @@ namespace _007.ViewModels
                     BoardPieceNumber = i + 37,
                     Numbers = numbers,
                     BoardPieceFontSize = 15,
+                    BoardPieceColor = Brushes.Transparent,
                     Type = Data.BetType.Column
                     
                 };
