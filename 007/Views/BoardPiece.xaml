@@ -13,8 +13,8 @@
                 <ControlTemplate>
                     <Grid Background="{Binding BoardPieceColor, RelativeSource={RelativeSource AncestorType=UserControl}}">
                        <Label
-                       Content="{Binding BoardPieceLabel, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                       FontSize="{Binding BoardPieceFontSize, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                       Content="{Binding BoardPieceNumber, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                       FontSize="20" 
                        HorizontalAlignment="Center" 
                        VerticalAlignment="Center"
                        Foreground="AntiqueWhite"/>
