@@ -46,6 +46,7 @@ namespace _007.ViewModels
                 List<int> numbers = new List<int>();
                 string label = "";
                 SolidColorBrush color = Brushes.Transparent;
+                //Generete bettingnumbers that is stored in each boardpiece
                 if (i == 0)
                 {
                     
@@ -145,6 +146,7 @@ namespace _007.ViewModels
                 List<int> numbers = new List<int>();
                 string label = "";
                 SolidColorBrush color = Brushes.Transparent;
+                //Generete bettingnumbers that is stored in each boardpiece
                 if (i == 0)
                 {
                    
@@ -193,6 +195,7 @@ namespace _007.ViewModels
             for (int i = 0; i < 3; i++)
             {
                 List<int> numbers = new List<int>();
+                //Generete bettingnumbers that is stored in each boardpiece
                 if (i == 0)
                 {
                     for (int n = 1; n <= 34; n += 3)
@@ -243,19 +246,19 @@ namespace _007.ViewModels
                 {
 
 
-                    List<int> numbers = CompleteBoard[placeBet.Id].Numbers;
-                    Bet bet = new Bet()
+                    List<int> numbers = CompleteBoard[placeBet.Id].Numbers; //Gets bettingnumbers from choosen boardpiece
+                    Bet bet = new Bet() // Create new bet
                     {
                         Numbers = numbers,
                         Id = CompleteBoard[placeBet.Id].BoardPieceNumber,
                         Amount = placeBet.Amount,
                         Type = CompleteBoard[placeBet.Id].Type
                     };
-                    bets.Add(bet);
+                    bets.Add(bet);//Adds bet to bets list
                     player.Pot -= bet.Amount;
-                    CompleteBoard[placeBet.Id].BoardPieceColor = Brushes.Yellow;
+                    CompleteBoard[placeBet.Id].BoardPieceColor = Brushes.Yellow; // Changes color to indicate where bet is placed
                 }
-                else
+                else// if no amount selected
                 {
                     placeBet.Amount = 0;//Returns inputbox to 0
                 }
@@ -272,7 +275,7 @@ namespace _007.ViewModels
                     }
                 }
             }
-            CurrentBet.Clear();
+            CurrentBet.Clear();//Removes inputbox
 
         }
         public void ShowBet(BoardPiece piece)//Shows inputbox for current boardpiece

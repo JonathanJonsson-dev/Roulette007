@@ -30,12 +30,7 @@
                         Grid.Column="0"
                            VerticalAlignment="Stretch" 
                         HorizontalAlignment="Stretch"/>
-            <UniformGrid  Grid.Column="0" Grid.Row="3"> <!-- For testing-->
-                <Label Content="{Binding Path=BoardViewModel.LastWinningNumber}" ContentStringFormat="Last winning number: {0}"></Label>
-                <!--Label for testing-->
-                <Label Content="{Binding Path=Player.Pot}" ContentStringFormat="Cash: {0}"></Label>
-                <!--Label for testing-->
-            </UniformGrid>
+          
            
             <ItemsControl Grid.Column="2" Grid.Row="1" ItemsSource="{Binding BoardViewModel.Board}">
                 <ItemsControl.ItemsPanel>
