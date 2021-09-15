@@ -19,32 +19,23 @@
         BorderThickness="5">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="500"/>
+                <ColumnDefinition Width="135"/>
+                <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="150"/>
             </Grid.RowDefinitions>
-            
-            <local:WheelView Grid.Row="0"
-                        Grid.Column="0"
-                           VerticalAlignment="Stretch" 
-                        HorizontalAlignment="Stretch"/>
-          
-           
-            <ItemsControl Grid.Column="2" Grid.Row="1" ItemsSource="{Binding BoardViewModel.Board}">
+            <ItemsControl Grid.Column="1" Grid.Row="1" ItemsSource="{Binding BoardViewModel.Board}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Width="150"></WrapPanel>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-            <ItemsControl Grid.Column="3" Grid.Row="1" ItemsSource="{Binding BoardViewModel.CurrentBet}">
+            <ItemsControl Grid.Column="2" Grid.Row="1" ItemsSource="{Binding BoardViewModel.CurrentBet}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Grid Width="150" HorizontalAlignment="Right"/> 
@@ -52,7 +43,7 @@
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
 
-            <Grid Grid.Column="2" Grid.Row="2">
+            <Grid Grid.Column="1" Grid.Row="2">
                 <ItemsControl ItemsSource="{Binding BoardViewModel.BoardBottom}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -61,14 +52,13 @@
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
             </Grid>
-
-            <Grid Grid.Row="1" Grid.Column="1" >
+            <Grid Grid.Column="0" Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="65"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="45"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Column="1" Grid.Row="1">
@@ -78,7 +68,6 @@
                     <ItemsControl ItemsSource="{Binding BoardViewModel.SpecialBetBoardColumnOne}"/>
                 </Grid>
             </Grid>
-           
 
         </Grid>
     </Border>
