@@ -7,6 +7,8 @@ namespace _007.ViewModels
     public class MainViewModel : BaseViewModel
     {
         public BaseViewModel CurrentViewModel { get; set; } = new GameViewModel();
+        public BaseViewModel SpinningWheelViewModel { get; set; } = new SpinningWheelViewModel();
+        
 
     }
 }
