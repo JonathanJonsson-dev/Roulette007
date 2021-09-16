@@ -18,14 +18,14 @@
         </Storyboard>-->
     </UserControl.Resources>
     <Border x:Name="MainBorder" Background="Transparent" 
-            Height="250" Width="250">
+            Height="350" Width="350">
         <Grid x:Name="MainGrid" Margin="-50,-25,50,25" >
 
             <Canvas Background="Transparent">
                 <!--Outermost wheel-->
                 <Ellipse Height="400" 
                          Width="400"
-                         Fill="Gray" Canvas.Top="-74" Canvas.Left="-55">
+                         Fill="Brown" Canvas.Top="-74" Canvas.Left="-51">
                     <Ellipse.RenderTransform>
                         <TranslateTransform X="25" 
                                             Y="50"/>
@@ -34,11 +34,11 @@
 
                 <!--innermost wheel-->
 
-                <Ellipse Height="200" 
-                         Width="200"
-                         Fill="DimGray"
+                <Ellipse Height="300" 
+                         Width="300"
+                         Fill="Brown"
                          Stroke="Goldenrod"
-                         StrokeThickness="5" Canvas.Top="-44" Canvas.Left="-30">
+                         StrokeThickness="50" Canvas.Top="-96" Canvas.Left="-74">
                     <Ellipse.RenderTransform>
                         <TranslateTransform X="100" 
                                             Y="120"/>
@@ -60,7 +60,7 @@
                                 <Label HorizontalAlignment="Left" VerticalAlignment="Top" 
                                            HorizontalContentAlignment="Center" 
                                        VerticalContentAlignment="Center" 
-                                           Width="auto" Height="Auto"
+                                           Width="{Binding PieceWidth}" Height="Auto"
                                            Foreground="White"  Content="{Binding Label, Mode=OneWay}">
                                     <Label.RenderTransform>
                                         <TransformGroup>
@@ -77,14 +77,12 @@
                                             <VisualBrush.Visual>
                                                 <Polygon Stroke="Goldenrod"  StrokeThickness="2" 
                                                          Points="{Binding Points, Mode=OneWay}">
-                                                    <Polygon.RenderTransform>
-                                                        <TransformGroup>
+                                                    <!--<Polygon.RenderTransform>
                                                             <RotateTransform CenterX="{Binding CenterPointX, Mode=OneWay}" 
                                                                              CenterY="{Binding CenterPointY, Mode=OneWay}" 
                                                                              Angle="{Binding AngularPosition, Mode=OneWay}">
                                                             </RotateTransform>
-                                                        </TransformGroup>
-                                                    </Polygon.RenderTransform>
+                                                    </Polygon.RenderTransform>-->
                                                     <Polygon.Style>
                                                         <Style TargetType="Polygon">
                                                             <Style.Triggers>
@@ -112,7 +110,9 @@
 
                 <Button x:Name="btnSpin" 
                         BorderBrush="SaddleBrown" BorderThickness="5" 
-                        Content="Spin Wheel" Width="150" Height="55" FontSize="20" Canvas.Top="405" RenderTransformOrigin="0.633,1.455" Canvas.Left="95">
+                        Content="Spin Wheel" Width="150" Height="55" FontSize="20" Canvas.Top="405" 
+                        RenderTransformOrigin="0.633,1.455" Canvas.Left="95"
+                        Command="{Binding SpinWheelCommand}">
                     <!--<Button.Triggers>
                         <EventTrigger RoutedEvent="Button.Click">
                             <BeginStoryboard Storyboard="{StaticResource RotateWheel}">
@@ -120,6 +120,8 @@
                         </EventTrigger>
                     </Button.Triggers>-->
                 </Button>
+                <TextBlock Text="{Binding WheelViewModel.WinningNumber}" Width="75" Height="40" Canvas.Left="295" Canvas.Top="447"/>
+                <TextBlock Text="{Binding WheelViewModel.WheelStopAngle}" Width="75" Height="40" Canvas.Left="295" Canvas.Top="363"/>
             </Canvas>
         </Grid>
     </Border>

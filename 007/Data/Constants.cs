@@ -8,9 +8,9 @@ namespace _007.Data
     {
         public const double NumberOfWheelPieces = 37;
         public const double WheelPieceDegrees = 9.7297; //Each number represents a sector of a circle. Agle of each sector out of 37 (360/37)
-        public const double WheelPieceHeightPercentage = 0.15;
-        public const double WheelPieceWidth1Percentage = 0.85;
-        public const double WheelPieceWidth2Percentage = 0.15;
+        public const double WheelPieceHeightPercentage = 0.35;
+        public const double WheelPieceWidth1Percentage = 0.90;
+        public const double WheelPieceWidth2Percentage = 0.10;
         public const int Zero = 0;
         public const double OuterWheelDiameterPercentage = 0.95;
         public const double CenterWheelDiameterPercentage = 0.80;

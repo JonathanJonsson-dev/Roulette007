@@ -15,13 +15,10 @@ namespace _007.Models
         public bool IsWinningNumber { get; set; } = false; //If number is winning number
         public int Number { get; set; } //Wheel piece number
         public double AngularPosition { get; set; } //Wheel piece position in a circle as an angle
-
-        //Piece label
-        public string Label 
+        public string Label //Piece label
         {
             get { return Number.ToString(); }
-        }
-        
+        }        
         public double XPosition { get; set; }
         public double YPosition { get; set; }
         public double PieceWidth { get; set; } //Width of wheel piece
@@ -36,6 +33,15 @@ namespace _007.Models
 
         #endregion
 
+        /// <summary>
+        /// Updates wheel piece properties
+        /// </summary>
+        /// <param name="widthPixels"></param>
+        /// <param name="heightPixels"></param>
+        /// <param name="xPositionPixels"></param>
+        /// <param name="yPositionPixels"></param>
+        /// <param name="wheelCenterPointXPixels"></param>
+        /// <param name="wheelCenterPointYPixels"></param>
         public void UpdateWheelPiece(double widthPixels, double heightPixels, double xPositionPixels, double yPositionPixels, double wheelCenterPointXPixels, double wheelCenterPointYPixels)
         {
             // Update polygon.

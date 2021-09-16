@@ -26,7 +26,7 @@ namespace _007.Commands
 
         public void Execute(object parameter)
         {
-            wheelViewModel.SpinnWheel();
+            wheelViewModel.SpinWheelGetAngle();
         }
     }
 }

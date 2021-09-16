@@ -26,6 +26,7 @@ namespace _007.ViewModels
         public ICommand PlaceBetCommand { get; }
         public ICommand CloseBetCommand { get; }
         public ICommand StartGameCommand { get; }
+        public ICommand SpinWheelCommand { get; }
         
         public GameViewModel()
         {
@@ -34,6 +35,7 @@ namespace _007.ViewModels
             CloseBetCommand = new CloseBetCommand(this);
             StartGameCommand = new StartGameCommand(this);
             BoardViewModel = new BoardViewModel(this.Player,this.GameEngine);
+            SpinWheelCommand = new SpinWheelCommand(this.WheelViewModel);
         }
 
     }
