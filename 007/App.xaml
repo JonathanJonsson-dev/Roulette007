@@ -11,8 +11,8 @@
             <views:GameView/>
         </DataTemplate>
         <DataTemplate
-            DataType="{x:Type viewModels:WheelViewModel}">
-            <views:WheelView/>
+            DataType="{x:Type viewModels:PlayerViewModel}">
+            <views:PlayerView/>
         </DataTemplate>
     </Application.Resources>
 </Application>

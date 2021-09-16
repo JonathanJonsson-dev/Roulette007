@@ -12,16 +12,16 @@
         CornerRadius="10"
         BorderThickness="5">
         <Grid>
-            <Ellipse HorizontalAlignment="Left" Height="90" Margin="52,198,0,0" Stroke="AntiqueWhite" Fill="SaddleBrown" VerticalAlignment="Top" Width="90" />
-            <Label Content="Player" HorizontalAlignment="Left" Margin="45,37,0,0" VerticalAlignment="Top" Width="92" Foreground="AntiqueWhite" FontSize="24"/>
+            <Ellipse HorizontalAlignment="Left" Height="90" Margin="256,52,0,0" Stroke="AntiqueWhite" Fill="SaddleBrown" VerticalAlignment="Top" Width="90" />
+            <Label Content="{Binding Name, FallbackValue=Player, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="45,37,0,0" VerticalAlignment="Top" Width="92" Foreground="AntiqueWhite" FontSize="24"/>
             <Label Content="Name" HorizontalAlignment="Left" Margin="45,84,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.843,5.1" Foreground="AntiqueWhite"/>
-            <Label x:Name="lblStackAmountHeader" Content="Stack Amount" HorizontalAlignment="Left" Margin="45,146,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.843,5.1" Foreground="AntiqueWhite"/>
+            <Label x:Name="lblPotAmountHeader" Content="Pot" HorizontalAlignment="Left" Margin="45,146,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.843,5.1" Foreground="AntiqueWhite"/>
             <Label x:Name="lblPlayerName" Content="{Binding Name}" HorizontalAlignment="Left" Margin="127,92,0,0" Visibility="Hidden" VerticalAlignment="Top" Width="143" Foreground="AntiqueWhite"/>
             <Button x:Name="btnSet" Content="Set" Command="{Binding SetNameCommand}" HorizontalAlignment="Left" Margin="170,115,0,0" VerticalAlignment="Top" Width="43" Visibility="Visible" />
-            <Button x:Name="btnResetGame" Content="Reset Game" HorizontalAlignment="Left" Margin="51,210,0,0" VerticalAlignment="Top" Height="67" Width="93" Background="Transparent" BorderBrush="Transparent" Foreground="AntiqueWhite"/>
-            <Label x:Name="lblStackAmount" Content="{Binding Pot}" HorizontalAlignment="Left" Margin="134,146,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.843,5.1" Foreground="AntiqueWhite"/>
-            <TextBox HorizontalAlignment="Left" Margin="45,116,0,0" Text="{Binding Name}" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-            
+            <Button x:Name="btnResetGame" Content="Reset Game" Command="{Binding ResetGameCommand}" HorizontalAlignment="Left" Margin="253,63,0,0" VerticalAlignment="Top" Height="67" Width="93" Background="Transparent" BorderBrush="Transparent" Foreground="AntiqueWhite"/>
+            <Label x:Name="lblPotAmount" Content="{Binding Pot}" HorizontalAlignment="Left" Margin="54,177,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.843,5.1" Foreground="AntiqueWhite" FontSize="24"/>
+            <TextBox HorizontalAlignment="Left" Margin="45,116,0,0" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
 
 
         </Grid>

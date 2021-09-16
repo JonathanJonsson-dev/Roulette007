@@ -23,7 +23,7 @@ namespace _007.Commands
         public void Execute(object parameter)
         {
 
-            gameViewModel.BoardViewModel.ShowBet(gameViewModel.BoardViewModel.Board[(int)parameter]);
+            gameViewModel.BoardViewModel.ShowBet(gameViewModel.BoardViewModel.CompleteBoard[(int)parameter]);
 
         }
     }
