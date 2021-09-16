@@ -24,7 +24,7 @@ namespace _007.Views
         {
 
             InitializeComponent();
-            DataContext = new PlayerViewModel();
+          
 
         }
 
