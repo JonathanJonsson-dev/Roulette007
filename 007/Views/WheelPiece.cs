@@ -12,7 +12,7 @@ namespace _007.Models
         public bool IsRedNumber { get; set; } = false; //if number is read
         public bool IsBlackNumber { get; set; } = false; //if number is black
         public bool IsGreenNumber { get; set; } = false; //if number is green
-
+        public bool IsWinningNumber { get; set; } = false; //If number is winning number
         public int Number { get; set; } //Wheel piece number
         public double AngularPosition { get; set; } //Wheel piece position in a circle as an angle
 
