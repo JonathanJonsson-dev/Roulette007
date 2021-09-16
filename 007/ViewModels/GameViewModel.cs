@@ -26,7 +26,6 @@ namespace _007.ViewModels
         public ICommand PlaceBetCommand { get; }
         public ICommand CloseBetCommand { get; }
         public ICommand StartGameCommand { get; }
-
         
         public GameViewModel()
         {
