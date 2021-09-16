@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _007.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -22,6 +23,7 @@ namespace _007.Views
         public WheelView()
         {
             InitializeComponent();
+            DataContext = new WheelViewModel();
         }
     }
 }

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:views="clr-namespace:_007.Views"
              xmlns:viewModels="clr-namespace:_007.ViewModels"
+             xmlns:commands="clr-namespace:_007.Commands"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <DataTemplate
@@ -10,8 +11,8 @@
             <views:GameView/>
         </DataTemplate>
         <DataTemplate
-            DataType="{x:Type viewModels:SpinningWheelViewModel}">
-            <views:SpinningWheel/>
+            DataType="{x:Type viewModels:WheelViewModel}">
+            <views:WheelView/>
         </DataTemplate>
     </Application.Resources>
 </Application>

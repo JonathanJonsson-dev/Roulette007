@@ -40,13 +40,6 @@
                         Grid.Column="1"
                            VerticalAlignment="Stretch" 
                         HorizontalAlignment="Stretch"/>
-
-            <ContentControl Content="{Binding SpinningWheelViewModel}"
-                        Grid.Row="3"
-                        Grid.Column="1"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                        />
         </Grid>
     </Border>
 </Window>

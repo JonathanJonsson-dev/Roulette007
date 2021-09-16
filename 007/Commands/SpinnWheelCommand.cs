@@ -6,16 +6,11 @@ using System.Windows.Input;
 
 namespace _007.Commands
 {
-    
+
     class SpinnWheelCommand : ICommand
     {
-        private readonly SpinningWheelViewModel spinningWheelViewModel;
-        private WheelViewModel wheelViewModel;
 
-        public SpinnWheelCommand(SpinningWheelViewModel spinnWheelViewModel)
-        {
-            this.spinningWheelViewModel = spinnWheelViewModel;
-        }
+        private readonly WheelViewModel wheelViewModel;
 
         public SpinnWheelCommand(WheelViewModel wheelViewModel)
         {
@@ -31,7 +26,7 @@ namespace _007.Commands
 
         public void Execute(object parameter)
         {
-            spinningWheelViewModel.SpinnWheel();
+            wheelViewModel.SpinnWheel();
         }
     }
 }
