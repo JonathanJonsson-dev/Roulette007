@@ -31,11 +31,14 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            
-            <local:WheelView Grid.Row="0"
-                        Grid.Column="0"
-                           VerticalAlignment="Stretch" 
+
+            <Grid Grid.Row="0"
+                        Grid.Column="0" Width="500" HorizontalAlignment="Left">
+                <ContentControl Content="{Binding Wheel}"
+                        
+                        VerticalAlignment="Stretch" 
                         HorizontalAlignment="Stretch"/>
+            </Grid>
             <Grid Grid.Row="3"
                         Grid.Column="0" Width="500" HorizontalAlignment="Left">
                 <ContentControl Content="{Binding Player}"

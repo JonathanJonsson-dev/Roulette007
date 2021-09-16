@@ -20,6 +20,7 @@ namespace _007.ViewModels
         public int WinningNumber { get; set; }
 
         public ICommand SpinnWheelCommand { get; }
+        public ICommand StartGameCommand { get; }
 
         //variables
         private readonly Wheel wheel = new Wheel();
@@ -31,10 +32,11 @@ namespace _007.ViewModels
 
         public double CurrentAngle { get; set; }
 
-        public WheelViewModel()
+        public WheelViewModel(GameViewModel gameViewModel)
         {
             FillWheel();
             SpinnWheelCommand = new SpinnWheelCommand(this);
+            StartGameCommand = new StartGameCommand(this,gameViewModel);
             //GetAngle();
         }
 

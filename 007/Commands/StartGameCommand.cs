@@ -10,7 +10,7 @@ namespace _007.Commands
     public class StartGameCommand : ICommand
     {
         private readonly GameViewModel gameViewModel;
-        public StartGameCommand(GameViewModel gameViewModel)
+        public StartGameCommand(WheelViewModel wheelViewModel,GameViewModel gameViewModel)
         {
             this.gameViewModel = gameViewModel;
            

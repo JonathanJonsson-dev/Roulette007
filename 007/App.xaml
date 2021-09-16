@@ -14,5 +14,9 @@
             DataType="{x:Type viewModels:PlayerViewModel}">
             <views:PlayerView/>
         </DataTemplate>
+        <DataTemplate
+            DataType="{x:Type viewModels:WheelViewModel}">
+            <views:WheelView/>
+        </DataTemplate>
     </Application.Resources>
 </Application>
