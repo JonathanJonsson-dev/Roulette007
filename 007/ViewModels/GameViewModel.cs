@@ -18,7 +18,7 @@ namespace _007.ViewModels
         
         public PlayerViewModel Player { get; set; } = new PlayerViewModel();
        
-        public WheelViewModel Wheel { get; set; } = new WheelViewModel();
+        public WheelViewModel Wheel { get; set; }
         
         public GameEngine GameEngine { get; set; } = new GameEngine();
         
@@ -26,15 +26,15 @@ namespace _007.ViewModels
         public ICommand PlaceBetCommand { get; }
         public ICommand CloseBetCommand { get; }
         public ICommand StartGameCommand { get; }
-
         
         public GameViewModel()
         {
             PickBetCommand = new PickBetCommand(this);
             PlaceBetCommand = new PlaceBetCommand(this);
             CloseBetCommand = new CloseBetCommand(this);
-            StartGameCommand = new StartGameCommand(this);
+            StartGameCommand = new StartGameCommand(Wheel,this);
             BoardViewModel = new BoardViewModel(this.Player,this.GameEngine);
+            Wheel = new WheelViewModel(this);
 
         }
 

@@ -13,9 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Views\Images\SingleZeroWheel.jpg">
+    <Resource Include="Views\Images\SingleZeroWheel.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>

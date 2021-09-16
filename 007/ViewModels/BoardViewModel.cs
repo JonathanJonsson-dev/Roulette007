@@ -297,9 +297,9 @@ namespace _007.ViewModels
             }
             return itExist;
         }
-        public void StartRound()//Starts the game temporary placement
+        public void StartRound(int winnningNumber)//Starts the game temporary placement
         {
-            LastWinningNumber = gameEngine.GenerateWinningNumber();
+            gameEngine.WinningNumber = winnningNumber;
             Payout();
         }
         public void Payout()//Sends all bets made to gameEnigne for payout
@@ -404,7 +404,9 @@ namespace _007.ViewModels
             {
                 PlaceBet placeBet = new PlaceBet
                 {
-                    Id = i
+                    Id = i,
+                    Label = CompleteBoard[i].BoardPieceLabel
+
                 };
                 Input.Add(placeBet);
             }

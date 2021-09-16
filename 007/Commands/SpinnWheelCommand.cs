@@ -1,5 +1,4 @@
-﻿using _007.Models;
-using _007.ViewModels;
+﻿using _007.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,14 +6,17 @@ using System.Windows.Input;
 
 namespace _007.Commands
 {
-    public class StartGameCommand : ICommand
+
+    class SpinnWheelCommand : ICommand
     {
-        private readonly GameViewModel gameViewModel;
-        public StartGameCommand(WheelViewModel wheelViewModel,GameViewModel gameViewModel)
+
+        private readonly WheelViewModel wheelViewModel;
+
+        public SpinnWheelCommand(WheelViewModel wheelViewModel)
         {
-            this.gameViewModel = gameViewModel;
-           
+            this.wheelViewModel = wheelViewModel;
         }
+
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
@@ -24,10 +26,7 @@ namespace _007.Commands
 
         public void Execute(object parameter)
         {
-
-            
-            
-
+            wheelViewModel.SpinnWheel();
         }
     }
 }

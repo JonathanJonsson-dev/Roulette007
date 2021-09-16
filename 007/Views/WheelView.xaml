@@ -4,15 +4,18 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:_007.Views"
+             xmlns:models="clr-namespace:_007.Models"
+             xmlns:commands="clr-namespace:_007.Commands"
+             xmlns:viewModels="clr-namespace:_007.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="400">
     <UserControl.Resources>
         <Storyboard x:Key="RotateWheel">
-            <DoubleAnimation By=" 360"
+            <DoubleAnimation By="360"
                              Duration="0:0:0:1"
                              Storyboard.TargetProperty ="Angle"
                              Storyboard.TargetName ="WheelSpin"
-                             RepeatBehavior="20x"
+                             RepeatBehavior="2x"
                              FillBehavior="Stop">
             </DoubleAnimation>
         </Storyboard>
@@ -27,14 +30,15 @@
                         <ImageBrush x:Name="SingleZero" ImageSource="Images/SingleZeroWheel.jpg"/>
                     </Ellipse.Fill>
                     <Ellipse.RenderTransform>
-                        <TransformGroup>
+                        <RotateTransform x:Name="WheelSpin" Angle="{Binding Angle}"/>
+                        <!--<TransformGroup>
                         <RotateTransform x:Name="WheelSpin" 
                                          CenterX="0.5"
                                          CenterY="0.5"
                                          Angle="{Binding Wheel.CurrentAngle, Mode=TwoWay}"/>
-                        </TransformGroup>
+                        </TransformGroup>-->
                     </Ellipse.RenderTransform>
-                    
+
                 </Ellipse>
 
                 <!--<Ellipse HorizontalAlignment="Center"
@@ -110,6 +114,21 @@
                         BorderBrush="SaddleBrown" BorderThickness="5" 
                         Content="Spin Wheel" Width="150" Height="55" FontSize="20" 
                         Canvas.Left="60" Canvas.Top="435" Command="{Binding StartGameCommand}">
+                    
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <BeginStoryboard Storyboard="{StaticResource RotateWheel}">
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Button.Triggers>
+                    
+                </Button>
+                <Button x:Name="Button" 
+                        HorizontalContentAlignment="Center" 
+                        Content="{Binding WinningNumber}" 
+                        Command="{Binding SpinnWheelCommand}" 
+                        BorderBrush="SaddleBrown" BorderThickness="5" Width="150" Height="55" FontSize="20" 
+                        Canvas.Left="220" Canvas.Top="435">
                     
                     <Button.Triggers>
                         <EventTrigger RoutedEvent="Button.Click">

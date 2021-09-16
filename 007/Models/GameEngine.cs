@@ -13,10 +13,7 @@ namespace _007.Models
         /// Generates the winning number for the round 
         /// </summary>
         /// <returns></returns>
-        public int GenerateWinningNumber()
-        {
-            return WinningNumber = random.Next(37); //Returns a random integer between 0-36
-        }
+       
         /// <summary>
         /// Loops through the numbers in the bet and return a payout based upon odds
         /// </summary>
