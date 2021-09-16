@@ -18,7 +18,7 @@ namespace _007.ViewModels
         int[] wheelNumbers = new int[] { 0, 26, 3, 35, 12, 28, 7, 29, 18, 22, 9, 31, 14, 20, 1, 33, 16, 24, 5, 10, 23, 8, 30, 11, 36, 13, 27, 6, 34, 17, 25, 2, 21, 4, 19, 15, 32 };
 
         public int WinningNumber { get; set; }
-
+        private GameViewModel gameViewModel;
         public ICommand SpinnWheelCommand { get; }
         public ICommand StartGameCommand { get; }
 
@@ -32,11 +32,12 @@ namespace _007.ViewModels
 
         public double CurrentAngle { get; set; }
 
-        public WheelViewModel(GameViewModel gameViewModel)
+        public WheelViewModel(GameViewModel _gameViewModel)
         {
+            gameViewModel = _gameViewModel;
             FillWheel();
             SpinnWheelCommand = new SpinnWheelCommand(this);
-            StartGameCommand = new StartGameCommand(this,gameViewModel);
+            StartGameCommand = new StartGameCommand(this, _gameViewModel);
             //GetAngle();
         }
 
@@ -111,6 +112,7 @@ namespace _007.ViewModels
             {
                 WinningNumber = wheelNumbers[winningNumberIndex];
             }
+            gameViewModel.BoardViewModel.StartRound(WinningNumber);
         }
 
         //public void GetAngle(double angle)

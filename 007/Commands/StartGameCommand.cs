@@ -26,7 +26,7 @@ namespace _007.Commands
         {
 
             
-            gameViewModel.BoardViewModel.StartRound();
+            
 
         }
     }
