@@ -404,7 +404,9 @@ namespace _007.ViewModels
             {
                 PlaceBet placeBet = new PlaceBet
                 {
-                    Id = i
+                    Id = i,
+                    Label = CompleteBoard[i].BoardPieceLabel
+
                 };
                 Input.Add(placeBet);
             }
