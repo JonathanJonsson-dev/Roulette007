@@ -34,10 +34,7 @@ namespace _007.ViewModels
 
         public void SetPlayerName() 
         {
-
-
             MessageBox.Show($"Welcome {Name}! To begin playing, please place your first bet and when you're ready, spin the wheel. Good luck!");
-
 
         }
 
