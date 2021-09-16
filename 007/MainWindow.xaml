@@ -28,7 +28,7 @@
                 <MenuItem Header="Övriga inställningar"/>
             </Menu>
 
-            <ContentControl Content="{Binding BoardViewModel}"
+            <ContentControl Content="{Binding CurrentViewModel}"
                         Grid.Row="2"
                         Grid.Column="0"
                         VerticalAlignment="Stretch" 
