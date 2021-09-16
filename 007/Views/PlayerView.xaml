@@ -13,7 +13,7 @@
         BorderThickness="5">
         <Grid>
             <Ellipse HorizontalAlignment="Left" Height="90" Margin="256,52,0,0" Stroke="AntiqueWhite" Fill="SaddleBrown" VerticalAlignment="Top" Width="90" />
-            <Label Content="{Binding Name, FallbackValue=Player, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="45,37,0,0" VerticalAlignment="Top" Width="92" Foreground="AntiqueWhite" FontSize="24"/>
+            <Label Content="{Binding Name, FallbackValue=Player}" HorizontalAlignment="Left" Margin="45,37,0,0" VerticalAlignment="Top" Width="92" Foreground="AntiqueWhite" FontSize="24"/>
             <Label Content="Name" HorizontalAlignment="Left" Margin="45,84,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.843,5.1" Foreground="AntiqueWhite"/>
             <Label x:Name="lblPotAmountHeader" Content="Pot" HorizontalAlignment="Left" Margin="45,146,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.843,5.1" Foreground="AntiqueWhite"/>
             <Label x:Name="lblPlayerName" Content="{Binding Name}" HorizontalAlignment="Left" Margin="127,92,0,0" Visibility="Hidden" VerticalAlignment="Top" Width="143" Foreground="AntiqueWhite"/>
