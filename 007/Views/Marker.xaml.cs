@@ -35,5 +35,18 @@ namespace _007.Views
             DependencyProperty.Register("Color", typeof(SolidColorBrush), typeof(Marker), new PropertyMetadata(Brushes.Black));
 
 
+        public int Value
+        {
+            get { return (int)GetValue(ValueProperty); }
+            set { SetValue(ValueProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Value.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ValueProperty =
+            DependencyProperty.Register("Value", typeof(int), typeof(Marker), new PropertyMetadata(0));
+
+
+
+
     }
 }
