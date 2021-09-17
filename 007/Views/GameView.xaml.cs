@@ -25,5 +25,23 @@ namespace _007.Views
             DataContext = new GameViewModel();
            
         }
+
+        private void board_DragOver(object sender, DragEventArgs e)
+        {
+            object data = e.Data.GetData(DataFormats.Serializable);
+            if (data is Marker)
+            {
+                var marker = (Marker)data;
+                Point dropPoint = e.GetPosition(board);
+                Canvas.SetLeft(marker, dropPoint.X);
+                Canvas.SetTop(marker, dropPoint.Y);
+                if (!board.Children.Contains(marker))
+                {
+                    markerboard.Children.Remove(marker);
+                    board.Children.Add(marker);
+                }
+                
+            }
+        }
     }
 }

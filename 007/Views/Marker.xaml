@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:_007.Views"
+             MouseMove="UserControl_MouseMove"
+             x:Name="marker"
              mc:Ignorable="d" 
              d:DesignHeight="40" d:DesignWidth="40">
     <Canvas>
@@ -11,7 +13,7 @@
                          Width="40"
                          RenderTransformOrigin="0.5, 0.5">
             <Ellipse.Fill >
-                <SolidColorBrush Color="{Binding Color}"></SolidColorBrush>
+                <SolidColorBrush Color="{Binding MarkerColor, RelativeSource={RelativeSource AncestorType=UserControl}}"></SolidColorBrush>
             </Ellipse.Fill>
         </Ellipse>
 
@@ -79,7 +81,7 @@
         </Rectangle>
         <Ellipse Height="40" 
                          Width="40"
-                         RenderTransformOrigin="0.5, 0.5" Stroke="#242424" StrokeThickness="0.5" >
+                         RenderTransformOrigin="0.5, 0.5" Stroke="#5c5c5c" StrokeThickness="0.5" >
             <Ellipse.Fill >
                 <SolidColorBrush Color="Transparent"></SolidColorBrush>
 
@@ -87,9 +89,9 @@
         </Ellipse>
         <Ellipse Height="32" 
                          Width="32"
-                         RenderTransformOrigin="0.5, 0.5" Canvas.Top="4" Canvas.Left="4" Stroke="#242424" StrokeThickness="0.5">
+                         RenderTransformOrigin="0.5, 0.5" Canvas.Top="4" Canvas.Left="4" Stroke="#5c5c5c" StrokeThickness="0.5">
             <Ellipse.Fill >
-                <SolidColorBrush Color="{Binding Color}"></SolidColorBrush>
+                <SolidColorBrush Color="{Binding MarkerColor, RelativeSource={RelativeSource AncestorType=UserControl}}"></SolidColorBrush>
             </Ellipse.Fill>
         </Ellipse>
         <Label Content="007" Foreground="White" Canvas.Left="6" Canvas.Top="7" FontFamily="Sylfaen"></Label>

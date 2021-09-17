@@ -24,15 +24,15 @@ namespace _007.Views
         }
 
 
-        public SolidColorBrush Color
+        public Color MarkerColor
         {
-            get { return (SolidColorBrush)GetValue(ColorProperty); }
+            get { return (Color)GetValue(ColorProperty); }
             set { SetValue(ColorProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for Color.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ColorProperty =
-            DependencyProperty.Register("Color", typeof(SolidColorBrush), typeof(Marker), new PropertyMetadata(Brushes.Black));
+            DependencyProperty.Register("Color", typeof(Color), typeof(Marker), new PropertyMetadata(Color.FromRgb(0,0,0)));
 
 
         public int Value
@@ -45,8 +45,12 @@ namespace _007.Views
         public static readonly DependencyProperty ValueProperty =
             DependencyProperty.Register("Value", typeof(int), typeof(Marker), new PropertyMetadata(0));
 
-
-
-
+        private void UserControl_MouseMove(object sender, MouseEventArgs e)
+        {
+            if(e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragDrop.DoDragDrop(marker, new DataObject(DataFormats.Serializable, marker), DragDropEffects.Move);
+            }
+        }
     }
 }

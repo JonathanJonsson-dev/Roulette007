@@ -30,6 +30,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="15"/>
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0"
@@ -46,50 +47,71 @@
                         VerticalAlignment="Stretch" 
                         HorizontalAlignment="Stretch"/>
             </Grid>
+            <Canvas Name="board" Grid.Row="1" Grid.Column="2" Height="620"  DragOver="board_DragOver" AllowDrop="True">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
 
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        
+                    </Grid.RowDefinitions>
+                    <ItemsControl Grid.Column="2" Grid.Row="1" ItemsSource="{Binding BoardViewModel.Board}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Width="150"></WrapPanel>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                    <ItemsControl Grid.Column="3" Grid.Row="1" ItemsSource="{Binding BoardViewModel.CurrentBet}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Grid Width="150" HorizontalAlignment="Right"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
 
-            <ItemsControl Grid.Column="2" Grid.Row="1" ItemsSource="{Binding BoardViewModel.Board}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Width="150"></WrapPanel>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-            <ItemsControl Grid.Column="3" Grid.Row="1" ItemsSource="{Binding BoardViewModel.CurrentBet}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Grid Width="150" HorizontalAlignment="Right"/> 
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
+                    <Grid Grid.Column="2" Grid.Row="2">
+                        <ItemsControl ItemsSource="{Binding BoardViewModel.BoardBottom}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel VerticalAlignment="Top"></WrapPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </Grid>
 
-            <Grid Grid.Column="2" Grid.Row="2">
-                <ItemsControl ItemsSource="{Binding BoardViewModel.BoardBottom}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel VerticalAlignment="Top"></WrapPanel>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
-            </Grid>
-
-            <Grid Grid.Row="1" Grid.Column="1" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid Grid.Column="1" Grid.Row="1">
-                    <ItemsControl Grid.Column="1" ItemsSource="{Binding BoardViewModel.SpecialBetBoardColumnTwo}"/>
+                    <Grid Grid.Row="1" Grid.Column="1" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Column="1" Grid.Row="1">
+                            <ItemsControl Grid.Column="1" ItemsSource="{Binding BoardViewModel.SpecialBetBoardColumnTwo}"/>
+                        </Grid>
+                        <Grid Grid.Column="0" Grid.Row="1">
+                            <ItemsControl ItemsSource="{Binding BoardViewModel.SpecialBetBoardColumnOne}"/>
+                        </Grid>
+                    </Grid>
                 </Grid>
-                <Grid Grid.Column="0" Grid.Row="1">
-                    <ItemsControl ItemsSource="{Binding BoardViewModel.SpecialBetBoardColumnOne}"/>
-                </Grid>
-            </Grid>
-           
+                
+                
+            </Canvas>
+            <StackPanel  Name="markerboard" Grid.Column="2" Grid.Row="3">
+                <local:Marker></local:Marker>
+            </StackPanel>
+
 
         </Grid>
     </Border>
