@@ -135,7 +135,8 @@ namespace _007.ViewModels
                     Type = Data.BetType.Low
 
                 };
-                specialBoardPiece.Height = 80;
+                specialBoardPiece.Height = 100;
+                specialBoardPiece.Width = 75;
                 CompleteBoard.Add(specialBoardPiece);
             }
         }
@@ -184,7 +185,8 @@ namespace _007.ViewModels
                     Type = Data.BetType.Dozen
 
                 };
-                specialBoardPiece.Height = 160;
+                specialBoardPiece.Height = 200;
+                specialBoardPiece.Width = 60;
                 CompleteBoard.Add(specialBoardPiece);
 
             }

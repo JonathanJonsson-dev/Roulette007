@@ -21,12 +21,7 @@
                 <RowDefinition Height="auto"/>
                
             </Grid.RowDefinitions>
-            <Menu Grid.Row="0" Grid.Column="0" >
-                <MenuItem Header="Sätt in penger"/>
-                <MenuItem Header="Satsa"/>
-                <MenuItem Header="Ta ut vinst"/>
-                <MenuItem Header="Övriga inställningar"/>
-            </Menu>
+          
 
             <ContentControl Content="{Binding CurrentViewModel}"
                         Grid.Row="2"
