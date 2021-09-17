@@ -109,7 +109,9 @@
                 
             </Canvas>
             <StackPanel  Name="markerboard" Grid.Column="2" Grid.Row="3">
-                <local:Marker></local:Marker>
+                <local:Marker MarkerColor="Black"></local:Marker>
+                <local:Marker MarkerColor="Red"></local:Marker>
+                <local:Marker MarkerColor="Green"></local:Marker>
             </StackPanel>
 
 
