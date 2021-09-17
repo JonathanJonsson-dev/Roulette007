@@ -1,9 +1,8 @@
-﻿using _007.ViewModels;
+﻿using _007.Models;
+using _007.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -14,17 +13,23 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace _Roulette007
+namespace _007.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for PlayerView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class PlayerView : UserControl
     {
-        public MainWindow()
+        public PlayerView()
         {
+
             InitializeComponent();
-            DataContext = new MainViewModel();
+          
+
         }
+
+
+        
+
     }
 }
