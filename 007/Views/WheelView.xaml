@@ -110,7 +110,7 @@
                     
                 </ItemsControl>-->
 
-                <Button x:Name="btnSpin" 
+                <!--<Button x:Name="btnSpin" 
                         BorderBrush="SaddleBrown" BorderThickness="5" 
                         Content="Spin Wheel" Width="150" Height="55" FontSize="20" 
                         Canvas.Left="60" Canvas.Top="435" Command="{Binding StartGameCommand}">
@@ -122,7 +122,7 @@
                         </EventTrigger>
                     </Button.Triggers>
                     
-                </Button>
+                </Button>-->
                 <Button x:Name="Button" 
                         HorizontalContentAlignment="Center" 
                         Content="{Binding WinningNumber}" 
@@ -134,6 +134,7 @@
                         <EventTrigger RoutedEvent="Button.Click">
                             <BeginStoryboard Storyboard="{StaticResource RotateWheel}">
                             </BeginStoryboard>
+                            
                         </EventTrigger>
                     </Button.Triggers>
                     

@@ -26,6 +26,8 @@ namespace _007.Views
            
         }
 
+        public static object Storyboard { get; internal set; }
+
         //private void SetAngle()
         //{
         //    double angle = 0.0;

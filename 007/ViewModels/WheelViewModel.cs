@@ -113,6 +113,7 @@ namespace _007.ViewModels
                 WinningNumber = wheelNumbers[winningNumberIndex];
             }
             gameViewModel.BoardViewModel.StartRound(WinningNumber);
+
         }
 
         //public void GetAngle(double angle)
