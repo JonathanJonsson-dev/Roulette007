@@ -7,15 +7,15 @@
              xmlns:ViewModel="clr-namespace:_007.ViewModels"
              mc:Ignorable="d" Height="Auto" Width="Auto">
     <UserControl.Resources>
-        <!--<Storyboard x:Key="RotateWheel">
-            <DoubleAnimation By=" 360"
+        <Storyboard x:Key="RotateWheel">
+            <DoubleAnimation By="{Binding WheelViewModel.WheelStopAngle}"
                              Duration="0:0:0:1"
-                             Storyboard.TargetProperty ="Text"
-                             Storyboard.TargetName ="lblWheel"
+                             Storyboard.TargetName ="{Binding ElementName=lblLabel}"
+                             Storyboard.TargetProperty ="RotateTrans"
                              RepeatBehavior="20x"
                              FillBehavior="Stop">
             </DoubleAnimation>
-        </Storyboard>-->
+        </Storyboard>
     </UserControl.Resources>
     <Border x:Name="MainBorder" Background="Transparent" 
             Height="350" Width="350">
@@ -27,21 +27,18 @@
                          Width="400"
                          Fill="Brown" Canvas.Top="-74" Canvas.Left="-51">
                     <Ellipse.RenderTransform>
-                        <TranslateTransform X="25" 
-                                            Y="50"/>
+                        <TranslateTransform X="25" Y="50"/>
                     </Ellipse.RenderTransform>
                 </Ellipse>
 
                 <!--innermost wheel-->
-
                 <Ellipse Height="300" 
                          Width="300"
                          Fill="Brown"
                          Stroke="Goldenrod"
                          StrokeThickness="50" Canvas.Top="-96" Canvas.Left="-74">
                     <Ellipse.RenderTransform>
-                        <TranslateTransform X="100" 
-                                            Y="120"/>
+                        <TranslateTransform X="100" Y="120"/>
                     </Ellipse.RenderTransform>
                 </Ellipse>
 
@@ -57,16 +54,16 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid >
-                                <Label HorizontalAlignment="Left" VerticalAlignment="Top" 
+                                <Label x:Name="lblLabel" HorizontalAlignment="Left" VerticalAlignment="Top" 
                                            HorizontalContentAlignment="Center" 
                                        VerticalContentAlignment="Center" 
-                                           Width="{Binding PieceWidth}" Height="Auto"
+                                           Width="{Binding PieceWidth}" Height="{Binding PieceHeight}"
                                            Foreground="White"  Content="{Binding Label, Mode=OneWay}">
                                     <Label.RenderTransform>
                                         <TransformGroup>
                                             <TranslateTransform X="{Binding XPosition, Mode=OneWay}" 
                                                                 Y="{Binding YPosition, Mode=OneWay}"></TranslateTransform>
-                                            <RotateTransform CenterX="{Binding CenterPointX, Mode=OneWay}" 
+                                            <RotateTransform x:Name="RotateTrans" CenterX="{Binding CenterPointX, Mode=OneWay}" 
                                                             CenterY="{Binding CenterPointY, Mode=OneWay}" 
                                                             Angle="{Binding AngularPosition, Mode=OneWay}">
                                             </RotateTransform>
@@ -120,8 +117,21 @@
                         </EventTrigger>
                     </Button.Triggers>-->
                 </Button>
+                <Button x:Name="btnTest" 
+                        BorderBrush="SaddleBrown" BorderThickness="5" 
+                        Content="Test Spin Wheel" Width="170" Height="55" FontSize="20" Canvas.Top="408" 
+                        RenderTransformOrigin="0.633,1.455" Canvas.Left="295"
+                        >
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <BeginStoryboard Storyboard="{StaticResource RotateWheel}">
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
                 <TextBlock Text="{Binding WheelViewModel.WinningNumber}" Width="75" Height="40" Canvas.Left="295" Canvas.Top="447"/>
                 <TextBlock Text="{Binding WheelViewModel.WheelStopAngle}" Width="75" Height="40" Canvas.Left="295" Canvas.Top="363"/>
+
             </Canvas>
         </Grid>
     </Border>

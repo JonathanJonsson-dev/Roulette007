@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.Windows.Controls;
 
 namespace _007.ViewModels
 {
@@ -169,21 +170,34 @@ namespace _007.ViewModels
             //Random angle generator
             Random angleGenerator = new Random();
             //spin wheel counter-clockwise
-            WheelStopAngle = -1 * angleGenerator.Next(0, 361);
-            //Storyboard
-            Storyboard spinStoryBoard = new Storyboard();
+            WheelStopAngle = -1 * angleGenerator.Next(0, 361);            
             //initialize Double Animation
-            DoubleAnimation spinDoubleAmination = new DoubleAnimation();
-            spinDoubleAmination.FillBehavior = FillBehavior.HoldEnd;
-            //duration of spin in seconds
-            spinDoubleAmination.Duration = TimeSpan.FromSeconds(30);
-            spinDoubleAmination.RepeatBehavior = new RepeatBehavior(2);
-            Storyboard.SetTargetName(spinDoubleAmination, "WheelSpin");
-            Storyboard.SetTargetProperty(spinDoubleAmination, new PropertyPath(RotateTransform.AngleProperty));
-            spinStoryBoard.Children.Add(spinDoubleAmination);
+            DoubleAnimation spinWheelAmination = new DoubleAnimation();
+            spinWheelAmination.From = 0;
+            spinWheelAmination.To = WheelStopAngle;
+            spinWheelAmination.FillBehavior = FillBehavior.HoldEnd;            
+            spinWheelAmination.Duration = TimeSpan.FromSeconds(30); //duration of spin in seconds
+            spinWheelAmination.RepeatBehavior = new RepeatBehavior(2);
+            // Ball media (sound).
+            MediaElement ballMediaElement = new MediaElement();
+            ballMediaElement.LoadedBehavior = MediaState.Play;
+            ballMediaElement.UnloadedBehavior = MediaState.Stop;
+            ballMediaElement.Volume = 1.0;
+            ballMediaElement.IsMuted = false;
+            //Storyboard
+            Storyboard spinWheelStoryBoard = new Storyboard();
+            spinWheelStoryBoard.Completed += new EventHandler(WheelSpinStopped);
+            Storyboard.SetTargetName(spinWheelAmination, "WheelControl");
+            Storyboard.SetTargetProperty(spinWheelAmination, new PropertyPath(RotateTransform.AngleProperty));
+            spinWheelStoryBoard.Children.Add(spinWheelAmination); //add animation to storyboard
+            //spinWheelStoryBoard.Children.Add(ballMediaElement); //add media
+            WheelView view = new WheelView(); //Wheel object
 
-            //spinStoryBoard.Begin(WheelView. .WheelControl, true);
+            spinWheelStoryBoard.Begin(view.WheelControl);
 
+            //spinWheelAmination.
+
+            //if(spinWheelStoryBoard.)
             //Get winning number
             WinningNumber = DetermineWinningNumber(WheelStopAngle);
 
@@ -195,6 +209,16 @@ namespace _007.ViewModels
                     piece.IsWinningNumber = true;
                 }
             }
+        }
+
+        /// <summary>
+        /// Called when wheel stops spinning
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void WheelSpinStopped(object sender, EventArgs e)
+        {
+            
         }
     }
 }
