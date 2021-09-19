@@ -22,6 +22,7 @@ namespace _007.Data
         public const double FullCircleDegrees = 360;
         //public const int WheelRadius = 50;
         public const int MainBorderWidth = 350;
-        public const int MainBorderHeight = 350;        
+        public const int MainBorderHeight = 350;
+        public const string BallSoundFilePath = "/Views/Utilities/BallRolling.mp4";
     }
 }

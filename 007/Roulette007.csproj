@@ -9,11 +9,16 @@
 
   <ItemGroup>
 
-    <None Remove="Views\Images\SingleZeroWheel.jpg" />
+    <None Remove="Views\Utilities\BallRolling.mp4" />
+
+    <None Remove="Views\Utilities\SingleZeroWheel.jpg" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Views\Images\SingleZeroWheel.jpg">
+    <Content Include="Views\Utilities\BallRolling.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Utilities\SingleZeroWheel.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

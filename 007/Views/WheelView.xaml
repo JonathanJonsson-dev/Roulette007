@@ -7,21 +7,33 @@
              xmlns:ViewModel="clr-namespace:_007.ViewModels"
              mc:Ignorable="d" Height="Auto" Width="Auto">
     <UserControl.Resources>
-        <Storyboard x:Key="RotateWheel">
+        <!--<Storyboard x:Key="RotateWheel">
             <DoubleAnimation By="{Binding WheelViewModel.WheelStopAngle}"
                              Duration="0:0:0:1"
-                             Storyboard.TargetName ="{Binding ElementName=lblLabel}"
-                             Storyboard.TargetProperty ="RotateTrans"
+                             Storyboard.TargetName ="WheelControl"
+                             Storyboard.TargetProperty ="Angle"
                              RepeatBehavior="20x"
                              FillBehavior="Stop">
+            </DoubleAnimation>
+        </Storyboard>-->
+        <Storyboard x:Key="IsWin">
+            <DoubleAnimation Duration="0:0:0:1"
+                             To="10"
+                             Storyboard.TargetName ="lblNumber"
+                             Storyboard.TargetProperty ="Content"
+                             >
             </DoubleAnimation>
         </Storyboard>
     </UserControl.Resources>
     <Border x:Name="MainBorder" Background="Transparent" 
             Height="350" Width="350">
         <Grid x:Name="MainGrid" Margin="-50,-25,50,25" >
-
-            <Canvas Background="Transparent">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="34*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="33*"/>
+            </Grid.ColumnDefinitions>
+            <Canvas Background="Transparent" Grid.ColumnSpan="3">
                 <!--Outermost wheel-->
                 <Ellipse Height="400" 
                          Width="400"
@@ -30,7 +42,6 @@
                         <TranslateTransform X="25" Y="50"/>
                     </Ellipse.RenderTransform>
                 </Ellipse>
-
                 <!--innermost wheel-->
                 <Ellipse Height="300" 
                          Width="300"
@@ -41,11 +52,13 @@
                         <TranslateTransform X="100" Y="120"/>
                     </Ellipse.RenderTransform>
                 </Ellipse>
-
-                <ItemsControl x:Name="WheelControl"
+                <ItemsControl x:Name="WheelControl" RenderTransformOrigin="0.5, 0.5"
                               ItemsSource="{Binding WheelViewModel.WheelCollection}"
                               Width="{Binding WheelViewModel.MainBoardWidth, Mode=OneWay}"
                               Height="{Binding WheelViewModel.MainBoardHeight, Mode=OneWay}">
+                    <ItemsControl.RenderTransform>
+                        <RotateTransform Angle="{Binding WheelViewModel.WheelStopAngle}" />
+                    </ItemsControl.RenderTransform>
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <Grid/>
@@ -53,11 +66,12 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Grid >
-                                <Label x:Name="lblLabel" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                            <Grid>
+                                <Label x:Name="lblNumber"  HorizontalAlignment="Left" 
+                                       VerticalAlignment="Top" 
                                            HorizontalContentAlignment="Center" 
                                        VerticalContentAlignment="Center" 
-                                           Width="{Binding PieceWidth}" Height="{Binding PieceHeight}"
+                                           Width="{Binding PieceWidth}" Height="auto"
                                            Foreground="White"  Content="{Binding Label, Mode=OneWay}">
                                     <Label.RenderTransform>
                                         <TransformGroup>
@@ -72,14 +86,8 @@
                                     <Label.Background>
                                         <VisualBrush>
                                             <VisualBrush.Visual>
-                                                <Polygon Stroke="Goldenrod"  StrokeThickness="2" 
+                                                <Polygon Stroke="Goldenrod"  StrokeThickness="1" 
                                                          Points="{Binding Points, Mode=OneWay}">
-                                                    <!--<Polygon.RenderTransform>
-                                                            <RotateTransform CenterX="{Binding CenterPointX, Mode=OneWay}" 
-                                                                             CenterY="{Binding CenterPointY, Mode=OneWay}" 
-                                                                             Angle="{Binding AngularPosition, Mode=OneWay}">
-                                                            </RotateTransform>
-                                                    </Polygon.RenderTransform>-->
                                                     <Polygon.Style>
                                                         <Style TargetType="Polygon">
                                                             <Style.Triggers>
@@ -91,6 +99,9 @@
                                                                 </DataTrigger>
                                                                 <DataTrigger Binding="{Binding IsBlackNumber}" Value="True">
                                                                     <Setter Property="Fill" Value="Black"></Setter>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding IsWinningNumber}" Value="True">
+                                                                    <Setter Property="Fill" Value="White"></Setter>
                                                                 </DataTrigger>
                                                             </Style.Triggers>
                                                         </Style>
@@ -104,31 +115,25 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
+                <Polygon Points="0,0 20,0 10,65" Fill="Black" Canvas.Left="164" Canvas.Top="-24"/>
 
                 <Button x:Name="btnSpin" 
                         BorderBrush="SaddleBrown" BorderThickness="5" 
                         Content="Spin Wheel" Width="150" Height="55" FontSize="20" Canvas.Top="405" 
                         RenderTransformOrigin="0.633,1.455" Canvas.Left="95"
                         Command="{Binding SpinWheelCommand}">
-                    <!--<Button.Triggers>
-                        <EventTrigger RoutedEvent="Button.Click">
-                            <BeginStoryboard Storyboard="{StaticResource RotateWheel}">
-                            </BeginStoryboard>
-                        </EventTrigger>
-                    </Button.Triggers>-->
                 </Button>
-                <Button x:Name="btnTest" 
+                <!--<Button x:Name="btnTest" 
                         BorderBrush="SaddleBrown" BorderThickness="5" 
                         Content="Test Spin Wheel" Width="170" Height="55" FontSize="20" Canvas.Top="408" 
-                        RenderTransformOrigin="0.633,1.455" Canvas.Left="295"
-                        >
+                        RenderTransformOrigin="0.633,1.455" Canvas.Left="295">
                     <Button.Triggers>
                         <EventTrigger RoutedEvent="Button.Click">
                             <BeginStoryboard Storyboard="{StaticResource RotateWheel}">
                             </BeginStoryboard>
                         </EventTrigger>
                     </Button.Triggers>
-                </Button>
+                </Button>-->
                 <TextBlock Text="{Binding WheelViewModel.WinningNumber}" Width="75" Height="40" Canvas.Left="295" Canvas.Top="447"/>
                 <TextBlock Text="{Binding WheelViewModel.WheelStopAngle}" Width="75" Height="40" Canvas.Left="295" Canvas.Top="363"/>
 
