@@ -1,4 +1,5 @@
 ﻿using _007.ViewModels;
+using _007.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,12 +8,13 @@ using System.Windows.Input;
 namespace _007.Commands
 {
 
-    class SpinnWheelCommand : ICommand
+    class SpinWheelCommand : ICommand
     {
 
         private readonly WheelViewModel wheelViewModel;
+        private WheelView wheelView;
 
-        public SpinnWheelCommand(WheelViewModel wheelViewModel)
+        public SpinWheelCommand(WheelViewModel wheelViewModel)
         {
             this.wheelViewModel = wheelViewModel;
         }
@@ -26,7 +28,8 @@ namespace _007.Commands
 
         public void Execute(object parameter)
         {
-            wheelViewModel.SpinnWheel();
+            wheelView = (WheelView)parameter;
+            wheelViewModel.SpinWheelGetAngle(wheelView);
         }
     }
 }

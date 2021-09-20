@@ -4,59 +4,46 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:_007.Views"
-             xmlns:models="clr-namespace:_007.Models"
-             xmlns:commands="clr-namespace:_007.Commands"
-             xmlns:viewModels="clr-namespace:_007.ViewModels"
-             mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="400">
+             xmlns:ViewModel="clr-namespace:_007.ViewModels"
+             mc:Ignorable="d" Height="Auto" Width="Auto">
     <UserControl.Resources>
-        <Storyboard x:Key="RotateWheel">
-            <DoubleAnimation By="360"
-                             Duration="0:0:0:1"
-                             Storyboard.TargetProperty ="Angle"
-                             Storyboard.TargetName ="WheelSpin"
-                             RepeatBehavior="2x"
-                             FillBehavior="Stop">
-            </DoubleAnimation>
-        </Storyboard>
+        
     </UserControl.Resources>
-    <Border Background="Transparent">
-        <Grid>
-           <Canvas Background="Transparent">
+
+    <Border x:Name="MainBorder" Background="Transparent" 
+            Height="350" Width="350">
+        <Grid x:Name="MainGrid" Margin="-50,-25,50,25" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="34*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="33*"/>
+            </Grid.ColumnDefinitions>
+            <Canvas Background="Transparent" Grid.ColumnSpan="3">
+                <!--Outermost wheel-->
                 <Ellipse Height="400" 
                          Width="400"
-                         RenderTransformOrigin="0.5, 0.5">
-                    <Ellipse.Fill>
-                        <ImageBrush x:Name="SingleZero" ImageSource="Images/SingleZeroWheel.jpg"/>
-                    </Ellipse.Fill>
+                         Fill="Brown" Canvas.Top="-74" Canvas.Left="-51">
                     <Ellipse.RenderTransform>
-                        <RotateTransform x:Name="WheelSpin" Angle="{Binding Angle}"/>
-                        <!--<TransformGroup>
-                        <RotateTransform x:Name="WheelSpin" 
-                                         CenterX="0.5"
-                                         CenterY="0.5"
-                                         Angle="{Binding Wheel.CurrentAngle, Mode=TwoWay}"/>
-                        </TransformGroup>-->
+                        <TranslateTransform X="25" Y="50"/>
                     </Ellipse.RenderTransform>
-
                 </Ellipse>
-
-                <!--<Ellipse HorizontalAlignment="Center"
-                         VerticalAlignment="Center"
-                         Height="400"
-                         Width="400"
-                         Stroke="DarkOrange"
-                         StrokeThickness="10"
-                         Fill="SaddleBrown">
+                <!--innermost wheel-->
+                <Ellipse Height="300" 
+                         Width="300"
+                         Fill="Brown"
+                         Stroke="Goldenrod"
+                         StrokeThickness="50" Canvas.Top="-96" Canvas.Left="-74">
                     <Ellipse.RenderTransform>
-                        <TranslateTransform X="0.5" Y="0.5"/>
+                        <TranslateTransform X="100" Y="120"/>
                     </Ellipse.RenderTransform>
-                </Ellipse>-->
-
-                <!--<ItemsControl x:Name="WheelControl"
-                              ItemsSource="{Binding Wheel.WheelCollection}"
-                              Width="400"
-                              Height="400">
+                </Ellipse>
+                <ItemsControl x:Name="WheelControl" RenderTransformOrigin="0.5, 0.5"
+                              ItemsSource="{Binding WheelViewModel.WheelCollection}"
+                              Width="{Binding WheelViewModel.MainBoardWidth, Mode=OneWay}"
+                              Height="{Binding WheelViewModel.MainBoardHeight, Mode=OneWay}">
+                    <ItemsControl.RenderTransform >
+                        <RotateTransform x:Name="Rotate" />
+                    </ItemsControl.RenderTransform>
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <Grid/>
@@ -65,81 +52,76 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid>
-                                <Polygon Stroke="White" StrokeThickness="3" Points="75,0 175,0 150,100 100, 100">
-                                    <Polygon.RenderTransform>
-                                        <TransformGroup>
-                                            <RotateTransform CenterX="0.5" 
-                                             CenterY="0.5" 
-                                             Angle="0">
-                                            </RotateTransform>
-                                        </TransformGroup>
-                                    </Polygon.RenderTransform>
-                                    <Polygon.Style>
-                                        <Style TargetType="Polygon">
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding IsGreenNumber}" Value="True">
-                                                    <Setter Property="Fill" Value="LimeGreen"></Setter>
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding IsRedNumber}" Value="True">
-                                                    <Setter Property="Fill" Value="Red"></Setter>
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding IsBlackNumber}" Value="True">
-                                                    <Setter Property="Fill" Value="Black"></Setter>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Polygon.Style>
-                                </Polygon>
-                                <Label HorizontalAlignment="Left" VerticalAlignment="Top" 
-                                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                                           Width="{Binding WidthPixels}" Height="Auto" 
-                                           Foreground="White" Background="Transparent" Content="{Binding Label, Mode=OneWay}">
+                                <Label x:Name="lblNumber"  HorizontalAlignment="Left" 
+                                       VerticalAlignment="Top" 
+                                           HorizontalContentAlignment="Center" 
+                                       VerticalContentAlignment="Center" 
+                                           Width="{Binding PieceWidth}" Height="auto"
+                                           Foreground="White"  Content="{Binding Label, Mode=OneWay}">
                                     <Label.RenderTransform>
                                         <TransformGroup>
-                                            <TranslateTransform X="0.5" Y="0.5"></TranslateTransform>
-                                            <RotateTransform CenterX="0.5" 
-                                                                 CenterY="0.5" 
-                                                                 Angle="0">
+                                            <TranslateTransform X="{Binding XPosition, Mode=OneWay}" 
+                                                                Y="{Binding YPosition, Mode=OneWay}"></TranslateTransform>
+                                            <RotateTransform x:Name="RotateTrans" CenterX="{Binding CenterPointX, Mode=OneWay}" 
+                                                            CenterY="{Binding CenterPointY, Mode=OneWay}" 
+                                                            Angle="{Binding AngularPosition, Mode=OneWay}">
                                             </RotateTransform>
                                         </TransformGroup>
                                     </Label.RenderTransform>
+                                    <Label.Background>
+                                        <VisualBrush>
+                                            <VisualBrush.Visual>
+                                                <Polygon Stroke="Goldenrod"  StrokeThickness="1" 
+                                                         Points="{Binding Points, Mode=OneWay}">
+                                                    <Polygon.Style>
+                                                        <Style TargetType="Polygon">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding IsGreenNumber}" Value="True">
+                                                                    <Setter Property="Fill" Value="LimeGreen"></Setter>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding IsRedNumber}" Value="True">
+                                                                    <Setter Property="Fill" Value="Red"></Setter>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding IsBlackNumber}" Value="True">
+                                                                    <Setter Property="Fill" Value="Black"></Setter>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding IsWinningNumber}" Value="True">
+                                                                    <Setter Property="Fill" Value="White"></Setter>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Polygon.Style>
+                                                </Polygon>
+                                            </VisualBrush.Visual>
+                                        </VisualBrush>
+                                    </Label.Background>
                                 </Label>
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
-                    
-                </ItemsControl>-->
+                </ItemsControl>
+                <Polygon Points="0,0 20,0 10,65" Fill="Black" Canvas.Left="164" Canvas.Top="-24"/>
 
-                <!--<Button x:Name="btnSpin" 
+                <Button x:Name="btnSpin" 
                         BorderBrush="SaddleBrown" BorderThickness="5" 
-                        Content="Spin Wheel" Width="150" Height="55" FontSize="20" 
-                        Canvas.Left="60" Canvas.Top="435" Command="{Binding StartGameCommand}">
-                    
-                    <Button.Triggers>
-                        <EventTrigger RoutedEvent="Button.Click">
-                            <BeginStoryboard Storyboard="{StaticResource RotateWheel}">
-                            </BeginStoryboard>
-                        </EventTrigger>
-                    </Button.Triggers>
-                    
-                </Button>-->
-                <Button x:Name="Button" 
-                        HorizontalContentAlignment="Center" 
-                        Content="{Binding WinningNumber}" 
-                        Command="{Binding SpinnWheelCommand}" 
-                        BorderBrush="SaddleBrown" BorderThickness="5" Width="150" Height="55" FontSize="20" 
-                        Canvas.Left="220" Canvas.Top="435">
-                    
-                    <Button.Triggers>
-                        <EventTrigger RoutedEvent="Button.Click">
-                            <BeginStoryboard Storyboard="{StaticResource RotateWheel}">
-                            </BeginStoryboard>
-                            
-                        </EventTrigger>
-                    </Button.Triggers>
-                    
+                        Content="Spin Wheel" Width="150" Height="55" FontSize="20" Canvas.Top="405" 
+                        RenderTransformOrigin="0.633,1.455" Canvas.Left="95"
+                        Command="{Binding SpinWheelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}">
                 </Button>
-                <TextBlock Text="{Binding Wheel.CurrentAngle}"></TextBlock>
+                <!--<Button x:Name="btnTest" 
+                        BorderBrush="SaddleBrown" BorderThickness="5" 
+                        Content="Test Spin Wheel" Width="170" Height="55" FontSize="20" Canvas.Top="408" 
+                        RenderTransformOrigin="0.633,1.455" Canvas.Left="295">
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <BeginStoryboard Storyboard="{StaticResource RotateWheel}">
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>-->
+                <TextBlock Text="{Binding WheelViewModel.WinningNumber}" Width="75" Height="40" Canvas.Left="295" Canvas.Top="447"/>
+                <TextBlock Text="{Binding WheelViewModel.WheelStopAngle}" Width="75" Height="40" Canvas.Left="295" Canvas.Top="363"/>
+
             </Canvas>
         </Grid>
     </Border>
