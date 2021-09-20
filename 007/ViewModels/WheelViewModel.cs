@@ -159,16 +159,21 @@ namespace _007.ViewModels
         private int DetermineWinningNumber(double angel)
         {
             //Each number represents a sector of a circle. Determine angle of each sector out of 37 (360/37)
-            double sectorAngle = 9.7297;
+            double sectorAngle = 360.0 / 37;
             //correct anti-clockwise spin angle with -1
-            int determinant = (int)Math.Floor(-1 * angel / sectorAngle); //gives position of winning number in array of wheel numbers
+            int determinant = (int)Math.Round(-1 * angel / sectorAngle); //gives position of winning number in array of wheel numbers
+
+            if(determinant > 36)
+            {
+                determinant = 36;
+            }
 
             return wheelNumbers[determinant];
         }
 
-        public void SpinWheelGetAngle()
+        public void SpinWheelGetAngle(WheelView wheelView)
         {
-            WheelView view = new WheelView(); //Wheel object
+            WheelView view = wheelView; //Wheel object
 
             //Random angle generator
             Random angleGenerator = new Random();
@@ -193,7 +198,7 @@ namespace _007.ViewModels
             view.MainGrid.Children.Add(ballMediaElement); //add media to WheelView
             //ballMediaElement.LoadedBehavior = MediaState.Play;
             //ballMediaElement.UnloadedBehavior = MediaState.Stop;
-            ballMediaElement.Volume = 2.0;
+            //ballMediaElement.Volume = 2.0;
             //ballMediaElement.IsMuted = false;
             ballMediaElement.MediaOpened += new RoutedEventHandler(BallMediaElementMediaOpenedEventHandler);
 

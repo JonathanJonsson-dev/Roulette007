@@ -1,6 +1,7 @@
 ﻿using _007.Commands;
 using _007.Data;
 using _007.Models;
+using _007.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,8 +12,9 @@ namespace _007.ViewModels
 {
     public class GameViewModel : BaseViewModel
     {
-
         public BoardViewModel BoardViewModel { get; set; }
+
+        public WheelView WheelView { get; set; } = new WheelView();
         
        
         public PlayerViewModel PlayerViewModel { get; set; } = new PlayerViewModel();
@@ -36,7 +38,10 @@ namespace _007.ViewModels
             StartGameCommand = new StartGameCommand(this);
             BoardViewModel = new BoardViewModel(this.Player,this.GameEngine);
             SpinWheelCommand = new SpinWheelCommand(this.WheelViewModel);
+            //SpinWheelCommand = new SpinWheelCommand(this.WheelView, this.WheelViewModel);
         }
+
+
 
     }
 }

@@ -1,4 +1,5 @@
 ﻿using _007.ViewModels;
+using _007.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,10 +12,16 @@ namespace _007.Commands
     {
 
         private readonly WheelViewModel wheelViewModel;
+        private readonly WheelView wheelView;
 
         public SpinWheelCommand(WheelViewModel wheelViewModel)
         {
             this.wheelViewModel = wheelViewModel;
+        }
+
+        public SpinWheelCommand(WheelView wheelView)
+        {
+            this.wheelView = wheelView;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -26,7 +33,7 @@ namespace _007.Commands
 
         public void Execute(object parameter)
         {
-            wheelViewModel.SpinWheelGetAngle();
+            wheelViewModel.SpinWheelGetAngle(wheelView);
         }
     }
 }
