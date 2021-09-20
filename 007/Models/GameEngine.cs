@@ -26,7 +26,7 @@ namespace _007.Models
                 
                 if(number == WinningNumber)
                 {
-                    return bet.Amount * GetPayoutRatio(bet.Type); //Returns the players payout
+                    return bet.Value * GetPayoutRatio(bet.Type); //Returns the players payout
                 }
             }
             return 0; //Returns nothing for the player because the have lost

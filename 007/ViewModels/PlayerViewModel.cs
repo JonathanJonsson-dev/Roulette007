@@ -15,11 +15,11 @@ namespace _007.ViewModels
     {
 
 
-
+        public ObservableCollection<Marker> Markers { get; set; } = new ObservableCollection<Marker>();
         public string Name { get; set; } = "";
         public int Pot { get; set; } = 1000;
 
-
+        public ObservableCollection<Bet> Bets { get; set; } = new ObservableCollection<Bet>();
 
         public RelayCommand SetNameCommand { get; }
         public ICommand ResetGameCommand { get; }
@@ -28,9 +28,17 @@ namespace _007.ViewModels
         {
             SetNameCommand = new RelayCommand(x => IsSetButtonEnabled(), x => SetPlayerName());
             ResetGameCommand = new ResetGameCommand(this);
+            GetStarterMarkers();
         }
 
-
+        private void GetStarterMarkers()
+        {
+            
+            Marker marker = new Marker { 
+                 
+                Value = 100 };
+            Markers.Add(marker);
+        }
 
         public void SetPlayerName() 
         {

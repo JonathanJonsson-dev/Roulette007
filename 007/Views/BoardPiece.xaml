@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="450">
     
-    <Border BorderBrush="white" BorderThickness="2" MinWidth="50">
+    <Border BorderBrush="white" BorderThickness="2" MinWidth="50" MinHeight="50"  >
         <Button Command="{Binding PickBetCommand}" CommandParameter="{Binding BoardPieceNumber, RelativeSource={RelativeSource AncestorType=UserControl}}">
             <Button.Template>
                 <ControlTemplate>
