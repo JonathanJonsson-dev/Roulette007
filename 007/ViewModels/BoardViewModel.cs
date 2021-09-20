@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Windows.Media;
 
@@ -31,12 +32,8 @@ namespace _007.ViewModels
         {
             this.player = player;
             this.gameEngine = gameEngine;
-            
             FillBoard();
-            
-            
             FillBetInput();
-          
         }
 
         private void FillSpecialBetBoardColumnOne()
@@ -293,7 +290,6 @@ namespace _007.ViewModels
                 {
                     itExist = true;
                 }
-               
             }
             return itExist;
         }
@@ -304,16 +300,18 @@ namespace _007.ViewModels
         }
         public void Payout()//Sends all bets made to gameEnigne for payout
         {
+            int totalPayout = 0;
             foreach (var bet in bets)
             {
                 player.Pot += gameEngine.GetPayout(bet);
+                totalPayout += gameEngine.GetPayout(bet);
                 Input[bet.Id].Amount = 0;
-
             }
             CompleteBoard.Clear();
             FillBoard();
             CurrentBet.Clear();
             bets.Clear();
+            PlaySound(totalPayout);
         }
        
         private void FillBoard()
@@ -410,6 +408,21 @@ namespace _007.ViewModels
                 };
                 Input.Add(placeBet);
             }
+        }
+
+        private void PlaySound(int totalPayout)
+        {
+            if (totalPayout > 0)
+            {
+                SoundPlayer sound = new SoundPlayer(Properties.Resources.WinningSound1);
+                sound.Play();
+            }
+            else
+            {
+                SoundPlayer sound = new SoundPlayer(Properties.Resources.LosingSound);
+                sound.Play();
+            }
+            
         }
 
     }
