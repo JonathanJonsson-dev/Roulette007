@@ -7,23 +7,9 @@
              xmlns:ViewModel="clr-namespace:_007.ViewModels"
              mc:Ignorable="d" Height="Auto" Width="Auto">
     <UserControl.Resources>
-        <!--<Storyboard x:Key="RotateWheel">
-            <DoubleAnimation By="{Binding WheelViewModel.WheelStopAngle}"
-                             Duration="0:0:0:1"
-                             Storyboard.TargetName ="WheelControl"
-                             Storyboard.TargetProperty ="Angle"
-                             RepeatBehavior="20x"
-                             FillBehavior="Stop">
-            </DoubleAnimation>
-        </Storyboard>-->
-        <!--<Storyboard x:Key="IsWin">
-            <DoubleAnimation 
-                             Storyboard.TargetName ="W"
-                             Storyboard.TargetProperty ="RotateTransform.AngleProperty"
-                             >
-            </DoubleAnimation>
-        </Storyboard>-->
+        
     </UserControl.Resources>
+
     <Border x:Name="MainBorder" Background="Transparent" 
             Height="350" Width="350">
         <Grid x:Name="MainGrid" Margin="-50,-25,50,25" >

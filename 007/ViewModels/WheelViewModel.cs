@@ -1,11 +1,16 @@
+
 ﻿using _007.Data;
+﻿using _007.Commands;
 using _007.Models;
+using _007.Views;
 using System;
 using System.Collections.ObjectModel;
-using _007.Views;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
+using System.Media;
+using System.Text;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
@@ -17,16 +22,16 @@ namespace _007.ViewModels
     public class WheelViewModel : BaseViewModel
     {
         #region Variables
-
-        //According to single zero wheel
+		//According to single zero wheel
         private readonly int[] wheelNumbers = {0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33,
             1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26};
         #endregion
-
-        #region Properties
+		#region Properties
+        public int WinningNumber { get; set; }
         public double WheelStopAngle { get; set; } = 0; //angle att which the wheel stops
-        public int WinningNumber { get; set; } //winning number
+		#endregion
 
+        
         //a collection of wheel piesces
         public ObservableCollection<WheelPiece> WheelCollection { get; set; } = new ObservableCollection<WheelPiece>();
 
@@ -47,19 +52,17 @@ namespace _007.ViewModels
         public double CenterCircleOffsetY { get; set; }
         public double CurrentAngle { get; set; }
 
-        //public double CurrentAngle { get; set; }
 
-        #endregion
+
+     
 
         public WheelViewModel()
         {
             DetermineWheelPieceValues(); //Set values to wheel piece variables
             FillWheel();
-            UpdateWheelPieceValues();
-            //GetAngle();
-            //DrawWheelLabels();
+			UpdateWheelPieceValues();
+		}
 
-        }
 
         /// <summary>
         /// Set values to wheel piece object properties
@@ -177,7 +180,6 @@ namespace _007.ViewModels
             
             //Random angle generator
             Random angleGenerator = new Random();
-
 
             //spin wheel counter-clockwise
             WheelStopAngle = -1 * angleGenerator.Next(0, 361);
@@ -299,6 +301,11 @@ namespace _007.ViewModels
         {
             MediaElement mediaElement = sender as MediaElement;
             mediaElement.Play();
+
+            return wheel.wheelNumbers[determinant];
         }
+        
+        
     }
 }
+
