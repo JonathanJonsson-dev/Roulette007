@@ -3,14 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:_007.Views"
+             xmlns:views="clr-namespace:_007.Views"
              xmlns:models="clr-namespace:_007.Models"
-             xmlns:commands="clr-namespace:_007.Commands"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1200"
              xmlns:vm="clr-namespace:_007.ViewModels"
+             xmlns:commands="clr-namespace:_007.Commands"
              
              >
+
 
     <Border
         Background="DarkGreen"
@@ -19,11 +20,10 @@
         BorderThickness="5">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="700"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="50"/>
-                
+                <ColumnDefinition Width="Auto"/>          
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -33,13 +33,16 @@
                 <RowDefinition Height="15"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0"
-                        Grid.Column="1" Width="500" HorizontalAlignment="Left">
-                <ContentControl Content="{Binding Wheel}"
-                        
-                        VerticalAlignment="Stretch" 
+
+            
+            <UniformGrid Grid.Column="0" Grid.Row="1">
+                <views:WheelView Grid.Row="2"
+                        Grid.Column="1"
+                           VerticalAlignment="Stretch" 
+
                         HorizontalAlignment="Stretch"/>
-            </Grid>
+            </UniformGrid>
+
             <Grid Grid.Row="3"
                         Grid.Column="1" Width="500" HorizontalAlignment="Left">
                 <ContentControl Content="{Binding Player}"
@@ -47,6 +50,7 @@
                         VerticalAlignment="Stretch" 
                         HorizontalAlignment="Stretch"/>
             </Grid>
+
             <Canvas Name="board" Grid.Row="0" Grid.Column="2" Height="700" Width="400" DragOver="board_DragOver" AllowDrop="True" DragDrop.Drop="board_Drop">
                 
                 <Grid >
@@ -111,15 +115,14 @@
             </Canvas>
             <StackPanel  Name="markerboard" Grid.Column="2" Grid.Row="3" DragOver="markerboard_DragOver" AllowDrop="True" Background="White" Height="90" DragDrop.Drop="markerboard_Drop" >
 
-                <local:Marker MarkerColor="Black" colors="Black" RenderTransformOrigin="0.5,0.5" Value="1000" Margin="0,0,0,0"></local:Marker>
-                <local:Marker MarkerColor="Red" colors="Red" RenderTransformOrigin="0.5,0.5" Value="500" Margin="40,0,0,0"></local:Marker>
-                <local:Marker MarkerColor="Green" colors="Green" RenderTransformOrigin="0.5,0.5" Value="100" Margin="80,0,0,0"></local:Marker>
+                <views:Marker MarkerColor="Black" colors="Black" RenderTransformOrigin="0.5,0.5" Value="1000" Margin="0,0,0,0"></views:Marker>
+                <views:Marker MarkerColor="Red" colors="Red" RenderTransformOrigin="0.5,0.5" Value="500" Margin="40,0,0,0"></views:Marker>
+                <views:Marker MarkerColor="Green" colors="Green" RenderTransformOrigin="0.5,0.5" Value="100" Margin="80,0,0,0"></views:Marker>
                 
             </StackPanel>
             <!--<Grid Grid.Column="1" Grid.Row="2" Width="100">
                 <Label Name="markertest" ></Label>
             </Grid>-->
-
 
         </Grid>
     </Border>

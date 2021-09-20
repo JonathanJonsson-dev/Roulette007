@@ -21,7 +21,7 @@ namespace _007.Views
     /// </summary>
     public partial class BoardPiece : UserControl
     {
-
+		
         public BetType Type
         {
             get { return (BetType)GetValue(TypeProperty); }
@@ -31,6 +31,7 @@ namespace _007.Views
         // Using a DependencyProperty as the backing store for Type.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TypeProperty =
             DependencyProperty.Register("Type", typeof(BetType), typeof(BoardPiece), new PropertyMetadata(BetType.Straightup));
+
 
 
         public List<int> Numbers
@@ -57,9 +58,6 @@ namespace _007.Views
             DependencyProperty.Register("BoardPieceFontSize", typeof(int), typeof(BoardPiece), new PropertyMetadata(20));
 
 
-
-
-
         public int BoardPieceNumber
         {
             get { return (int)GetValue(BoardPieceNumberProperty); }
@@ -70,6 +68,7 @@ namespace _007.Views
         public static readonly DependencyProperty BoardPieceNumberProperty =
             DependencyProperty.Register("BoardPieceNumber", typeof(int), typeof(BoardPiece), new PropertyMetadata(0));
 
+
         public SolidColorBrush BoardPieceColor
         {
             get { return (SolidColorBrush)GetValue(BoardPieceColorProperty); }
@@ -79,6 +78,7 @@ namespace _007.Views
         // Using a DependencyProperty as the backing store for BoardPieceColor.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty BoardPieceColorProperty =
             DependencyProperty.Register("BoardPieceColor", typeof(SolidColorBrush), typeof(BoardPiece), new PropertyMetadata(Brushes.Red));
+
 
         public string BoardPieceLabel
         {

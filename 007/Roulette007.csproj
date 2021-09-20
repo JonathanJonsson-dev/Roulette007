@@ -9,13 +9,16 @@
 
   <ItemGroup>
 
-    <None Remove="Views\Images\SingleZeroWheel.jpg" />
+    <None Remove="Views\Utilities\BallRolling.mp4" />
+
+    <None Remove="Views\Utilities\SingleZeroWheel.jpg" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Views\Images\SingleZeroWheel.jpg">
+
+    <Content Include="Views\Utilities\BallRolling.mp4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +28,21 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="PropertyChanged.Fody" Version="3.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

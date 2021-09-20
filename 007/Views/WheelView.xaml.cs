@@ -23,10 +23,12 @@ namespace _007.Views
         public WheelView()
         {
             InitializeComponent();
-           
+
+            //DataContext = new WheelViewModel();
+
         }
 
-        public static object Storyboard { get; internal set; }
+      
 
         //private void SetAngle()
         //{
