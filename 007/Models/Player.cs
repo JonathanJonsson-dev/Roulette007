@@ -5,9 +5,13 @@ using System.Text;
 
 namespace _007.Models
 {
-    public class Player : PlayerViewModel
+    public class Player
     {
-        public int Pot { get; set; } = 1000;
+
+        
+
 
     }
+
 }
+

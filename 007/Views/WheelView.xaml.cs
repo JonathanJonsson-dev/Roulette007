@@ -23,8 +23,12 @@ namespace _007.Views
         public WheelView()
         {
             InitializeComponent();
+
             //DataContext = new WheelViewModel();
+
         }
+
+      
 
         //private void SetAngle()
         //{

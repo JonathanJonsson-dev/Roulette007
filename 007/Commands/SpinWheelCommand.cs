@@ -19,11 +19,6 @@ namespace _007.Commands
             this.wheelViewModel = wheelViewModel;
         }
 
-        public SpinWheelCommand(WheelView wheelView)
-        {
-            this.wheelView = wheelView;
-        }
-
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
@@ -33,6 +28,7 @@ namespace _007.Commands
 
         public void Execute(object parameter)
         {
+            wheelView = (WheelView)parameter;
             wheelViewModel.SpinWheelGetAngle(wheelView);
         }
     }

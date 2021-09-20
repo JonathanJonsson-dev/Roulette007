@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_Roulette007" 
         xmlns:uc="clr-namespace:_007.Views"
+        xmlns:vm="clr-namespace:_007.ViewModels"
         mc:Ignorable="d"
         Title="Roulette 007" Height="1000" Width="1200">
 
@@ -12,39 +13,23 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
-               
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <Menu Grid.Row="0" Grid.Column="0" >
-                <MenuItem Header="Sätt in penger"/>
-                <MenuItem Header="Satsa"/>
-                <MenuItem Header="Ta ut vinst"/>
-                <MenuItem Header="Övriga inställningar"/>
-            </Menu>
-
             <ContentControl Content="{Binding CurrentViewModel}"
+
                         Grid.Row="1"
                         Grid.Column="1"
                         VerticalAlignment="Stretch" 
                         HorizontalAlignment="Stretch"/>
 
-           
-            <!--<ContentControl Content="{Binding Wheel}"
-                        Grid.Row="2"
-                        Grid.Column="2"
-                        VerticalAlignment="Stretch" 
-                        HorizontalAlignment="Stretch"/>-->
 
-
-            <!--<StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
-                <Label Content="Current angle:"></Label>
-                <TextBox Width="100" Text="{Binding CurrentViewModel.Wheel.CurrentAngle, Mode=TwoWay}"></TextBox>
-            </StackPanel>-->
             
+
 
         </Grid>
     </Border>

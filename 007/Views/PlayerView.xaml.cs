@@ -1,4 +1,5 @@
-﻿using _007.ViewModels;
+﻿using _007.Models;
+using _007.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,15 +16,20 @@ using System.Windows.Shapes;
 namespace _007.Views
 {
     /// <summary>
-    /// Interaction logic for GameView.xaml
+    /// Interaction logic for PlayerView.xaml
     /// </summary>
-    public partial class GameView : UserControl
+    public partial class PlayerView : UserControl
     {
-        public GameView()
+        public PlayerView()
         {
+
             InitializeComponent();
-            DataContext = new GameViewModel();
-           
+          
+
         }
+
+
+        
+
     }
 }
