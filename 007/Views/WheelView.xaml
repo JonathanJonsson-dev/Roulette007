@@ -16,14 +16,13 @@
                              FillBehavior="Stop">
             </DoubleAnimation>
         </Storyboard>-->
-        <Storyboard x:Key="IsWin">
-            <DoubleAnimation Duration="0:0:0:1"
-                             To="10"
-                             Storyboard.TargetName ="lblNumber"
-                             Storyboard.TargetProperty ="Content"
+        <!--<Storyboard x:Key="IsWin">
+            <DoubleAnimation 
+                             Storyboard.TargetName ="W"
+                             Storyboard.TargetProperty ="RotateTransform.AngleProperty"
                              >
             </DoubleAnimation>
-        </Storyboard>
+        </Storyboard>-->
     </UserControl.Resources>
     <Border x:Name="MainBorder" Background="Transparent" 
             Height="350" Width="350">
@@ -56,8 +55,8 @@
                               ItemsSource="{Binding WheelViewModel.WheelCollection}"
                               Width="{Binding WheelViewModel.MainBoardWidth, Mode=OneWay}"
                               Height="{Binding WheelViewModel.MainBoardHeight, Mode=OneWay}">
-                    <ItemsControl.RenderTransform>
-                        <RotateTransform Angle="{Binding WheelViewModel.WheelStopAngle}" />
+                    <ItemsControl.RenderTransform >
+                        <RotateTransform x:Name="Rotate" />
                     </ItemsControl.RenderTransform>
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -121,7 +120,7 @@
                         BorderBrush="SaddleBrown" BorderThickness="5" 
                         Content="Spin Wheel" Width="150" Height="55" FontSize="20" Canvas.Top="405" 
                         RenderTransformOrigin="0.633,1.455" Canvas.Left="95"
-                        Command="{Binding SpinWheelCommand}">
+                        Command="{Binding SpinWheelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}">
                 </Button>
                 <!--<Button x:Name="btnTest" 
                         BorderBrush="SaddleBrown" BorderThickness="5" 
