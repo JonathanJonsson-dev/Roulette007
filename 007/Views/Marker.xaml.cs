@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _007.Data;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -22,6 +23,22 @@ namespace _007.Views
         {
             InitializeComponent();
         }
+
+
+
+
+
+        public MarkColors colors
+        {
+            get { return (MarkColors)GetValue(colorsProperty); }
+            set { SetValue(colorsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for colors.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty colorsProperty =
+            DependencyProperty.Register("colors", typeof(MarkColors), typeof(Marker), new PropertyMetadata(MarkColors.Black));
+
+
 
 
         public Color MarkerColor
@@ -52,5 +69,7 @@ namespace _007.Views
                 DragDrop.DoDragDrop(marker, new DataObject(DataFormats.Serializable, marker), DragDropEffects.Move);
             }
         }
+
+       
     }
 }

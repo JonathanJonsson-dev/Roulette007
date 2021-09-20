@@ -13,12 +13,12 @@ namespace _007.ViewModels
     {
         public ObservableCollection<BoardPiece> Board { get; set; }
         public List<BoardPiece> CompleteBoard { get; set; } = new List<BoardPiece>();
-        public ObservableCollection<PlaceBet> CurrentBet { get; set; } = new ObservableCollection<PlaceBet>();
+        
         public ObservableCollection<BoardPiece> BoardBottom { get; set; } 
         public ObservableCollection<BoardPiece> SpecialBetBoardColumnTwo { get; set; } 
         public ObservableCollection<BoardPiece> SpecialBetBoardColumnOne { get; set; } 
         
-        public List<PlaceBet> Input { get; set; } = new List<PlaceBet>();
+      
         public int LastWinningNumber { get; set; }
 
         private GameEngine gameEngine;
@@ -35,8 +35,7 @@ namespace _007.ViewModels
             FillBoard();
             
             
-            FillBetInput();
-          
+            
         }
 
         private void FillSpecialBetBoardColumnOne()
@@ -240,82 +239,25 @@ namespace _007.ViewModels
             }
 
         }
-        public void CreateBet(PlaceBet placeBet)
+        public void CreateBet()
         {
-            if (!ExistingBet(placeBet.Id) && placeBet.Amount != 0)//If theres no existing bet of the same id number
-            {
-                if (player.Pot >= placeBet.Amount)//Checks the player can afford the bet
-                {
-
-
-                    List<int> numbers = CompleteBoard[placeBet.Id].Numbers; //Gets bettingnumbers from choosen boardpiece
-                    Bet bet = new Bet() // Create new bet
-                    {
-                        Numbers = numbers,
-                        Id = CompleteBoard[placeBet.Id].BoardPieceNumber,
-                        Amount = placeBet.Amount,
-                        Type = CompleteBoard[placeBet.Id].Type
-                    };
-                    bets.Add(bet);//Adds bet to bets list
-                    player.Pot -= bet.Amount;
-                    CompleteBoard[placeBet.Id].BoardPieceColor = Brushes.Yellow; // Changes color to indicate where bet is placed
-                }
-                else// if no amount selected
-                {
-                    placeBet.Amount = 0;//Returns inputbox to 0
-                }
-            }
-            else//Updates existing bet
-            {
-                foreach (var bet in bets)
-                {
-                    if(bet.Id == placeBet.Id)
-                    {
-                        player.Pot += bet.Amount;
-                        bet.Amount = placeBet.Amount;
-                        player.Pot -= bet.Amount;
-                    }
-                }
-            }
-            CurrentBet.Clear();//Removes inputbox
+            
 
         }
-        public void ShowBet(BoardPiece piece)//Shows inputbox for current boardpiece
-        {
-            CurrentBet.Clear();
-            CurrentBet.Add(Input[piece.BoardPieceNumber]);
-        }
+        
     
-        private bool ExistingBet(int id)//Checks if the bet exist
-        {
-            bool itExist = false;
-            foreach (var bet in bets)
-            {
-                if (bet.Id == id)
-                {
-                    itExist = true;
-                }
-               
-            }
-            return itExist;
-        }
+        
         public void StartRound(int winnningNumber)//Starts the game temporary placement
         {
-            gameEngine.WinningNumber = winnningNumber;
+            
             Payout();
         }
         public void Payout()//Sends all bets made to gameEnigne for payout
         {
-            foreach (var bet in bets)
-            {
-                player.Pot += gameEngine.GetPayout(bet);
-                Input[bet.Id].Amount = 0;
-
-            }
-            CompleteBoard.Clear();
-            FillBoard();
-            CurrentBet.Clear();
-            bets.Clear();
+           
+            
+           
+           
         }
        
         private void FillBoard()
@@ -400,19 +342,7 @@ namespace _007.ViewModels
             SpecialBetBoardColumnTwo = new ObservableCollection<BoardPiece>(CompleteBoard.Skip(46).Take(3));
         }
 
-        private void FillBetInput()//Creates inputboxes for every boardpiece
-        {
-            for (int i = 0; i < CompleteBoard.Count; i++)
-            {
-                PlaceBet placeBet = new PlaceBet
-                {
-                    Id = i,
-                    Label = CompleteBoard[i].BoardPieceLabel
-
-                };
-                Input.Add(placeBet);
-            }
-        }
+       
 
     }
 }

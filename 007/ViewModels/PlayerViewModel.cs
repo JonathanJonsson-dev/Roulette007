@@ -19,7 +19,7 @@ namespace _007.ViewModels
         public string Name { get; set; } = "";
         public int Pot { get; set; } = 1000;
 
-
+        public ObservableCollection<Bet> Bets { get; set; } = new ObservableCollection<Bet>();
 
         public RelayCommand SetNameCommand { get; }
         public ICommand ResetGameCommand { get; }

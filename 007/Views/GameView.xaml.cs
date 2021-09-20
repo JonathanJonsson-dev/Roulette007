@@ -1,4 +1,6 @@
-﻿using _007.ViewModels;
+﻿using _007.Data;
+using _007.Models;
+using _007.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,11 +21,12 @@ namespace _007.Views
     /// </summary>
     public partial class GameView : UserControl
     {
+        private readonly GameViewModel gameViewModel = new GameViewModel();
         public GameView()
         {
             InitializeComponent();
-            DataContext = new GameViewModel();
-           
+            DataContext = gameViewModel;
+            
         }
 
         private void board_DragOver(object sender, DragEventArgs e)
@@ -33,7 +36,7 @@ namespace _007.Views
             {
                 var marker = (Marker)data;
                 Point dropPoint = e.GetPosition(board);
-        
+
                 var allowedPoint = GetAllowedPoint(dropPoint);
                 Canvas.SetLeft(marker, allowedPoint.X);
                 Canvas.SetTop(marker, allowedPoint.Y);
@@ -42,7 +45,8 @@ namespace _007.Views
                     markerboard.Children.Remove(marker);
                     board.Children.Add(marker);
                 }
-                //markertest.Content = $"X: {Math.Round(dropPoint.X)} Y: {Math.Round(dropPoint.Y)}";
+
+
             }
         }
         private Point GetAllowedPoint(Point point)
@@ -54,8 +58,8 @@ namespace _007.Views
             var x = point.X;
             var y = point.Y;
             Point _point;
-            
-            if(x>130 && x <=149)
+
+            if (x > 130 && x <= 149)
             {
                 cellSizeY = 50;
             }
@@ -97,7 +101,7 @@ namespace _007.Views
 
 
             }
-            else if(y>624)
+            else if (y > 624)
             {
                 _point.Y = 655;
                 if (x > 130 && x <= 181)
@@ -107,10 +111,147 @@ namespace _007.Views
                 else
                     _point.X = 240;
             }
-            
-                return _point;
-           
 
+            return _point;
+
+
+        }
+
+        private void markerboard_DragOver(object sender, DragEventArgs e)
+        {
+            object data = e.Data.GetData(DataFormats.Serializable);
+            if (data is Marker)
+            {
+                var marker = (Marker)data;
+                marker.Margin = new Thickness(0, 0, 0, 0);
+                Point dropPoint = e.GetPosition(board);
+
+
+                Canvas.SetLeft(marker, dropPoint.X);
+                Canvas.SetTop(marker, dropPoint.Y);
+                if (!markerboard.Children.Contains(marker))
+                {
+                    board.Children.Remove(marker);
+                    markerboard.Children.Add(marker);
+                }
+
+
+            }
+        }
+
+        private void board_Drop(object sender, DragEventArgs e)
+        {
+            object data = e.Data.GetData(DataFormats.Serializable);
+            Marker marker;
+            if (data is Marker)
+            {
+                marker = (Marker)data;
+               
+                bool isAlreadyOn = false;
+                foreach (var bet in gameViewModel.Player.Bets)
+                {
+                    if(marker == bet.Mark)
+                    {
+                        isAlreadyOn = true;
+                    }
+                }
+                if (!isAlreadyOn)
+                {
+                    if (gameViewModel.Player.Pot - marker.Value >= 0)
+                    {
+                        Bet bet = new Bet {
+                            Value = marker.Value,
+                            Mark = marker
+                        
+                        };
+                        gameViewModel.Player.Bets.Add(bet);
+                        gameViewModel.Player.Pot -= marker.Value;
+                        Thickness margin;
+                        switch (marker.colors)
+                        {
+                            case MarkColors.Black:
+                                margin = new Thickness(0, 0, 0, 0);
+                                break;
+                            case MarkColors.Red:
+                                margin = new Thickness(40, 0, 0, 0);
+                                break;
+                            case MarkColors.Green:
+                                margin = new Thickness(80, 0, 0, 0);
+                                break;
+                        }
+                        Marker newMark = new Marker {
+                            Value = marker.Value,
+                            MarkerColor = marker.MarkerColor,
+                            Margin = margin,
+                            colors = marker.colors
+                        };
+                        markerboard.Children.Add(newMark);
+                    }
+                    else
+                    {
+                        board.Children.Remove(marker);
+                        Thickness margin;
+                        switch (marker.colors)
+                        {
+                            case MarkColors.Black:
+                                margin = new Thickness(0, 0, 0, 0);
+                                break;
+                            case MarkColors.Red:
+                                margin = new Thickness(40, 0, 0, 0);
+                                break;
+                            case MarkColors.Green:
+                                margin = new Thickness(80, 0, 0, 0);
+                                break;
+                        }
+                        marker.Margin = margin;
+                        markerboard.Children.Add(marker);
+                        MessageBox.Show("You can't afford");
+                    }
+                }
+              
+            }
+            
+        }
+
+        private void markerboard_Drop(object sender, DragEventArgs e)
+        {
+            object data = e.Data.GetData(DataFormats.Serializable);
+            Marker marker;
+            if (data is Marker)
+            {
+                marker = (Marker)data;
+                Bet betToRemove = null;
+                foreach (var bet in gameViewModel.Player.Bets)
+                {
+                    if (marker == bet.Mark)
+                    {
+                        betToRemove = bet;
+                    }
+                }
+                if (betToRemove != null)
+                {
+                    gameViewModel.Player.Bets.Remove(betToRemove);
+
+
+                   
+                    gameViewModel.Player.Pot += marker.Value;
+                    markerboard.Children.Remove(marker);
+                }
+                switch (marker.colors)
+                {
+                    case MarkColors.Black: // Black mark
+                        marker.Margin = new Thickness(0, 0, 0, 0);
+                        break;
+                    case MarkColors.Red:// Red mark
+                        marker.Margin = new Thickness(40, 0, 0, 0);
+                        break;
+                    case MarkColors.Green:// Green mark
+                        marker.Margin = new Thickness(80, 0, 0, 0);
+                        break;
+                }
+
+
+            }
         }
     }
 }

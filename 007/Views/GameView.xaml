@@ -19,7 +19,7 @@
         BorderThickness="5">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="500"/>
+                <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="50"/>
@@ -34,20 +34,20 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0"
-                        Grid.Column="0" Width="500" HorizontalAlignment="Left">
+                        Grid.Column="1" Width="500" HorizontalAlignment="Left">
                 <ContentControl Content="{Binding Wheel}"
                         
                         VerticalAlignment="Stretch" 
                         HorizontalAlignment="Stretch"/>
             </Grid>
             <Grid Grid.Row="3"
-                        Grid.Column="0" Width="500" HorizontalAlignment="Left">
+                        Grid.Column="1" Width="500" HorizontalAlignment="Left">
                 <ContentControl Content="{Binding Player}"
                         
                         VerticalAlignment="Stretch" 
                         HorizontalAlignment="Stretch"/>
             </Grid>
-            <Canvas Name="board" Grid.Row="0" Grid.Column="2" Height="700" Width="400" DragOver="board_DragOver" AllowDrop="True">
+            <Canvas Name="board" Grid.Row="0" Grid.Column="2" Height="700" Width="400" DragOver="board_DragOver" AllowDrop="True" DragDrop.Drop="board_Drop">
                 
                 <Grid >
                     <Grid.ColumnDefinitions>
@@ -71,10 +71,10 @@
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                     </ItemsControl>
-                    <ItemsControl Grid.Column="3" Grid.Row="0" ItemsSource="{Binding BoardViewModel.CurrentBet}">
+                    <ItemsControl Grid.Column="3" Grid.Row="0" ItemsSource="{Binding Player.Bets}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <Grid Width="150" HorizontalAlignment="Right"/>
+                                <StackPanel Width="250" HorizontalAlignment="Right"/>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                     </ItemsControl>
@@ -109,10 +109,12 @@
 
                
             </Canvas>
-            <StackPanel  Name="markerboard" Grid.Column="2" Grid.Row="3">
-                <local:Marker MarkerColor="Black" RenderTransformOrigin="0.5,0.5"></local:Marker>
-                <local:Marker MarkerColor="Red" RenderTransformOrigin="0.5,0.5"></local:Marker>
-                <local:Marker MarkerColor="Green" RenderTransformOrigin="0.5,0.5"></local:Marker>
+            <StackPanel  Name="markerboard" Grid.Column="2" Grid.Row="3" DragOver="markerboard_DragOver" AllowDrop="True" Background="White" Height="90" DragDrop.Drop="markerboard_Drop" >
+
+                <local:Marker MarkerColor="Black" colors="Black" RenderTransformOrigin="0.5,0.5" Value="1000" Margin="0,0,0,0"></local:Marker>
+                <local:Marker MarkerColor="Red" colors="Red" RenderTransformOrigin="0.5,0.5" Value="500" Margin="40,0,0,0"></local:Marker>
+                <local:Marker MarkerColor="Green" colors="Green" RenderTransformOrigin="0.5,0.5" Value="100" Margin="80,0,0,0"></local:Marker>
+                
             </StackPanel>
             <!--<Grid Grid.Column="1" Grid.Row="2" Width="100">
                 <Label Name="markertest" ></Label>
