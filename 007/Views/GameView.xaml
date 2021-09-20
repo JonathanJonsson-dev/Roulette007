@@ -26,11 +26,13 @@
                 <ColumnDefinition Width="Auto"/>          
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="0"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                
+                
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="15"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
 
@@ -43,15 +45,15 @@
                         HorizontalAlignment="Stretch"/>
             </UniformGrid>
 
-            <Grid Grid.Row="3"
-                        Grid.Column="1" Width="500" HorizontalAlignment="Left">
+            <Grid Grid.Row="4"
+                        Grid.Column="0" Width="500" HorizontalAlignment="Left">
                 <ContentControl Content="{Binding Player}"
                         
                         VerticalAlignment="Stretch" 
                         HorizontalAlignment="Stretch"/>
             </Grid>
 
-            <Canvas Name="board" Grid.Row="0" Grid.Column="2" Height="700" Width="400" DragOver="board_DragOver" AllowDrop="True" DragDrop.Drop="board_Drop">
+            <Canvas Name="board" Grid.Row="1" Grid.Column="2" Height="700" Width="400" DragOver="board_DragOver" AllowDrop="True" DragDrop.Drop="board_Drop">
                 
                 <Grid >
                     <Grid.ColumnDefinitions>
@@ -113,7 +115,7 @@
 
                
             </Canvas>
-            <StackPanel  Name="markerboard" Grid.Column="2" Grid.Row="3" DragOver="markerboard_DragOver" AllowDrop="True" Background="White" Height="90" DragDrop.Drop="markerboard_Drop" >
+            <StackPanel  Name="markerboard" Grid.Column="2" Grid.Row="4" DragOver="markerboard_DragOver" AllowDrop="True" Background="White" Height="90" DragDrop.Drop="markerboard_Drop" >
 
                 <views:Marker MarkerColor="Black" colors="Black" RenderTransformOrigin="0.5,0.5" Value="1000" Margin="0,0,0,0"></views:Marker>
                 <views:Marker MarkerColor="Red" colors="Red" RenderTransformOrigin="0.5,0.5" Value="500" Margin="40,0,0,0"></views:Marker>
