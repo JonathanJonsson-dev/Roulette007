@@ -55,10 +55,7 @@ namespace _007.ViewModels
         {
             DetermineWheelPieceValues(); //Set values to wheel piece variables
             FillWheel();
-            UpdateWheelPieceValues();
-            //GetAngle();
-            //DrawWheelLabels();
-
+            UpdateWheelPieceValues(); //More wheel piece variable value
         }
 
         /// <summary>
@@ -172,13 +169,9 @@ namespace _007.ViewModels
 
         public void SpinWheelGetAngle(WheelView _view)
         {
-           
             WheelView view = _view; //Wheel object
-            
             //Random angle generator
             Random angleGenerator = new Random();
-
-
             //spin wheel counter-clockwise
             WheelStopAngle = -1 * angleGenerator.Next(0, 361);
          
@@ -188,10 +181,8 @@ namespace _007.ViewModels
             //rotates 720 degress
             DoubleAnimation doubleSpinAnimation = new DoubleAnimation();
             doubleSpinAnimation.From = 0;
-
             doubleSpinAnimation.To = 360;
             doubleSpinAnimation.Duration = new Duration(TimeSpan.FromSeconds(2)); //duration of spin in seconds
-                                                                                 
             doubleSpinAnimation.FillBehavior = FillBehavior.Stop;
             doubleSpinAnimation.IsCumulative = true;
             doubleSpinAnimation.RepeatBehavior = new RepeatBehavior(2);
@@ -215,36 +206,37 @@ namespace _007.ViewModels
             revertAnimation.FillBehavior = FillBehavior.HoldEnd;
             #endregion
            
-            Storyboard spinWheelStoryBoard = new Storyboard();
-
            
+            #region MediaTimeline and media element for rolling ball
+            //Ball media element
+            MediaElement ballMediaElement = new MediaElement();
+            ballMediaElement.Volume = 3.0;
+            ballMediaElement.Visibility = Visibility.Hidden;
+            //ballMediaElement.MediaOpened += new RoutedEventHandler(BallMediaElementMediaOpenedEventHandler);
+            //ballMediaElement.LoadedBehavior = MediaState.Manual;
+            //ballMediaElement.UnloadedBehavior = MediaState.Stop;
+            view.MainGrid.Children.Add(ballMediaElement); //add media to WheelView
+
+           // Ball media timeline (sound).
+            MediaTimeline ballRollingMediaTimeline = new MediaTimeline
+            {
+                FillBehavior = FillBehavior.Stop,
+                BeginTime = TimeSpan.FromSeconds(0),
+                Duration = new Duration(TimeSpan.FromSeconds(6)),
+                Source = new Uri(@"C:\Users\HP\Source\Repos\SUP21_Grupp7\007\Views\Utilities\RouletteWheelSpinn.mp3"),
+            };
+
+            Storyboard spinWheelStoryBoard = new Storyboard();
+            spinWheelStoryBoard.Children.Add(ballRollingMediaTimeline); //add media time line to storyboard
             spinWheelStoryBoard.Children.Add(doubleSpinAnimation); //add animation to storyboard 
             spinWheelStoryBoard.Children.Add(spinWheelAmination); //add animation to storyboard    
             spinWheelStoryBoard.Children.Add(revertAnimation); //add animation to storyboard
-            #region
-            //spinWheelStoryBoard.Children.Add(ballRollingMediaTimeline); //add media time line to storyboard
-            //Ball media element
-            //MediaElement ballMediaElement = new MediaElement();
-            //view.MainGrid.Children.Add(ballMediaElement); //add media to WheelView
-            //                                              //ballMediaElement.LoadedBehavior = MediaState.Play;
-            //                                              //ballMediaElement.UnloadedBehavior = MediaState.Stop;
-            //ballMediaElement.Volume = 2.0;
-            ////ballMediaElement.IsMuted = false;
-            //ballMediaElement.MediaOpened += new RoutedEventHandler(BallMediaElementMediaOpenedEventHandler);
 
-            //// Ball media timeline (sound).
-            //MediaTimeline ballRollingMediaTimeline = new MediaTimeline
-            //{
-            //    FillBehavior = FillBehavior.Stop,
-            //    BeginTime = new TimeSpan(0,0,0),
-            //    Duration = new Duration(TimeSpan.FromSeconds(60)),
-            //    Source = new Uri(@"C:\Users\HP\Source\Repos\SUP21_Grupp7\007\Views\Utilities\BallRolling.mp4"),
-            //};
-            //ballRollingMediaTimeline.SetValue(Storyboard.TargetProperty, ballMediaElement); //or
-            ////Storyboard.SetTarget(ballRollingMediaTimeline, ballMediaElement);    
             #endregion
-            #region
+            #region 
             // Sets animation targets
+            Storyboard.SetTarget(ballRollingMediaTimeline, ballMediaElement); //or //ballRollingMediaTimeline.SetValue(Storyboard.TargetProperty, ballMediaElement); 
+            
             Storyboard.SetTarget(doubleSpinAnimation, view.WheelControl);
 
             Storyboard.SetTargetProperty(doubleSpinAnimation, new PropertyPath("RenderTransform.Angle"));
@@ -256,19 +248,10 @@ namespace _007.ViewModels
             Storyboard.SetTarget(spinWheelAmination, view.WheelControl);
 
             Storyboard.SetTargetProperty(spinWheelAmination, new PropertyPath("RenderTransform.Angle"));
-            #endregion //
+            #endregion 
 
+            //Begin storyboard
             spinWheelStoryBoard.Begin(view.WheelControl, true);
-
-
-
-
-           
-            
-
-
-           
-
            
             //check is clock created when storyboard began has finished executing the animation
             if (spinWheelStoryBoard.GetCurrentState(view.WheelControl) == ClockState.Stopped)
@@ -288,17 +271,15 @@ namespace _007.ViewModels
             }
         }
 
-       
-
         /// <summary>
         /// Handles the MediaOpenedEvent for the BallMediaElement
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BallMediaElementMediaOpenedEventHandler(object sender, RoutedEventArgs e)
-        {
-            MediaElement mediaElement = sender as MediaElement;
-            mediaElement.Play();
-        }
+        /// <param name = "sender" ></ param >
+        /// < param name="e"></param>
+        //private void BallMediaElementMediaOpenedEventHandler(object sender, RoutedEventArgs e)
+        //{
+        //    MediaElement mediaElement = sender as MediaElement;
+        //    mediaElement.Play();
+        //}
     }
 }

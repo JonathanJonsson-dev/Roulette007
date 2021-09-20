@@ -23,19 +23,6 @@ namespace _007.Views
         public WheelView()
         {
             InitializeComponent();
-
-            //DataContext = new WheelViewModel();
-
         }
-
-      
-
-        //private void SetAngle()
-        //{
-        //    double angle = 0.0;
-        //    Transform transform = WheelSpin.RenderTransform;
-        //    rotate = (RotateTransform);
-        //    angle = rotate.Angle;
-        //}
     }
 }
