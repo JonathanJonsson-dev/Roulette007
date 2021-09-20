@@ -4,6 +4,7 @@ using _007.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Media;
 using System.Text;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -113,14 +114,15 @@ namespace _007.ViewModels
                 WinningNumber = wheelNumbers[winningNumberIndex];
             }
             gameViewModel.BoardViewModel.StartRound(WinningNumber);
+            
+            
 
+            //public void GetAngle(double angle)
+            //{
+
+            //    CurrentAngle = angle;
+            //}
         }
-
-        //public void GetAngle(double angle)
-        //{
-           
-        //    CurrentAngle = angle;
-        //}
-
     }
 }
+
