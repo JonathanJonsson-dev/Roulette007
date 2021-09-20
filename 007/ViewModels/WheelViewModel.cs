@@ -167,6 +167,10 @@ namespace _007.ViewModels
             return wheelNumbers[determinant];
         }
 
+        /// <summary>
+        /// Spins wheel
+        /// </summary>
+        /// <param name="_view"></param>
         public void SpinWheelGetAngle(WheelView _view)
         {
             WheelView view = _view; //Wheel object
@@ -176,6 +180,7 @@ namespace _007.ViewModels
             WheelStopAngle = -1 * angleGenerator.Next(0, 361);
          
             double angle = WheelStopAngle;
+
             //initialize Double Animation
             #region
             //rotates 720 degress
@@ -206,7 +211,6 @@ namespace _007.ViewModels
             revertAnimation.FillBehavior = FillBehavior.HoldEnd;
             #endregion
            
-           
             #region MediaTimeline and media element for rolling ball
             //Ball media element
             MediaElement ballMediaElement = new MediaElement();
@@ -223,7 +227,7 @@ namespace _007.ViewModels
                 FillBehavior = FillBehavior.Stop,
                 BeginTime = TimeSpan.FromSeconds(0),
                 Duration = new Duration(TimeSpan.FromSeconds(6)),
-                Source = new Uri(@"C:\Users\HP\Source\Repos\SUP21_Grupp7\007\Views\Utilities\RouletteWheelSpinn.mp3"),
+                Source = new Uri("././Views/Utilities/RouletteWheelSpinn.mp3", UriKind.Relative),
             };
 
             Storyboard spinWheelStoryBoard = new Storyboard();
@@ -231,10 +235,10 @@ namespace _007.ViewModels
             spinWheelStoryBoard.Children.Add(doubleSpinAnimation); //add animation to storyboard 
             spinWheelStoryBoard.Children.Add(spinWheelAmination); //add animation to storyboard    
             spinWheelStoryBoard.Children.Add(revertAnimation); //add animation to storyboard
-
+            spinWheelStoryBoard.SlipBehavior = SlipBehavior.Slip; //ensures that animation and media starts at same time
             #endregion
-            #region 
-            // Sets animation targets
+
+            #region Sets animation targets
             Storyboard.SetTarget(ballRollingMediaTimeline, ballMediaElement); //or //ballRollingMediaTimeline.SetValue(Storyboard.TargetProperty, ballMediaElement); 
             
             Storyboard.SetTarget(doubleSpinAnimation, view.WheelControl);
