@@ -41,7 +41,7 @@
                               ItemsSource="{Binding WheelViewModel.WheelCollection}"
                               Width="{Binding WheelViewModel.MainBoardWidth, Mode=OneWay}"
                               Height="{Binding WheelViewModel.MainBoardHeight, Mode=OneWay}">
-                    <ItemsControl.RenderTransform >
+                    <ItemsControl.RenderTransform>
                         <RotateTransform x:Name="Rotate" />
                     </ItemsControl.RenderTransform>
                     <ItemsControl.ItemsPanel>
@@ -108,20 +108,6 @@
                         RenderTransformOrigin="0.633,1.455" Canvas.Left="95"
                         Command="{Binding SpinWheelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}">
                 </Button>
-                <!--<Button x:Name="btnTest" 
-                        BorderBrush="SaddleBrown" BorderThickness="5" 
-                        Content="Test Spin Wheel" Width="170" Height="55" FontSize="20" Canvas.Top="408" 
-                        RenderTransformOrigin="0.633,1.455" Canvas.Left="295">
-                    <Button.Triggers>
-                        <EventTrigger RoutedEvent="Button.Click">
-                            <BeginStoryboard Storyboard="{StaticResource RotateWheel}">
-                            </BeginStoryboard>
-                        </EventTrigger>
-                    </Button.Triggers>
-                </Button>-->
-                <TextBlock Text="{Binding WheelViewModel.WinningNumber}" Width="75" Height="40" Canvas.Left="295" Canvas.Top="447"/>
-                <TextBlock Text="{Binding WheelViewModel.WheelStopAngle}" Width="75" Height="40" Canvas.Left="295" Canvas.Top="363"/>
-
             </Canvas>
         </Grid>
     </Border>

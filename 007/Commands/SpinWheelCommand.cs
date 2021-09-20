@@ -10,9 +10,8 @@ namespace _007.Commands
 
     class SpinWheelCommand : ICommand
     {
-
         private readonly WheelViewModel wheelViewModel;
-        private readonly WheelView wheelView;
+        private WheelView wheelView;
 
         public SpinWheelCommand(WheelViewModel wheelViewModel)
         {
