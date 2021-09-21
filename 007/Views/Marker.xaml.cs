@@ -25,7 +25,26 @@ namespace _007.Views
         }
 
 
-
+        public Thickness GetMarkerMargin(MarkColors markColors)
+        {
+            Thickness margin;
+            switch (markColors)
+            {
+                case MarkColors.Black:
+                    margin = new Thickness(0, 0, 0, 0);
+                    break;
+                case MarkColors.Red:
+                    margin = new Thickness(40, 0, 0, 0);
+                    break;
+                case MarkColors.Green:
+                    margin = new Thickness(80, 0, 0, 0);
+                    break;
+                case MarkColors.Blue:
+                    margin = new Thickness(120, 0, 0, 0);
+                    break;
+            }
+            return margin;
+        }
 
 
         public MarkColors colors

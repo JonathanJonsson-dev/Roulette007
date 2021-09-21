@@ -166,23 +166,11 @@ namespace _007.Views
                         };
                         gameViewModel.Player.Bets.Add(bet);
                         gameViewModel.Player.Pot -= marker.Value;
-                        Thickness margin;
-                        switch (marker.colors)
-                        {
-                            case MarkColors.Black:
-                                margin = new Thickness(0, 0, 0, 0);
-                                break;
-                            case MarkColors.Red:
-                                margin = new Thickness(40, 0, 0, 0);
-                                break;
-                            case MarkColors.Green:
-                                margin = new Thickness(80, 0, 0, 0);
-                                break;
-                        }
+                        
                         Marker newMark = new Marker {
                             Value = marker.Value,
                             MarkerColor = marker.MarkerColor,
-                            Margin = margin,
+                            Margin = marker.GetMarkerMargin(marker.colors),
                             colors = marker.colors
                         };
                         markerboard.Children.Add(newMark);
@@ -190,20 +178,8 @@ namespace _007.Views
                     else
                     {
                         board.Children.Remove(marker);
-                        Thickness margin;
-                        switch (marker.colors)
-                        {
-                            case MarkColors.Black:
-                                margin = new Thickness(0, 0, 0, 0);
-                                break;
-                            case MarkColors.Red:
-                                margin = new Thickness(40, 0, 0, 0);
-                                break;
-                            case MarkColors.Green:
-                                margin = new Thickness(80, 0, 0, 0);
-                                break;
-                        }
-                        marker.Margin = margin;
+                        
+                        marker.Margin = marker.GetMarkerMargin(marker.colors);
                         markerboard.Children.Add(marker);
                         MessageBox.Show("You can't afford");
                     }
@@ -237,18 +213,7 @@ namespace _007.Views
                     gameViewModel.Player.Pot += marker.Value;
                     markerboard.Children.Remove(marker);
                 }
-                switch (marker.colors)
-                {
-                    case MarkColors.Black: // Black mark
-                        marker.Margin = new Thickness(0, 0, 0, 0);
-                        break;
-                    case MarkColors.Red:// Red mark
-                        marker.Margin = new Thickness(40, 0, 0, 0);
-                        break;
-                    case MarkColors.Green:// Green mark
-                        marker.Margin = new Thickness(80, 0, 0, 0);
-                        break;
-                }
+                marker.Margin = marker.GetMarkerMargin(marker.colors);
 
 
             }
