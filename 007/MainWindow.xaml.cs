@@ -34,6 +34,7 @@ namespace _Roulette007
         private void PlayBackgroundMusic()
         {
             player.Open(new Uri(@"Resources\CasinoMusic.mp3", UriKind.Relative));
+            player.Volume = 0.1;
             player.Play();
         }
     }
