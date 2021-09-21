@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
+using System.Windows.Media;
 
 namespace _007.Models
 {
@@ -171,7 +172,7 @@ namespace _007.Models
             {
                 row = (int)Math.Round(point.Y / 50) - 1; //Gets row
                 col = (int)Math.Round(point.X / 50) - 2; //Gets col
-                numberToFind = (int)point.X + ((int)point.Y * 3); //Math to find the number 
+                numberToFind = col + (row * 3); //Math to find the number 
 
                 if (numberToFind < 0)
                     numberToFind = 0;
@@ -184,14 +185,116 @@ namespace _007.Models
             {
                 Mark = marker,
                 Type = betType,
-                Value = numberToFind,
+                Value = marker.Value,
                 Numbers = numbers
             };
             return bet;
         }
-        public Bet CreateBet(Marker marker, BetType betType)// handles outside bet
+        public Bet CreateBet(Marker marker, BetType betType, Point point)// handles outside bet
         {
             List<int> numbers = new List<int>();
+            switch (betType)
+            {
+                case Data.BetType.Dozen:
+                    if(point.Y==130)
+                    {
+                        for(int i = 1; i <= 12; i++)
+                        {
+                            numbers.Add(i);
+                        }
+                    }
+                    else if(point.Y==330)
+                    {
+                        for (int i = 12; i <= 24; i++)
+                        {
+                            numbers.Add(i);
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 24; i <= 36; i++)
+                        {
+                            numbers.Add(i);
+                        }
+                    }
+                    break;
+                case Data.BetType.Column:
+                    if (point.X == 140)
+                    {
+                        for (int i = 1; i <= 36; i+=3)
+                        {
+                            numbers.Add(i);
+                        }
+                    }
+                    else if (point.X == 190)
+                    {
+                        for (int i = 2; i <= 36; i += 3)
+                        {
+                            numbers.Add(i);
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 3; i <= 36; i += 3)
+                        {
+                            numbers.Add(i);
+                        }
+                    }
+                    break;
+                case Data.BetType.Low:
+                    for(int i = 1; i <=18; i++)
+                    {
+                        numbers.Add(i);
+                    }
+                    break;
+                case Data.BetType.High:
+                    for (int i = 19; i <= 36; i++)
+                    {
+                        numbers.Add(i);
+                    }
+                    break;
+                case Data.BetType.Odd:
+                    for(int i = 1; i <= 36; i++)
+                    {
+                        if (i % 2 != 0)
+                        {
+                            numbers.Add(i);
+                        }
+                    }
+                    break;
+                case Data.BetType.Even:
+                    for (int i = 1; i <= 36; i++)
+                    {
+                        if (i % 2 == 0)
+                        {
+                            numbers.Add(i);
+                        }
+                    }
+                    break;
+                case Data.BetType.Red:
+                    foreach (var boardPiece in gameViewModel.BoardViewModel.Board)
+                    {
+                        if(boardPiece.BoardPieceColor == Brushes.Red)
+                        {
+                            numbers.Add(boardPiece.BoardPieceNumber);
+                        }
+                    }
+                    break;
+                case Data.BetType.Black:
+                    foreach (var boardPiece in gameViewModel.BoardViewModel.Board)
+                    {
+                        if (boardPiece.BoardPieceColor == Brushes.Black)
+                        {
+                            numbers.Add(boardPiece.BoardPieceNumber);
+                        }
+                    }
+                    break;
+
+
+
+
+            
+            }
             Bet bet = new Bet
             {
                 Mark = marker,

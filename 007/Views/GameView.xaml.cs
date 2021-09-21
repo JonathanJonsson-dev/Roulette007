@@ -167,13 +167,52 @@ namespace _007.Views
                             Point point = e.GetPosition(board);
                             point = GetAllowedPoint(point);
                             Bet bet = new Bet();
-                            if (point.X >= 115 && point.Y < 624)
+                            if (point.X >= 115 && point.Y < 624 && point.Y>48)
                             {
-                                 bet = gameViewModel.GameEngine.CreateBet(marker, point);
+                                bet = gameViewModel.GameEngine.CreateBet(marker, point);
+
                             }
+                            else if (point.Y < 48)// the number 0
+                            {
+                                bet.Mark = marker;
+                                List<int> list = new List<int>();
+                                list.Add(0);
+                                bet.Numbers = list;
+                                bet.Value = marker.Value;
+                            }
+                            else if (point.X > 75 && point.X < 130)
+                            {
+                                bet = gameViewModel.GameEngine.CreateBet(marker, Data.BetType.Dozen, point);
+                            }
+                            else if (point.X < 75)
+                            {
+                              
+                                if (point.Y > 50 && point.Y <= 100)
+                                    bet = gameViewModel.GameEngine.CreateBet(marker, Data.BetType.Low, point);
+                                else if (point.Y > 100 && point.Y <= 200)
+                                    bet = gameViewModel.GameEngine.CreateBet(marker, Data.BetType.Even, point);
+                                else if (point.Y > 200 && point.Y <= 300)
+                                    bet = gameViewModel.GameEngine.CreateBet(marker, Data.BetType.Red, point);
+                                else if (point.Y > 300 && point.Y <= 400)
+                                    bet = gameViewModel.GameEngine.CreateBet(marker, Data.BetType.Black, point);
+                                else if (point.Y > 400 && point.Y <= 500)
+                                    bet = gameViewModel.GameEngine.CreateBet(marker, Data.BetType.Odd, point);
+                                else
+                                    bet = gameViewModel.GameEngine.CreateBet(marker, Data.BetType.High, point);
+
+
+                            }
+                            else if (point.Y > 624)
+                            {
+
+                                bet = gameViewModel.GameEngine.CreateBet(marker, Data.BetType.Column, point);
+
+                            }
+                           
+
+
                             gameViewModel.Player.Bets.Add(bet);
                             gameViewModel.Player.Pot -= (int)marker.Value;
-
                             Marker newMark = new Marker
                             {
                                 Value = marker.Value,
