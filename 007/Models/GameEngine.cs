@@ -61,21 +61,49 @@ namespace _007.Models
       
         public Bet CreateBet(Marker marker, Point point)// Handles bet made on number part of gameboard
         {
-
-            point.Y = Math.Round(point.Y/50)-1; //Gets row
-            point.X = Math.Round(point.X/50)-2; //Gets col
-            int numberToFind = (int)point.X + ((int)point.Y*3) ; //Math to find the number 
+            bool placeholder = true;
             List<int> numbers = new List<int>();
-            if (numberToFind < 0)
-                numberToFind = 0;
-            numbers.Add(gameViewModel.BoardViewModel.Board[numberToFind].BoardPieceNumber);
+            int numberToFind = 0;
+            point.X = Math.Round(point.X);
+            point.Y = Math.Round(point.Y);
             BetType betType = BetType.Straightup;
+            if (point.X==115)//Checks for sixline or streetbet
+            {
+                if ((point.Y - 5) % 50 == 0)//Street bet
+                {
+                    betType = BetType.Street;
+                }
+                else //Sixline bet
+                {
+                    betType = BetType.Sixline;
+                }
+            }
+            else if ((point.Y - 5) % 50 != 0 && (point.X + 10) % 50 != 0)//checks for corner bet
+            {
+                betType = BetType.Corner;
+            }
+            else if ((point.Y - 5) % 50 != 0 || (point.X + 10) % 50 !=0)//checks for split bet
+            {
+                betType = BetType.Split;
+            }
+            else//A number bet (Straightup)
+            {
+                point.Y = Math.Round(point.Y / 50) - 1; //Gets row
+                point.X = Math.Round(point.X / 50) - 2; //Gets col
+                numberToFind = (int)point.X + ((int)point.Y * 3); //Math to find the number 
+
+                if (numberToFind < 0)
+                    numberToFind = 0;
+                numbers.Add(gameViewModel.BoardViewModel.Board[numberToFind].BoardPieceNumber);
+                
+            }
+           
             
             Bet bet = new Bet
             {
                 Mark = marker,
                 Type = betType,
-                Value = marker.Value,
+                Value = numberToFind,
                 Numbers = numbers
             };
             return bet;

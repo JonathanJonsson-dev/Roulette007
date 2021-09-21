@@ -51,18 +51,16 @@ namespace _007.Views
         }
         private Point GetAllowedPoint(Point point)
         {
+            
             double cellSizeX = 25;
             double cellSizeY = 25;
             int offsetX = -10;
-            int offsetY = 4;
+            int offsetY = 5;
             var x = point.X;
             var y = point.Y;
             Point _point;
 
-            if (x > 130 && x <= 149)
-            {
-                cellSizeY = 50;
-            }
+            
             var col = Math.Floor(y / cellSizeY);
             var row = Math.Floor(x / cellSizeX);
 
@@ -110,6 +108,11 @@ namespace _007.Views
                     _point.X = 190;
                 else
                     _point.X = 240;
+            }
+            else if(x > 240)
+            {
+                _point.X = 240;
+                
             }
 
             return _point;
@@ -162,8 +165,9 @@ namespace _007.Views
                         if (gameViewModel.Player.Pot - marker.Value >= 0)
                         {
                             Point point = e.GetPosition(board);
+                            point = GetAllowedPoint(point);
                             Bet bet = new Bet();
-                            if (point.X > 130 && point.Y < 624)
+                            if (point.X >= 115 && point.Y < 624)
                             {
                                  bet = gameViewModel.GameEngine.CreateBet(marker, point);
                             }
