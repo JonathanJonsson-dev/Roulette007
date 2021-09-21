@@ -49,6 +49,8 @@ namespace _007.Models
 
                 case Data.BetType.Corner:
                     return 8;
+                case Data.BetType.Fivebet:
+                    return 3;
 
                 case Data.BetType.Sixline: case Data.BetType.Column: case Data.BetType.Dozen:
                     return 2;
@@ -59,37 +61,116 @@ namespace _007.Models
             return 0;
         }
       
-        public Bet CreateBet(Marker marker, Point point)// Handles bet made on number part of gameboard
+        public Bet CreateBet(Marker marker, Point point)// Handles inside bets
         {
-            bool placeholder = true;
+            
             List<int> numbers = new List<int>();
             int numberToFind = 0;
+            int row;
+            int col;
             point.X = Math.Round(point.X);
             point.Y = Math.Round(point.Y);
             BetType betType = BetType.Straightup;
-            if (point.X==115)//Checks for sixline or streetbet
+            if(point.Y == 30)//Basket or Fivebet
+            {
+                betType = BetType.Basket;
+                if (point.X ==115)
+                {
+                    for(int i = 0; i < 4; i++)
+                    {
+                        numbers.Add(i);
+                    }
+                    betType = BetType.Fivebet;
+                }
+                else if(point.X == 165)
+                {
+                    numbers.Add(0);
+                    numbers.Add(1);
+                    numbers.Add(2);
+                }
+                else
+                {
+                    numbers.Add(0);
+                    numbers.Add(2);
+                    numbers.Add(3);
+                }
+                
+                
+            }
+            else if (point.X==115)//Checks for sixline, streetbet
             {
                 if ((point.Y - 5) % 50 == 0)//Street bet
                 {
                     betType = BetType.Street;
+                    row = (int)Math.Round(point.Y / 50)-1; //Gets row
+                    for(int i = 1; i <= 3; i++)
+                    {
+                        numbers.Add((row * 3) + i);//Math to get numbers
+                    }
                 }
                 else //Sixline bet
                 {
                     betType = BetType.Sixline;
+                  
+                    for (int i = 0; i<=50; i+=50)
+                    {
+                        row = (int)Math.Round((point.Y -25 + i) / 50) - 1;
+                        for (int m = 1; m <= 3; m++)
+                        {
+                            numbers.Add((row * 3) + m);//Math to get numbers
+                        }
+                    }
+                    
                 }
             }
             else if ((point.Y - 5) % 50 != 0 && (point.X + 10) % 50 != 0)//checks for corner bet
             {
                 betType = BetType.Corner;
+                col = (int)Math.Round(point.X / 50) - 2; //Gets col
+                for (int i = 0; i <= 50; i += 50)
+                {
+                    row = (int)Math.Round((point.Y - 25 + i) / 50) - 1;
+                   
+                    for (int m = 0; m < 2; m++)
+                    {
+                        numbers.Add((row * 3) + (col + m));//Math to get numbers
+                    }
+                }
             }
             else if ((point.Y - 5) % 50 != 0 || (point.X + 10) % 50 !=0)//checks for split bet
             {
                 betType = BetType.Split;
+                if ((point.Y - 5) % 50 != 0) 
+                {
+                    col = (int)Math.Round(point.X / 50) - 2; //Gets col
+                    for (int i = 0; i <= 50; i += 50)
+                    {
+                        row = (int)Math.Round((point.Y - 25 + i) / 50) - 1;
+
+
+
+                        numbers.Add((row * 3) + col);//Math to get numbers
+
+                    }
+                }
+                else
+                {
+                    row = (int)Math.Round(point.Y / 50) - 1; //Gets row
+                    for (int i = 0; i <= 50; i += 50)
+                    {
+                        col = (int)Math.Round((point.X - 25 + i) / 50) - 2; //Gets col
+
+
+
+                        numbers.Add((row * 3) + col);//Math to get numbers
+
+                    }
+                }
             }
             else//A number bet (Straightup)
             {
-                point.Y = Math.Round(point.Y / 50) - 1; //Gets row
-                point.X = Math.Round(point.X / 50) - 2; //Gets col
+                row = (int)Math.Round(point.Y / 50) - 1; //Gets row
+                col = (int)Math.Round(point.X / 50) - 2; //Gets col
                 numberToFind = (int)point.X + ((int)point.Y * 3); //Math to find the number 
 
                 if (numberToFind < 0)
@@ -108,9 +189,9 @@ namespace _007.Models
             };
             return bet;
         }
-        public Bet CreateBet(Marker marker, BetType betType, List<int> numbers)// handles bet not on number part of board like 1st 12 and 1-18 where numbers are know easily
+        public Bet CreateBet(Marker marker, BetType betType)// handles outside bet
         {
-
+            List<int> numbers = new List<int>();
             Bet bet = new Bet
             {
                 Mark = marker,
