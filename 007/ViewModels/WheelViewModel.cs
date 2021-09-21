@@ -198,7 +198,7 @@ namespace _007.ViewModels
             spinWheelAmination.From = -360;
             spinWheelAmination.To = angle;
             spinWheelAmination.Duration = new Duration(TimeSpan.FromSeconds(2)); //duration of spin in seconds                                                                 
-            spinWheelAmination.FillBehavior = FillBehavior.Stop;
+            spinWheelAmination.FillBehavior = FillBehavior.HoldEnd;
             spinWheelAmination.BeginTime = TimeSpan.FromSeconds(4);
             #endregion
             #region
@@ -207,7 +207,7 @@ namespace _007.ViewModels
             revertAnimation.From = angle;
             revertAnimation.To = 0;
             revertAnimation.Duration = new Duration(TimeSpan.FromSeconds(4)); //duration of spin in seconds
-            revertAnimation.BeginTime = TimeSpan.FromSeconds(8);                                                  
+            revertAnimation.BeginTime = TimeSpan.FromSeconds(9);                                                  
             revertAnimation.FillBehavior = FillBehavior.HoldEnd;
             #endregion
            
