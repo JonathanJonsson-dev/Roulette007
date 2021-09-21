@@ -176,8 +176,8 @@ namespace _007.ViewModels
             WheelStopAngle = -1 * angleGenerator.Next(0, 361);
          
             double angle = WheelStopAngle;
-            //initialize Double Animation
-            #region
+            
+            #region initialize wheel Animations
             //rotates 720 degress
             DoubleAnimation doubleSpinAnimation = new DoubleAnimation();
             doubleSpinAnimation.From = 0;
@@ -186,27 +186,36 @@ namespace _007.ViewModels
             doubleSpinAnimation.FillBehavior = FillBehavior.Stop;
             doubleSpinAnimation.IsCumulative = true;
             doubleSpinAnimation.RepeatBehavior = new RepeatBehavior(2);
-            #endregion
-            #region
+            
             // rotates to winningnumber
             DoubleAnimation spinWheelAmination = new DoubleAnimation();
             spinWheelAmination.From = -360;
             spinWheelAmination.To = angle;
             spinWheelAmination.Duration = new Duration(TimeSpan.FromSeconds(2)); //duration of spin in seconds                                                                 
-            spinWheelAmination.FillBehavior = FillBehavior.Stop;
+            spinWheelAmination.FillBehavior = FillBehavior.HoldEnd;
             spinWheelAmination.BeginTime = TimeSpan.FromSeconds(4);
-            #endregion
-            #region
+            
             //Reverts to original position
             DoubleAnimation revertAnimation = new DoubleAnimation();
             revertAnimation.From = angle;
             revertAnimation.To = 0;
             revertAnimation.Duration = new Duration(TimeSpan.FromSeconds(4)); //duration of spin in seconds
-            revertAnimation.BeginTime = TimeSpan.FromSeconds(8);                                                  
+            revertAnimation.BeginTime = TimeSpan.FromSeconds(9);                                                  
             revertAnimation.FillBehavior = FillBehavior.HoldEnd;
             #endregion
-           
-           
+
+            #region Ball animation
+            DoubleAnimation ballSpinAnimation = new DoubleAnimation();
+            //DoubleAnimation ballSpinAnimation = spinWheelAmination.Clone();
+            ballSpinAnimation.From = 0;
+            ballSpinAnimation.To = angle;
+            ballSpinAnimation.Duration = new Duration(TimeSpan.FromSeconds(4)); //duration of spin in seconds
+            ballSpinAnimation.FillBehavior = FillBehavior.HoldEnd;
+            ballSpinAnimation.IsCumulative = true;
+            ballSpinAnimation.RepeatBehavior = new RepeatBehavior(2);
+            #endregion
+
+
             #region MediaTimeline and media element for rolling ball
             //Ball media element
             MediaElement ballMediaElement = new MediaElement();
@@ -223,24 +232,29 @@ namespace _007.ViewModels
                 FillBehavior = FillBehavior.Stop,
                 BeginTime = TimeSpan.FromSeconds(0),
                 Duration = new Duration(TimeSpan.FromSeconds(6)),
-                Source = new Uri(@"C:\Users\HP\Source\Repos\SUP21_Grupp7\007\Views\Utilities\RouletteWheelSpinn.mp3"),
+                Source = new Uri("././Views/Utilities/RouletteWheelSpinn.mp3", UriKind.Relative),
             };
+            #endregion
 
+            #region Add storyboard children
             Storyboard spinWheelStoryBoard = new Storyboard();
             spinWheelStoryBoard.Children.Add(ballRollingMediaTimeline); //add media time line to storyboard
             spinWheelStoryBoard.Children.Add(doubleSpinAnimation); //add animation to storyboard 
             spinWheelStoryBoard.Children.Add(spinWheelAmination); //add animation to storyboard    
             spinWheelStoryBoard.Children.Add(revertAnimation); //add animation to storyboard
+            spinWheelStoryBoard.SlipBehavior = SlipBehavior.Slip; //sync animation and media
 
+            //Storyboard ballStoryBoard = new Storyboard();
+            //ballStoryBoard.Children.Add(ballSpinAnimation);
             #endregion
-            #region 
-            // Sets animation targets
+
+            #region Sets animation targets
             Storyboard.SetTarget(ballRollingMediaTimeline, ballMediaElement); //or //ballRollingMediaTimeline.SetValue(Storyboard.TargetProperty, ballMediaElement); 
-            
+
             Storyboard.SetTarget(doubleSpinAnimation, view.WheelControl);
 
             Storyboard.SetTargetProperty(doubleSpinAnimation, new PropertyPath("RenderTransform.Angle"));
-            
+
             Storyboard.SetTarget(revertAnimation, view.WheelControl);
 
             Storyboard.SetTargetProperty(revertAnimation, new PropertyPath("RenderTransform.Angle"));
@@ -248,11 +262,19 @@ namespace _007.ViewModels
             Storyboard.SetTarget(spinWheelAmination, view.WheelControl);
 
             Storyboard.SetTargetProperty(spinWheelAmination, new PropertyPath("RenderTransform.Angle"));
-            #endregion 
+            //ball
+            //Storyboard.SetTarget(ballSpinAnimation, view.BallControl);
+
+            //Storyboard.SetTargetProperty(ballSpinAnimation, new PropertyPath("RenderTransform.Angle"));
+
+            #endregion
 
             //Begin storyboard
             spinWheelStoryBoard.Begin(view.WheelControl, true);
-           
+
+            view.RotateBall.BeginAnimation(RotateTransform.AngleProperty, ballSpinAnimation);
+            //ballStoryBoard.Begin(view.BallControl, true);
+
             //check is clock created when storyboard began has finished executing the animation
             if (spinWheelStoryBoard.GetCurrentState(view.WheelControl) == ClockState.Stopped)
             {

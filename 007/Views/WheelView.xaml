@@ -101,6 +101,39 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
                 <Polygon Points="0,0 20,0 10,65" Fill="Black" Canvas.Left="164" Canvas.Top="-24"/>
+                
+                <Ellipse x:Name="BallControl" RenderTransformOrigin="0.5,0.5"
+                         HorizontalAlignment="Center" VerticalAlignment="Center"
+                         Width="30" Height="30"
+                         Fill="AntiqueWhite" Canvas.Left="159" Canvas.Top="-15">
+                    <Ellipse.RenderTransform>
+                        <TransformGroup>
+                            <TranslateTransform  Y="100"/>
+                            <RotateTransform x:Name="RotateBall" CenterX="2" CenterY="10"/>
+                        </TransformGroup>
+                    </Ellipse.RenderTransform>
+                </Ellipse>
+
+                <!--<Path x:Name="BallControl" Canvas.Left="174">
+                    <Path.Fill>
+                        <LinearGradientBrush>
+                            <GradientStop Color="Purple" />
+                            <GradientStop Color="LightPink" />
+                        </LinearGradientBrush>
+                    </Path.Fill>
+                    <Path.Data>
+                        <EllipseGeometry x:Name="rotateEllipse" 
+                                 RadiusX="15" RadiusY="15"
+                                 Center="2,2">
+                        </EllipseGeometry>
+                    </Path.Data>
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <RotateTransform x:Name="rotateBall"/>
+                            --><!--<TranslateTransform x:Name="translateTransform" X="170" Y="-1"/>--><!--
+                        </TransformGroup>
+                        </Path.RenderTransform>
+                </Path>-->
 
                 <Button x:Name="btnSpin" 
                         BorderBrush="SaddleBrown" BorderThickness="5" 
