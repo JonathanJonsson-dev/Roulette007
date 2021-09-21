@@ -22,7 +22,8 @@ namespace _Roulette007
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MediaPlayer mediaPlayer = new MediaPlayer();
+        MediaPlayer player = new MediaPlayer();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -32,8 +33,8 @@ namespace _Roulette007
 
         private void PlayBackgroundMusic()
         {
-            SoundPlayer sound = new SoundPlayer(_007.Properties.Resources.CasinoMusic);
-            sound.Play();
+            player.Open(new Uri(@"Resources\CasinoMusic.mp3", UriKind.Relative));
+            player.Play();
         }
     }
 }
