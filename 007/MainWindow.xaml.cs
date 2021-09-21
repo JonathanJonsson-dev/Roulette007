@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,10 +22,18 @@ namespace _Roulette007
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MediaPlayer mediaPlayer = new MediaPlayer();
         public MainWindow()
         {
             InitializeComponent();
             DataContext = new MainViewModel();
+            PlayBackgroundMusic();
+        }
+
+        private void PlayBackgroundMusic()
+        {
+            SoundPlayer sound = new SoundPlayer(_007.Properties.Resources.CasinoMusic);
+            sound.Play();
         }
     }
 }

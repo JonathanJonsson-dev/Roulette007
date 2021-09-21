@@ -251,7 +251,7 @@ namespace _007.ViewModels
         public void Payout()//Sends all bets made to gameEnigne for payout
         {
 
-            int totalPayout = 0;
+            int totalPayout = 0;            
             PlaySound(totalPayout);
 
         }
