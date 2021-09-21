@@ -1,25 +1,28 @@
 ﻿using _007.Data;
+using _007.ViewModels;
+using _007.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 
 namespace _007.Models
 {
     public class GameEngine
     {
+        private readonly GameViewModel gameViewModel;
         private static readonly Random random = new Random();
         public int WinningNumber { get; set; }
-        /// <summary>
-        /// Generates the winning number for the round 
-        /// </summary>
-        /// <returns></returns>
-       
+        public GameEngine(GameViewModel gameViewModel)
+        {
+            this.gameViewModel = gameViewModel;
+        }
         /// <summary>
         /// Loops through the numbers in the bet and return a payout based upon odds
         /// </summary>
         /// <param name="bet"></param>
         /// <returns></returns>
-        public int GetPayout(Bet bet)
+        public double GetPayout(Bet bet)
         {
             foreach (var number in bet.Numbers)//Loops through every number in the bet to check against the winning number
             {
@@ -56,6 +59,38 @@ namespace _007.Models
             return 0;
         }
       
-        
+        public Bet CreateBet(Marker marker, Point point)// Handles bet made on number part of gameboard
+        {
+
+            point.Y = Math.Round(point.Y/50)-1; //Gets row
+            point.X = Math.Round(point.X/50)-2; //Gets col
+            int numberToFind = (int)point.X + ((int)point.Y*3) ; //Math to find the number 
+            List<int> numbers = new List<int>();
+            if (numberToFind < 0)
+                numberToFind = 0;
+            numbers.Add(gameViewModel.BoardViewModel.Board[numberToFind].BoardPieceNumber);
+            BetType betType = BetType.Straightup;
+            
+            Bet bet = new Bet
+            {
+                Mark = marker,
+                Type = betType,
+                Value = marker.Value,
+                Numbers = numbers
+            };
+            return bet;
+        }
+        public Bet CreateBet(Marker marker, BetType betType, List<int> numbers)// handles bet not on number part of board like 1st 12 and 1-18 where numbers are know easily
+        {
+
+            Bet bet = new Bet
+            {
+                Mark = marker,
+                Type = betType,
+                Value = marker.Value,
+                Numbers = numbers
+            };
+            return bet;
+        }
     }
 }

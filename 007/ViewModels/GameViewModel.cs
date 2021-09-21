@@ -39,7 +39,7 @@ namespace _007.ViewModels
 
             Player = new PlayerViewModel();
 
-            GameEngine = new GameEngine();
+            GameEngine = new GameEngine(this);
 
             PickBetCommand = new PickBetCommand(this);
 			

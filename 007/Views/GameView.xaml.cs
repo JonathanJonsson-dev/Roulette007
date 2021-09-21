@@ -53,8 +53,8 @@ namespace _007.Views
         {
             double cellSizeX = 25;
             double cellSizeY = 25;
-            int offsetX = -8;
-            int offsetY = 6;
+            int offsetX = -10;
+            int offsetY = 4;
             var x = point.X;
             var y = point.Y;
             Point _point;
@@ -141,51 +141,64 @@ namespace _007.Views
 
         private void board_Drop(object sender, DragEventArgs e)
         {
+           
             object data = e.Data.GetData(DataFormats.Serializable);
             Marker marker;
-            if (data is Marker)
-            {
-                marker = (Marker)data;
-               
-                bool isAlreadyOn = false;
-                foreach (var bet in gameViewModel.Player.Bets)
+                if (data is Marker)
                 {
-                    if(marker == bet.Mark)
+                    marker = (Marker)data;
+                if (gameViewModel.Player.Name != "")
+                {
+                    bool isAlreadyOn = false;
+                    foreach (var bet in gameViewModel.Player.Bets)
                     {
-                        isAlreadyOn = true;
+                        if (marker == bet.Mark)
+                        {
+                            isAlreadyOn = true;
+                        }
+                    }
+                    if (!isAlreadyOn)
+                    {
+                        if (gameViewModel.Player.Pot - marker.Value >= 0)
+                        {
+                            Point point = e.GetPosition(board);
+                            Bet bet = new Bet();
+                            if (point.X > 130 && point.Y < 624)
+                            {
+                                 bet = gameViewModel.GameEngine.CreateBet(marker, point);
+                            }
+                            gameViewModel.Player.Bets.Add(bet);
+                            gameViewModel.Player.Pot -= (int)marker.Value;
+
+                            Marker newMark = new Marker
+                            {
+                                Value = marker.Value,
+                                MarkerColor = marker.MarkerColor,
+                                Margin = marker.GetMarkerMargin(marker.colors),
+                                colors = marker.colors
+                            };
+                            markerboard.Children.Add(newMark);
+                        }
+                        else
+                        {
+                            board.Children.Remove(marker);
+
+                            marker.Margin = marker.GetMarkerMargin(marker.colors);
+                            markerboard.Children.Add(marker);
+                            MessageBox.Show("You can't afford");
+                        }
                     }
                 }
-                if (!isAlreadyOn)
+                else
                 {
-                    if (gameViewModel.Player.Pot - marker.Value >= 0)
-                    {
-                        Bet bet = new Bet {
-                            Value = marker.Value,
-                            Mark = marker
-                        
-                        };
-                        gameViewModel.Player.Bets.Add(bet);
-                        gameViewModel.Player.Pot -= marker.Value;
-                        
-                        Marker newMark = new Marker {
-                            Value = marker.Value,
-                            MarkerColor = marker.MarkerColor,
-                            Margin = marker.GetMarkerMargin(marker.colors),
-                            colors = marker.colors
-                        };
-                        markerboard.Children.Add(newMark);
-                    }
-                    else
-                    {
-                        board.Children.Remove(marker);
-                        
-                        marker.Margin = marker.GetMarkerMargin(marker.colors);
-                        markerboard.Children.Add(marker);
-                        MessageBox.Show("You can't afford");
-                    }
+                    board.Children.Remove(marker);
+
+                    marker.Margin = marker.GetMarkerMargin(marker.colors);
+                    markerboard.Children.Add(marker);
+                    MessageBox.Show("Please enter your name first.");
                 }
-              
             }
+            
             
         }
 
@@ -210,7 +223,7 @@ namespace _007.Views
 
 
                    
-                    gameViewModel.Player.Pot += marker.Value;
+                    gameViewModel.Player.Pot += (int)marker.Value;
                     markerboard.Children.Remove(marker);
                 }
                 marker.Margin = marker.GetMarkerMargin(marker.colors);
