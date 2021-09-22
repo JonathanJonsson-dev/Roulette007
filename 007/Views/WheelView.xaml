@@ -125,9 +125,9 @@
                 </Button>-->
                 <Button x:Name="Button" 
                         HorizontalContentAlignment="Center" 
-                        Content="{Binding WinningNumber}" 
+                        Content="Spin Wheel" 
                         Command="{Binding SpinnWheelCommand}" 
-                        BorderBrush="SaddleBrown" BorderThickness="5" Width="150" Height="55" FontSize="20" 
+                        BorderBrush="SaddleBrown" BorderThickness="5" Width="160" Height="55" FontSize="20" 
                         Canvas.Left="220" Canvas.Top="435">
                     
                     <Button.Triggers>
@@ -139,7 +139,7 @@
                     </Button.Triggers>
                     
                 </Button>
-                <TextBlock Text="{Binding Wheel.CurrentAngle}"></TextBlock>
+                <TextBlock Text="{Binding WinningNumber}"></TextBlock>
             </Canvas>
         </Grid>
     </Border>
