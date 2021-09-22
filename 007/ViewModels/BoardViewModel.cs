@@ -345,35 +345,7 @@ namespace _007.ViewModels
         /// <param name="totalPayout"></param>
         private void PlaySound(int totalPayout)
         {
-            MediaPlayer player = new MediaPlayer();
-            Random random = new Random();
-
-            if (totalPayout > 0)
-            {
-                if (random.NextDouble() > 0.5) // Play random winning sound. 
-                {
-                    player.Open(new Uri(@"Resources\WinningSound1.wav", UriKind.Relative));
-                    player.Volume = 0.1;
-                    player.Play();
-                }
-                else
-                {
-                    player.Open(new Uri(@"Resources\WinningSound2.mp3", UriKind.Relative));
-                    player.Volume = 0.1;
-                    player.Play();
-                }
-                
-                //SoundPlayer sound = new SoundPlayer(Properties.Resources.WinningSound1);
-                //sound.Play();
-            }
-            else
-            {
-                player.Open(new Uri(@"Resources\LosingSound.wav", UriKind.Relative));
-                player.Volume = 0.1;
-                player.Play();
-                //SoundPlayer sound = new SoundPlayer(Properties.Resources.LosingSound);
-                //sound.Play();
-            }
+           
         }
     }
 }

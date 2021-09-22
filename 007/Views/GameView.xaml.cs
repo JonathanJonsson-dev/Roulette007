@@ -21,10 +21,11 @@ namespace _007.Views
     /// </summary>
     public partial class GameView : UserControl
     {
-        private readonly GameViewModel gameViewModel = new GameViewModel();
+        private readonly GameViewModel gameViewModel;
         public GameView()
         {
             InitializeComponent();
+            gameViewModel = new GameViewModel(this);
             DataContext = gameViewModel;
             
         }
