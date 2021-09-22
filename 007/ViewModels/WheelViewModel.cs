@@ -291,6 +291,23 @@ namespace _007.ViewModels
                     }
                 }
             }
+
+            DoubleAnimation winningPieceAnimation = new DoubleAnimation
+            {
+                Duration = TimeSpan.FromSeconds(2),
+                From = 1,
+                To = 0,
+                AutoReverse = true
+            };
+
+            foreach (WheelPiece piece in WheelCollection)
+            {
+                if (piece.IsWinningNumber)
+                {
+                    view.WheelControl.Background.BeginAnimation()
+                }
+            }
+            
         }
 
         /// <summary>

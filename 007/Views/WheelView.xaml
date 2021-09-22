@@ -108,8 +108,8 @@
                          Fill="AntiqueWhite" Canvas.Left="159" Canvas.Top="-15">
                     <Ellipse.RenderTransform>
                         <TransformGroup>
-                            <TranslateTransform  Y="100"/>
-                            <RotateTransform x:Name="RotateBall" CenterX="2" CenterY="10"/>
+                            <TranslateTransform Y="8"/>
+                            <RotateTransform x:Name="RotateBall" CenterX="10" CenterY="10"/>
                         </TransformGroup>
                     </Ellipse.RenderTransform>
                 </Ellipse>
