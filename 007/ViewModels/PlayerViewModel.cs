@@ -30,7 +30,7 @@ namespace _007.ViewModels
             ResetGameCommand = new ResetGameCommand(this);
             GetStarterMarkers();
         }
-
+        
         private void GetStarterMarkers()
         {
             
