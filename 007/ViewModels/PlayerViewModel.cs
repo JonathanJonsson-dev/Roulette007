@@ -23,11 +23,15 @@ namespace _007.ViewModels
 
         public RelayCommand SetNameCommand { get; }
         public ICommand ResetGameCommand { get; }
+        public ShowRulesCommand ShowRulesCommand { get; }
+        public ShowInstructionsCommand ShowInstructionsCommand { get; }
 
         public PlayerViewModel()
         {
             SetNameCommand = new RelayCommand(x => IsSetButtonEnabled(), x => SetPlayerName());
             ResetGameCommand = new ResetGameCommand(this);
+            ShowRulesCommand = new ShowRulesCommand(this);
+            ShowInstructionsCommand = new ShowInstructionsCommand(this);
             GetStarterMarkers();
         }
 
@@ -57,6 +61,16 @@ namespace _007.ViewModels
         {
             
             Pot = 1000;
+        }
+
+        public void ShowInstructions()
+        {
+            MessageBox.Show($"Instructions here");
+        }
+
+        public void ShowRules()
+        {
+            MessageBox.Show($"Rules here");
         }
 
 
