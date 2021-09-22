@@ -50,14 +50,19 @@
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:Name="WheelPiece">
+                            <!--<DataTemplate.Triggers>
+                                <Trigger Property="{Binding IsWinningNumber}" Value="True">
+                                    <Setter Property="Opacity" Value="0"/>
+                                </Trigger>
+                            </DataTemplate.Triggers>-->
                             <Grid>
-                                <Label x:Name="lblNumber"  HorizontalAlignment="Left" 
+                                <Label x:Uid="lblNumber" x:Name="lblNumber"  HorizontalAlignment="Left" 
                                        VerticalAlignment="Top" 
                                            HorizontalContentAlignment="Center" 
                                        VerticalContentAlignment="Center" 
                                            Width="{Binding PieceWidth}" Height="auto"
-                                           Foreground="White"  Content="{Binding Label, Mode=OneWay}">
+                                           Foreground="White"  Content="{Binding Number, Mode=OneWay}">
                                     <Label.RenderTransform>
                                         <TransformGroup>
                                             <TranslateTransform X="{Binding XPosition, Mode=OneWay}" 
@@ -71,7 +76,7 @@
                                     <Label.Background>
                                         <VisualBrush>
                                             <VisualBrush.Visual>
-                                                <Polygon Stroke="Goldenrod"  StrokeThickness="1" 
+                                                <Polygon x:Name="plgPolygon" Stroke="Goldenrod"  StrokeThickness="1" 
                                                          Points="{Binding Points, Mode=OneWay}">
                                                     <Polygon.Style>
                                                         <Style TargetType="Polygon">
@@ -86,7 +91,7 @@
                                                                     <Setter Property="Fill" Value="Black"></Setter>
                                                                 </DataTrigger>
                                                                 <DataTrigger Binding="{Binding IsWinningNumber}" Value="True">
-                                                                    <Setter Property="Fill" Value="White"></Setter>
+                                                                    <Setter Property="Fill" Value="Blue"></Setter>
                                                                 </DataTrigger>
                                                             </Style.Triggers>
                                                         </Style>

@@ -273,6 +273,16 @@ namespace _007.ViewModels
                     }
                 }
             }
+
+            DoubleAnimation winningPieceAnimation = new DoubleAnimation
+            {
+                BeginTime = TimeSpan.FromSeconds(8),
+                Duration = TimeSpan.FromSeconds(2),
+                From = 1,
+                To = 0,
+                AutoReverse = true
+                
+            };
         }
 
         /// <summary>

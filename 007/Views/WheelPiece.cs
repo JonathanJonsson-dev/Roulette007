@@ -57,5 +57,6 @@ namespace _007.Models
             CenterPointX = wheelCenterPointXPixels;
             CenterPointY = wheelCenterPointYPixels;
         }
+
     }
 }
