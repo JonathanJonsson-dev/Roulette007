@@ -8,11 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1200"
              xmlns:vm="clr-namespace:_007.ViewModels"
-             xmlns:commands="clr-namespace:_007.Commands"
-             
-             >
-
-
+             xmlns:commands="clr-namespace:_007.Commands">
     <Border
         Background="DarkGreen"
         BorderBrush="SaddleBrown" 
@@ -30,14 +26,13 @@
                 <RowDefinition Height="0"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                
-                
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
+            <!--<ItemsControl Grid.Column="0" Grid.Row="1" ItemsSource="{Binding SoundSettingsView}"/>-->
+            <ContentControl Grid.Row="1" Grid.Column="3" Content="{Binding SoundSettingsView}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
-            
             <UniformGrid Grid.Column="0" Grid.Row="1">
                 <views:WheelView Grid.Row="2"
                         Grid.Column="1"
