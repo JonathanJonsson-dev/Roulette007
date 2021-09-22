@@ -10,7 +10,7 @@
         <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
             <!-- To interactively stop, pause, and play the media, the LoadedBehavior 
            property of the MediaElement must be set to "Manual". -->
-            <MediaElement Source="C:\Users\jonss\source\repos\007\007\Resources\CasinoMusic.mp3" Name="myMediaElement" 
+            <MediaElement Source="Resources/CasinoMusic.mp3" Name="myMediaElement" 
                             LoadedBehavior="Manual" UnloadedBehavior="Stop" Stretch="Fill" />
 
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">

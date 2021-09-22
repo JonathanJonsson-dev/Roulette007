@@ -24,7 +24,6 @@ namespace _007.Views
             InitializeComponent();
             DataContext = new SoundSettingsViewModel();
             InitializePropertyValues();
-            
         }
 
         private void ChangeMediaVolume(object sender, RoutedPropertyChangedEventArgs<double> e)
