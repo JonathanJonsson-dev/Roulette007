@@ -16,6 +16,7 @@ namespace _007.ViewModels
     public class GameViewModel : BaseViewModel
     {
         public SoundSettingsViewModel SoundSettingsView { get; set; } = new SoundSettingsViewModel();
+        public GameView gameView;
         public BoardViewModel BoardViewModel { get; set; }
         public WheelViewModel WheelViewModel { get; set; }
         public PlayerViewModel Player { get; set; } 
@@ -26,11 +27,12 @@ namespace _007.ViewModels
         public ICommand CloseBetCommand { get; }
 		public ICommand SpinWheelCommand { get; }
         
-        public GameViewModel()
+        public GameViewModel(GameView gameView)
         {
+            this.gameView = gameView;
             BoardViewModel = new BoardViewModel(this.Player, this.GameEngine);
 
-            WheelViewModel = new WheelViewModel();
+            WheelViewModel = new WheelViewModel(this);
 
             Player = new PlayerViewModel();
 

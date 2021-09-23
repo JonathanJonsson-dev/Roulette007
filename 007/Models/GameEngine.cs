@@ -3,6 +3,7 @@ using _007.ViewModels;
 using _007.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;
@@ -23,17 +24,54 @@ namespace _007.Models
         /// </summary>
         /// <param name="bet"></param>
         /// <returns></returns>
-        public double GetPayout(Bet bet)
+        public void GetPayout(ObservableCollection<Bet> bets)
         {
-            foreach (var number in bet.Numbers)//Loops through every number in the bet to check against the winning number
+            int totalPayout = 0;
+            
+            foreach (var bet in bets)//Loops through every number in the bet to check against the winning number
             {
-                
-                if(number == WinningNumber)
+                foreach (var number in bet.Numbers)
                 {
-                    return bet.Value * GetPayoutRatio(bet.Type); //Returns the players payout
+                    if (number == gameViewModel.WheelViewModel.WinningNumber)
+                    {
+                        totalPayout+= bet.Value * GetPayoutRatio(bet.Type); //Returns the players payout
+                    }
                 }
+                gameViewModel.gameView.board.Children.Remove(bet.Mark);
+
+
             }
-            return 0; //Returns nothing for the player because the have lost
+            gameViewModel.Player.Bets.Clear();
+           
+            MediaPlayer player = new MediaPlayer();
+            if (totalPayout > 0)
+            {
+                if (random.NextDouble() > 0.5) // Play random winning sound. 
+                {
+                    player.Open(new Uri(@"Resources\WinningSound1.wav", UriKind.Relative));
+                    player.Volume = 0.1;
+                    player.Play();
+                }
+                else
+                {
+                    player.Open(new Uri(@"Resources\WinningSound2.mp3", UriKind.Relative));
+                    player.Volume = 0.1;
+                    player.Play();
+                }
+
+                //SoundPlayer sound = new SoundPlayer(Properties.Resources.WinningSound1);
+                //sound.Play();
+            }
+            else
+            {
+                player.Open(new Uri(@"Resources\LosingSound.wav", UriKind.Relative));
+                player.Volume = 0.1;
+                player.Play();
+                //SoundPlayer sound = new SoundPlayer(Properties.Resources.LosingSound);
+                //sound.Play();
+            }
+            gameViewModel.Player.Pot += totalPayout; //Returns nothing for the player because the have lost
+            
         }
         private int GetPayoutRatio(BetType type)
         {

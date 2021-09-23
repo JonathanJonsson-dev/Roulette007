@@ -6,13 +6,13 @@ using System.Windows.Input;
 
 namespace _007.Commands
 {
-    public class SetNameCommand : ICommand
+    public class ShowInstructionsCommand : ICommand
     {
         private PlayerViewModel playerViewModel;
         public event EventHandler CanExecuteChanged;
-        
 
-        public SetNameCommand(PlayerViewModel playerViewModel)
+
+        public ShowInstructionsCommand(PlayerViewModel playerViewModel)
         {
             this.playerViewModel = playerViewModel;
         }
@@ -24,14 +24,12 @@ namespace _007.Commands
 
         public void Execute(object parameter)
         {
-
-
+            playerViewModel.ShowInstructions();
 
         }
 
 
-       
+
 
     }
 }
-

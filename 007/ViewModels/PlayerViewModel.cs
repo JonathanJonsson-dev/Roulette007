@@ -23,14 +23,18 @@ namespace _007.ViewModels
 
         public RelayCommand SetNameCommand { get; }
         public ICommand ResetGameCommand { get; }
+        public ShowRulesCommand ShowRulesCommand { get; }
+        public ShowInstructionsCommand ShowInstructionsCommand { get; }
 
         public PlayerViewModel()
         {
             SetNameCommand = new RelayCommand(x => IsSetButtonEnabled(), x => SetPlayerName());
             ResetGameCommand = new ResetGameCommand(this);
+            ShowRulesCommand = new ShowRulesCommand(this);
+            ShowInstructionsCommand = new ShowInstructionsCommand(this);
             GetStarterMarkers();
         }
-
+        
         private void GetStarterMarkers()
         {
             
@@ -59,6 +63,20 @@ namespace _007.ViewModels
             Pot = 1000;
         }
 
+        public void ShowInstructions()
+        {
+            MessageBox.Show($"Instructions here");
+        }
+
+        public void ShowRules()
+        {
+            MessageBox.Show($"To place a bet, drag selected marker onto the desired field. " +
+                $"This can be done multiple times as long as there are money left in your pot. " +
+                $"When you are happy with your bets, spin the wheel. " +
+                $"If your pot runs out of money, you can always restart the game. Good luck!");
+        }
+
+        
 
     }
 }
