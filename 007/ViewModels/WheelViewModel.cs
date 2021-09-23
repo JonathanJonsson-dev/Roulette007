@@ -11,6 +11,8 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Windows.Controls;
 using System.IO;
+using System.Windows.Threading;
+using System.Windows.Data;
 
 namespace _007.ViewModels
 {
@@ -21,6 +23,10 @@ namespace _007.ViewModels
         //According to single zero wheel
         private readonly int[] wheelNumbers = {0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33,
             1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26};
+
+        private readonly GameViewModel gameViewModel;
+
+        int winAmount;
         #endregion
 
         #region Properties
@@ -29,7 +35,6 @@ namespace _007.ViewModels
 
         //a collection of wheel piesces
         public ObservableCollection<WheelPiece> WheelCollection { get; set; } = new ObservableCollection<WheelPiece>();
-        private readonly GameViewModel gameViewModel;
 
         //cordinates to draw wheel labels
         public double CenterPointX { get; set; }
@@ -158,7 +163,7 @@ namespace _007.ViewModels
         private int DetermineWinningNumber(double angle)
         {
             //Each number represents a sector of a circle. Determine angle of each sector out of 37 (360/37)
-            double sectorAngle = 9.7297;
+            double sectorAngle = Constants.WheelPieceDegrees;
             
             //correct anti-clockwise spin angle with -1
             int determinant = (int)Math.Round(-1 * angle / sectorAngle); //gives position of winning number in array of wheel numbers
@@ -175,10 +180,19 @@ namespace _007.ViewModels
         /// <param name="_view"></param>
         public void SpinWheelGetAngle(WheelView _view)
         {
+            //reset wheel by refresh
+            foreach(WheelPiece wheelPiece in WheelCollection)
+            {
+                if (wheelPiece.IsWinningNumber)
+                {
+                    wheelPiece.IsWinningNumber = false;
+                }
+            }
+
+            Refresh(WheelCollection); //refresh collection
+
             if (gameViewModel.Player.Bets.Count != 0)
             {
-
-
                 WheelView view = _view; //Wheel object
                                         //Random angle generator
                 Random angleGenerator = new Random();
@@ -191,20 +205,20 @@ namespace _007.ViewModels
                 #region
                 //rotates 720 degress
                 DoubleAnimation doubleSpinAnimation = new DoubleAnimation();
-                doubleSpinAnimation.From = 0;
-                doubleSpinAnimation.To = 360;
-                doubleSpinAnimation.Duration = new Duration(TimeSpan.FromSeconds(2)); //duration of spin in seconds
+                doubleSpinAnimation.From = Constants.StartAngle;
+                doubleSpinAnimation.To = Constants.FullCircleDegrees;
+                doubleSpinAnimation.Duration = new Duration(TimeSpan.FromSeconds(Constants.WheelSpinDurationSeconds)); //duration of spin in seconds
                 doubleSpinAnimation.FillBehavior = FillBehavior.Stop;
                 doubleSpinAnimation.IsCumulative = true;
-                doubleSpinAnimation.RepeatBehavior = new RepeatBehavior(2);
+                doubleSpinAnimation.RepeatBehavior = new RepeatBehavior(Constants.RepeatRatio);
                 #endregion
                 #region
                 // rotates to winningnumber
                 DoubleAnimation spinWheelAmination = new DoubleAnimation();
-                spinWheelAmination.From = -360;
+                spinWheelAmination.From = -Constants.FullCircleDegrees;
                 spinWheelAmination.To = angle;
-                spinWheelAmination.Duration = new Duration(TimeSpan.FromSeconds(2)); //duration of spin in seconds                                                                 
-                spinWheelAmination.FillBehavior = FillBehavior.Stop;
+                spinWheelAmination.Duration = new Duration(TimeSpan.FromSeconds(Constants.WheelSpinDurationSeconds)); //duration of spin in seconds                                                                 
+                spinWheelAmination.FillBehavior = FillBehavior.HoldEnd;
                 spinWheelAmination.BeginTime = TimeSpan.FromSeconds(4);
                 spinWheelAmination.Completed += new EventHandler(spinWheelAnimation_Completed);
                 #endregion
@@ -212,7 +226,7 @@ namespace _007.ViewModels
                 //Reverts to original position
                 //DoubleAnimation revertAnimation = new DoubleAnimation();
                 //revertAnimation.From = angle;
-                //revertAnimation.To = 0;
+                //revertAnimation.To = Constants.StartAngle;
                 //revertAnimation.Duration = new Duration(TimeSpan.FromSeconds(4)); //duration of spin in seconds
                 //revertAnimation.BeginTime = TimeSpan.FromSeconds(9);                                                  
                 //revertAnimation.FillBehavior = FillBehavior.Stop;
@@ -232,18 +246,18 @@ namespace _007.ViewModels
                 MediaTimeline ballRollingMediaTimeline = new MediaTimeline
                 {
                     FillBehavior = FillBehavior.Stop,
-                    BeginTime = TimeSpan.FromSeconds(0),
+                    BeginTime = TimeSpan.FromSeconds(Constants.Zero),
                     Duration = new Duration(TimeSpan.FromSeconds(6)),
-                    Source = new Uri("././Views/Utilities/RouletteWheelSpinn.mp3", UriKind.Relative),
+                    Source = new Uri(Constants.BallSoundFilePath, UriKind.Relative),
                 };
+                #endregion
 
+                #region Add Storyboard children
                 Storyboard spinWheelStoryBoard = new Storyboard();
-
-
                 spinWheelStoryBoard.Children.Add(ballRollingMediaTimeline); //add media time line to storyboard
                 spinWheelStoryBoard.Children.Add(doubleSpinAnimation); //add animation to storyboard 
                 spinWheelStoryBoard.Children.Add(spinWheelAmination); //add animation to storyboard    
-                                                                      //revertWheelStoryBoard.Children.Add(revertAnimation); //add animation to storyboard
+                //revertWheelStoryBoard.Children.Add(revertAnimation); //add animation to storyboard
                 spinWheelStoryBoard.SlipBehavior = SlipBehavior.Slip; //ensures that animation and media starts at same time
 
                 #endregion
@@ -262,51 +276,111 @@ namespace _007.ViewModels
                 Storyboard.SetTarget(spinWheelAmination, view.WheelControl);
 
                 Storyboard.SetTargetProperty(spinWheelAmination, new PropertyPath("RenderTransform.Angle"));
+                
                 #endregion
 
                 //Begin storyboard
                 spinWheelStoryBoard.Begin(view.WheelControl, true);
 
+                #region Timer to make sure animation completes before setting winning number
+                //var timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(8) };
+                //timer.Start();
+                //timer.Tick += (sender, args) =>
+                //{
+                //    timer.Stop();
+                //    //Get winning number
+                //    WinningNumber = DetermineWinningNumber(WheelStopAngle);
+                //    //view.Rotate.Angle = WheelStopAngle; //Saves rotation for next spin
 
-                //check is clock created when storyboard began has finished executing the animation
-                if (spinWheelStoryBoard.GetCurrentState(view.WheelControl) == ClockState.Stopped)
-                {
-                    //Get winning number
-                    WinningNumber = DetermineWinningNumber(WheelStopAngle);
-                    view.Rotate.Angle = WheelStopAngle; //Saves rotation for next spin
+                //    //change IsWinningNumber to true for winning wheelPiece
+                //    foreach (WheelPiece piece in WheelCollection)
+                //    {
+                //        if (piece.Number == WinningNumber)
+                //        {
+                //            piece.IsWinningNumber = true;
+                //        }
+                //    }
+                //    //Refresh wheelcollection to update UI
+                //    Refresh(WheelCollection);
 
-                    //change IsWinningNumber to true for winning wheelPiece
-                    foreach (WheelPiece piece in WheelCollection)
-                    {
-                        if (piece.Number == WinningNumber)
-                        {
-                            piece.IsWinningNumber = true;
-                        }
-                    }
+                //    MessageBox.Show($"Winning Number is {WinningNumber}", "WinningNumber number", MessageBoxButton.OK, MessageBoxImage.Information);
+                //};
 
-                }
+                //check if clock created when storyboard began has finished executing the animation
+                //if (spinWheelStoryBoard.GetCurrentState(view.WheelControl) == ClockState.Stopped)
+                //{
+                //    //Get winning number
+                //    WinningNumber = DetermineWinningNumber(WheelStopAngle);
+                //    view.Rotate.Angle = WheelStopAngle; //Saves rotation for next spin
+
+                //    //change IsWinningNumber to true for winning wheelPiece
+                //    foreach (WheelPiece piece in WheelCollection)
+                //    {
+                //        if (piece.Number == WinningNumber)
+                //        {
+                //            piece.IsWinningNumber = true;
+                //        }
+                //    }
+                //    //refresh wheelcollection to update UI
+                //    Refresh(WheelCollection);
+
+                //MessageBox.Show($"Winning Number is {WinningNumber}", "WinningNumber number", MessageBoxButton.OK, MessageBoxImage.Information);
+                //}
+
+                #endregion
+
+                
             }
             else
             {
                 MessageBox.Show("Please place a bet first");
             }
-           
-            
         }
+
+        /// <summary>
+        /// Calculate pay, set winning number and update wheel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void spinWheelAnimation_Completed(object sender, EventArgs e)
         {
-            
-            gameViewModel.GameEngine.GetPayout(gameViewModel.Player.Bets);
+            //Get winning number
+            GetWinningNumber();
+            //Get Pay
+            winAmount = gameViewModel.GameEngine.GetPayout(gameViewModel.Player.Bets);
+            //Update player
+            MessageBox.Show($"Winning Number is {WinningNumber} \n\n\r " +
+                $"Winning amount {winAmount}", "Win", MessageBoxButton.OK, MessageBoxImage.Information);
         }
+
         /// <summary>
-        /// Handles the MediaOpenedEvent for the BallMediaElement
+        /// Method refreshes observable collection in case attributes of existing collection object changees value
         /// </summary>
-        /// <param name = "sender" ></ param >
-        /// < param name="e"></param>
-        //private void BallMediaElementMediaOpenedEventHandler(object sender, RoutedEventArgs e)
-        //{
-        //    MediaElement mediaElement = sender as MediaElement;
-        //    mediaElement.Play();
-        //}
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        private static void Refresh<T>(ObservableCollection<T> value)
+        {
+            CollectionViewSource.GetDefaultView(value).Refresh();
+        }
+
+        /// <summary>
+        /// Method determines winning number, update wheel piece and refreshes collection
+        /// </summary>
+        private void GetWinningNumber()
+        {
+            //Get winning number
+            WinningNumber = DetermineWinningNumber(WheelStopAngle);
+
+            //change IsWinningNumber to true for winning wheelPiece
+            foreach (WheelPiece piece in WheelCollection)
+            {
+                if (piece.Number == WinningNumber)
+                {
+                    piece.IsWinningNumber = true;
+                }
+            }
+            //Refresh wheelcollection to update UI
+            Refresh(WheelCollection);
+        }
     }
 }

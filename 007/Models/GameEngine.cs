@@ -38,8 +38,6 @@ namespace _007.Models
                     }
                 }
                 gameViewModel.gameView.board.Children.Remove(bet.Mark);
-
-
             }
             gameViewModel.Player.Bets.Clear();
            

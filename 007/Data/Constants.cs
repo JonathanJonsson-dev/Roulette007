@@ -18,11 +18,11 @@ namespace _007.Data
         public const double MidPoint = 0.5;
         public const double StartAngle = 0;
         public const double StartPosition = 0;
-        public const int WheelSpinDurationSeconds = 23;
+        public const int WheelSpinDurationSeconds = 2;
         public const double FullCircleDegrees = 360;
-        //public const int WheelRadius = 50;
-        public const int MainBorderWidth = 350;
-        public const int MainBorderHeight = 350;
-        public const string BallSoundFilePath = "/Views/Utilities/BallRolling.mp4";
+        public const int RepeatRatio = 2;
+        public const int MainBorderWidth = 450;
+        public const int MainBorderHeight = 450;
+        public const string BallSoundFilePath = "././Views/Utilities/RouletteWheelSpinn.mp3";
     }
 }

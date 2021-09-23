@@ -6,9 +6,10 @@
              xmlns:views="clr-namespace:_007.Views"
              xmlns:models="clr-namespace:_007.Models"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="1200"
+             d:DesignHeight="1000" d:DesignWidth="1200"
              xmlns:vm="clr-namespace:_007.ViewModels"
              xmlns:commands="clr-namespace:_007.Commands">
+    
     <Border
         Background="DarkGreen"
         BorderBrush="SaddleBrown" 
@@ -26,7 +27,7 @@
                 <RowDefinition Height="0"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="40"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 

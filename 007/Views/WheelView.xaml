@@ -7,32 +7,32 @@
              xmlns:ViewModel="clr-namespace:_007.ViewModels"
              mc:Ignorable="d" Height="Auto" Width="Auto">
     <UserControl.Resources>
-        
+
     </UserControl.Resources>
 
     <Border x:Name="MainBorder" Background="Transparent" 
             Height="350" Width="350">
-        <Grid x:Name="MainGrid" Margin="-50,-25,50,25" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="34*"/>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="33*"/>
-            </Grid.ColumnDefinitions>
-            <Canvas Background="Transparent" Grid.ColumnSpan="3">
+        <Grid x:Name="MainGrid"  >
+            <!--<Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="00*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>-->
+            <Canvas Background="Transparent">
                 <!--Outermost wheel-->
-                <Ellipse Height="400" 
-                         Width="400"
+                <Ellipse Height="500" 
+                         Width="500"
                          Fill="Brown" Canvas.Top="-74" Canvas.Left="-51">
                     <Ellipse.RenderTransform>
                         <TranslateTransform X="25" Y="50"/>
                     </Ellipse.RenderTransform>
                 </Ellipse>
                 <!--innermost wheel-->
-                <Ellipse Height="300" 
-                         Width="300"
+                <Ellipse Height="400" 
+                         Width="400"
                          Fill="Brown"
                          Stroke="Goldenrod"
-                         StrokeThickness="50" Canvas.Top="-96" Canvas.Left="-74">
+                         StrokeThickness="75" Canvas.Top="-94" Canvas.Left="-76">
                     <Ellipse.RenderTransform>
                         <TranslateTransform X="100" Y="120"/>
                     </Ellipse.RenderTransform>
@@ -50,14 +50,24 @@
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:Name="WheelPiece">
                             <Grid>
-                                <Label x:Name="lblNumber"  HorizontalAlignment="Left" 
+                                <Label x:Uid="lblNumber" x:Name="lblNumber"  HorizontalAlignment="Left" 
                                        VerticalAlignment="Top" 
                                            HorizontalContentAlignment="Center" 
                                        VerticalContentAlignment="Center" 
                                            Width="{Binding PieceWidth}" Height="auto"
-                                           Foreground="White"  Content="{Binding Label, Mode=OneWay}">
+                                           Foreground="White"  Content="{Binding Number, Mode=OneWay}">
+                                    <Label.Style>
+                                        <Style TargetType="Label">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsWinningNumber}" Value="True">
+                                                    <Setter Property="BorderBrush" Value="Yellow"/>
+                                                    <Setter Property="BorderThickness" Value="2"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
                                     <Label.RenderTransform>
                                         <TransformGroup>
                                             <TranslateTransform X="{Binding XPosition, Mode=OneWay}" 
@@ -71,23 +81,33 @@
                                     <Label.Background>
                                         <VisualBrush>
                                             <VisualBrush.Visual>
-                                                <Polygon Stroke="Goldenrod"  StrokeThickness="1" 
+                                                <Polygon x:Name="plgPolygon" Stroke="Blue"  
+                                                         StrokeThickness="1" 
                                                          Points="{Binding Points, Mode=OneWay}">
                                                     <Polygon.Style>
-                                                        <Style TargetType="Polygon">
+                                                        <Style TargetType="{x:Type Polygon}">
+                                                            <!--<Setter Property="Effect" >
+                                                                <Setter.Value>
+                                                                    <DropShadowEffect
+                                                                                Color="PaleVioletRed"
+                                                                                BlurRadius="0"
+                                                                                ShadowDepth="0"/>
+                                                                </Setter.Value>
+                                                            </Setter>-->
                                                             <Style.Triggers>
                                                                 <DataTrigger Binding="{Binding IsGreenNumber}" Value="True">
-                                                                    <Setter Property="Fill" Value="LimeGreen"></Setter>
+                                                                    <Setter Property="Fill" Value="LimeGreen"/>
                                                                 </DataTrigger>
                                                                 <DataTrigger Binding="{Binding IsRedNumber}" Value="True">
-                                                                    <Setter Property="Fill" Value="Red"></Setter>
+                                                                    <Setter Property="Fill" Value="Red"/>
                                                                 </DataTrigger>
                                                                 <DataTrigger Binding="{Binding IsBlackNumber}" Value="True">
-                                                                    <Setter Property="Fill" Value="Black"></Setter>
+                                                                    <Setter Property="Fill" Value="Black"/>
                                                                 </DataTrigger>
-                                                                <DataTrigger Binding="{Binding IsWinningNumber}" Value="True">
-                                                                    <Setter Property="Fill" Value="White"></Setter>
-                                                                </DataTrigger>
+                                                                <!--<DataTrigger Binding="{Binding IsWinningNumber}" Value="True">
+                                                                    <Setter Property="Fill" Value="Transparent"/>
+                                                                </DataTrigger>-->
+
                                                             </Style.Triggers>
                                                         </Style>
                                                     </Polygon.Style>
@@ -100,12 +120,12 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-                <Polygon Points="0,0 20,0 10,65" Fill="Black" Canvas.Left="164" Canvas.Top="-24"/>
+                <Polygon Points="0,0 20,0 10,75" Fill="Black" Canvas.Left="214" Canvas.Top="-24"/>
 
                 <Button x:Name="btnSpin" 
                         BorderBrush="SaddleBrown" BorderThickness="5" 
-                        Content="Spin Wheel" Width="150" Height="55" FontSize="20" Canvas.Top="405" 
-                        RenderTransformOrigin="0.633,1.455" Canvas.Left="95"
+                        Content="Spin Wheel" Width="150" Height="55" FontSize="25" Canvas.Top="498" 
+                        RenderTransformOrigin="0.633,1.455" Canvas.Left="149"
                         Command="{Binding SpinWheelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}">
                 </Button>
             </Canvas>
