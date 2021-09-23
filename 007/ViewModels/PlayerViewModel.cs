@@ -70,9 +70,13 @@ namespace _007.ViewModels
 
         public void ShowRules()
         {
-            MessageBox.Show($"Rules here");
+            MessageBox.Show($"To place a bet, drag selected marker onto the desired field. " +
+                $"This can be done multiple times as long as there are money left in your pot. " +
+                $"When you are happy with your bets, spin the wheel. " +
+                $"If your pot runs out of money, you can always restart the game. Good luck!");
         }
 
+        
 
     }
 }

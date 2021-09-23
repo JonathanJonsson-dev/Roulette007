@@ -23,7 +23,7 @@
             <Button x:Name="btnSet" Content="Set" Command="{Binding SetNameCommand}" HorizontalAlignment="Left" Margin="337,207,0,0" VerticalAlignment="Top" Width="43" Visibility="Visible" RenderTransformOrigin="-0.744,1.353" />
             <Button x:Name="btnResetGame" Content="Reset Game" Command="{Binding ResetGameCommand}" HorizontalAlignment="Left" Margin="18,170,0,0" VerticalAlignment="Top" Height="30" Width="76" Background="Transparent" BorderBrush="Transparent" Foreground="AntiqueWhite"/>
             <Label x:Name="lblPotAmount" Content="{Binding Pot}" HorizontalAlignment="Left" Margin="16,84,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.843,5.1" Foreground="Black" FontSize="24" Height="40" Width="106" BorderBrush="SaddleBrown" BorderThickness="2" Background="White"/>
-            <TextBox HorizontalAlignment="Left" Margin="208,208,0,0" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.8,0.599"/>
+            <TextBox x:Name="txtSetName" HorizontalAlignment="Left" Margin="208,208,0,0" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.8,0.599"/>
             <Button Content="Instructions" HorizontalAlignment="Left" Margin="228,84,0,0" Command="{Binding ShowInstructionsCommand}" VerticalAlignment="Top" RenderTransformOrigin="2.701,0.789" Width="78"/>
             <Button Content="Rules" HorizontalAlignment="Left" Margin="228,125,0,0" Command="{Binding ShowRulesCommand}" VerticalAlignment="Top" RenderTransformOrigin="-1.45,0.401" Width="78"/>
 
