@@ -24,7 +24,7 @@ namespace _007.Models
         /// </summary>
         /// <param name="bet"></param>
         /// <returns></returns>
-        public void GetPayout(ObservableCollection<Bet> bets)
+        public int GetPayout(ObservableCollection<Bet> bets)
         {
             int totalPayout = 0;
             
@@ -71,7 +71,7 @@ namespace _007.Models
                 //sound.Play();
             }
             gameViewModel.Player.Pot += totalPayout; //Returns nothing for the player because the have lost
-            
+            return totalPayout;
         }
         private int GetPayoutRatio(BetType type)
         {
