@@ -13,6 +13,12 @@
 
     <None Remove="Resources\CasinoMusic.wav" />
 
+    <None Remove="Resources\LosingSound.wav" />
+
+    <None Remove="Resources\WinningSound1.wav" />
+
+    <None Remove="Resources\WinningSound2.mp3" />
+
     <None Remove="Views\Utilities\BallRolling.mp4" />
 
     <None Remove="Views\Utilities\RouletteWheelSpinn.mp3" />
@@ -29,6 +35,18 @@
     <Content Include="Resources\CasinoMusic.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+
+    <EmbeddedResource Include="Resources\LosingSound.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+
+    <EmbeddedResource Include="Resources\WinningSound1.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+
+    <EmbeddedResource Include="Resources\WinningSound2.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
 
     <Content Include="Views\Utilities\BallRolling.mp4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
