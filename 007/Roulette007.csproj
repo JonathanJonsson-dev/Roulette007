@@ -47,7 +47,7 @@
     </EmbeddedResource>
 
     <Content Include="Views\Utilities\RouletteWheelSpinn.mp3">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 

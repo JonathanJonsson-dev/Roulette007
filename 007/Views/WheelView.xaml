@@ -86,14 +86,14 @@
                                                          Points="{Binding Points, Mode=OneWay}">
                                                     <Polygon.Style>
                                                         <Style TargetType="{x:Type Polygon}">
-                                                            <Setter Property="Effect" >
+                                                            <!--<Setter Property="Effect" >
                                                                 <Setter.Value>
                                                                     <DropShadowEffect
                                                                                 Color="PaleVioletRed"
                                                                                 BlurRadius="0"
                                                                                 ShadowDepth="0"/>
                                                                 </Setter.Value>
-                                                            </Setter>
+                                                            </Setter>-->
                                                             <Style.Triggers>
                                                                 <DataTrigger Binding="{Binding IsGreenNumber}" Value="True">
                                                                     <Setter Property="Fill" Value="LimeGreen"/>

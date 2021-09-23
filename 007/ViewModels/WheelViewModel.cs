@@ -346,7 +346,7 @@ namespace _007.ViewModels
         {
             //Get winning number
             GetWinningNumber();
-            //Pay
+            //Get Pay
             winAmount = gameViewModel.GameEngine.GetPayout(gameViewModel.Player.Bets);
             //Update player
             MessageBox.Show($"Winning Number is {WinningNumber} \n\n\r " +
