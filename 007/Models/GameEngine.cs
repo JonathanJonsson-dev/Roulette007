@@ -69,7 +69,6 @@ namespace _007.Models
                 //sound.Play();
             }
             gameViewModel.Player.Pot += totalPayout; //Returns nothing for the player because the have lost
-
             return totalPayout;
         }
         private int GetPayoutRatio(BetType type)

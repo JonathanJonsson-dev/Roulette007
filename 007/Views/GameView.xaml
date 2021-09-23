@@ -31,8 +31,9 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
+            <!--<ItemsControl Grid.Column="0" Grid.Row="1" ItemsSource="{Binding SoundSettingsView}"/>-->
+            <ContentControl Grid.Row="1" Grid.Column="3" Content="{Binding SoundSettingsView}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
-            
             <UniformGrid Grid.Column="0" Grid.Row="1">
                 <views:WheelView Grid.Row="2"
                         Grid.Column="1"
