@@ -206,7 +206,7 @@ namespace _007.ViewModels
                 //rotates 720 degress
                 DoubleAnimation doubleSpinAnimation = new DoubleAnimation();
                 doubleSpinAnimation.From = Constants.StartAngle;
-                doubleSpinAnimation.To = -Constants.FullCircleDegrees;
+                doubleSpinAnimation.To = Constants.FullCircleDegrees;
                 doubleSpinAnimation.Duration = new Duration(TimeSpan.FromSeconds(Constants.WheelSpinDurationSeconds)); //duration of spin in seconds
                 doubleSpinAnimation.FillBehavior = FillBehavior.Stop;
                 doubleSpinAnimation.IsCumulative = true;
