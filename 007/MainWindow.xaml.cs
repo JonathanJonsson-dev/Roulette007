@@ -22,21 +22,12 @@ namespace _Roulette007
     /// </summary>
     public partial class MainWindow : Window
     {
-        MediaPlayer mediaPlayer = new MediaPlayer();
-        SoundSettingsViewModel soundSettings = new SoundSettingsViewModel();
+        //SoundSettingsViewModel soundSettings = new SoundSettingsViewModel();
 
         public MainWindow()
         {
             InitializeComponent();
             DataContext = new MainViewModel();
-            //PlayBackgroundMusic();
-        }
-
-        private void PlayBackgroundMusic()
-        {
-            mediaPlayer.Open(new Uri(@"Resources\CasinoMusic.mp3", UriKind.Relative));
-            mediaPlayer.Volume = 0.1;//soundSettings.Volume;
-            mediaPlayer.Play();
         }
     }
 }

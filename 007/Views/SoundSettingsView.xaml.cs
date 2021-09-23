@@ -1,4 +1,5 @@
-﻿using _007.ViewModels;
+﻿using _007.Models;
+using _007.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,11 +20,15 @@ namespace _007.Views
     /// </summary>
     public partial class SoundSettingsView : UserControl
     {
+        SongCollection songCollection = new SongCollection();
+        int currentTrackIndex = 0;
+
         public SoundSettingsView()
         {
             InitializeComponent();
             DataContext = new SoundSettingsViewModel();
             InitializePropertyValues();
+            
         }
 
         private void ChangeMediaVolume(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -33,8 +38,38 @@ namespace _007.Views
 
         private void InitializePropertyValues()
         {
+            myMediaElement.Source = songCollection.songs[0]; //new Uri(songCollection.songs[0].ToString(), UriKind.Relative); //new Uri(@"Resources\CasinoMusic.mp3", UriKind.Relative);
             myMediaElement.Play();
             myMediaElement.Volume = (double)volumeSlider.Value;
+        }
+
+        private void NextBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentTrackIndex >= songCollection.songs.Count)
+            {
+                currentTrackIndex -= 1;
+            }
+            else
+            {
+                currentTrackIndex += 1;
+            }
+            myMediaElement.Source = songCollection.songs[currentTrackIndex];
+            myMediaElement.Play();
+        }
+
+        private void PreviousBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentTrackIndex <= 0)
+            {
+                currentTrackIndex = 0;
+            }
+            
+            else
+            {
+                currentTrackIndex -= 1;
+            }
+            myMediaElement.Source = songCollection.songs[currentTrackIndex];
+            myMediaElement.Play();
         }
     }
 }
