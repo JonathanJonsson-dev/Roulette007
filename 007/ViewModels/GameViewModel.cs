@@ -15,6 +15,7 @@ namespace _007.ViewModels
 
     public class GameViewModel : BaseViewModel
     {
+        public GameView gameView;
         public BoardViewModel BoardViewModel { get; set; }
      
         public WheelViewModel WheelViewModel { get; set; }
@@ -31,11 +32,12 @@ namespace _007.ViewModels
 
 
         
-        public GameViewModel()
+        public GameViewModel(GameView gameView)
         {
+            this.gameView = gameView;
             BoardViewModel = new BoardViewModel(this.Player, this.GameEngine);
 
-            WheelViewModel = new WheelViewModel();
+            WheelViewModel = new WheelViewModel(this);
 
             Player = new PlayerViewModel();
 

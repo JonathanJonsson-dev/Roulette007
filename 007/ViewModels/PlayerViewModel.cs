@@ -34,7 +34,7 @@ namespace _007.ViewModels
             ShowInstructionsCommand = new ShowInstructionsCommand(this);
             GetStarterMarkers();
         }
-
+        
         private void GetStarterMarkers()
         {
             
