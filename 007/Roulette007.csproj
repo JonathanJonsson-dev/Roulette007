@@ -17,7 +17,11 @@
 
     <None Remove="Resources\PathwayToHaven.mp3" />
 
+    <None Remove="Resources\Songs\007JamesBondTheme.mp3" />
+
     <None Remove="Resources\Songs\ByYourSide.mp3" />
+
+    <None Remove="Resources\Songs\TheJohnBarryOrchestraJamesBondTheme.mp3" />
 
     <None Remove="Resources\WinningSound1.wav" />
 
@@ -38,6 +42,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
 
+    <EmbeddedResource Include="Resources\Songs\007JamesBondTheme.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+
     <EmbeddedResource Include="Resources\Songs\ByYourSide.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -55,6 +63,10 @@
     </EmbeddedResource>
 
     <EmbeddedResource Include="Resources\Songs\PathwayToHaven.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+
+    <EmbeddedResource Include="Resources\Songs\TheJohnBarryOrchestraJamesBondTheme.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
 
