@@ -17,10 +17,6 @@
 
     <None Remove="Resources\PathwayToHaven.mp3" />
 
-    <None Remove="Resources\Songs\GlideWithMe.mp3" />
-
-    <None Remove="Resources\Songs\MemoirOfSummer.mp3" />
-
     <None Remove="Resources\WinningSound1.wav" />
 
     <None Remove="Resources\WinningSound2.mp3" />
@@ -42,11 +38,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
 
-    <EmbeddedResource Include="Resources\GlideWithMe.mp3">
+    <EmbeddedResource Include="Resources\Songs\GlideWithMe.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
 
-    <EmbeddedResource Include="Resources\MemoirOfSummer.mp3">
+    <EmbeddedResource Include="Resources\Songs\MemoirOfSummer.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
 
@@ -54,7 +50,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
 
-    <EmbeddedResource Include="Resources\PathwayToHaven.mp3">
+    <EmbeddedResource Include="Resources\Songs\PathwayToHaven.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
 
@@ -97,10 +93,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Resources\Songs\" />
   </ItemGroup>
 
 </Project>

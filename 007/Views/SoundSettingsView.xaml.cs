@@ -54,6 +54,7 @@ namespace _007.Views
             {
                 currentTrackIndex += 1;
             }
+            
             myMediaElement.Source = songCollection.songs[currentTrackIndex].Filepath;
             myMediaElement.Play();
         }
