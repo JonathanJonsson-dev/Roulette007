@@ -42,6 +42,7 @@ namespace _007.Views
             myMediaElement.Source = songCollection.songs[0].Filepath; 
             myMediaElement.Play();
             myMediaElement.Volume = (double)volumeSlider.Value;
+            myMediaElement.MediaEnded += NextBtn_Click;
         }
 
         private void NextBtn_Click(object sender, RoutedEventArgs e)
@@ -57,6 +58,7 @@ namespace _007.Views
             
             myMediaElement.Source = songCollection.songs[currentTrackIndex].Filepath;
             myMediaElement.Play();
+            
         }
 
         private void PreviousBtn_Click(object sender, RoutedEventArgs e)

@@ -121,17 +121,8 @@
   <data name="CasinoMusic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CasinoMusic.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="GlideWithMe" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\GlideWithMe.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="LosingSound" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LosingSound.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="MemoirOfSummer" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MemoirOfSummer.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="PathwayToHaven" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PathwayToHaven.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="WinningSound1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\WinningSound1.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
