@@ -70,11 +70,41 @@ namespace _007.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] GlideWithMe {
+            get {
+                object obj = ResourceManager.GetObject("GlideWithMe", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
         internal static System.IO.UnmanagedMemoryStream LosingSound {
             get {
                 return ResourceManager.GetStream("LosingSound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] MemoirOfSummer {
+            get {
+                object obj = ResourceManager.GetObject("MemoirOfSummer", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] PathwayToHaven {
+            get {
+                object obj = ResourceManager.GetObject("PathwayToHaven", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

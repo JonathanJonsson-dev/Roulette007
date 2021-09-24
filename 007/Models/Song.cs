@@ -6,6 +6,6 @@ namespace _007.Models
 {
     public class Song
     {
-        public string FilePath { get; set; }
+        public Uri Filepath { get; set; }
     }
 }

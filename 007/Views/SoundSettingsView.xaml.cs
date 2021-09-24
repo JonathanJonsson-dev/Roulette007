@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace _007.Views
 {
     /// <summary>
@@ -38,22 +39,22 @@ namespace _007.Views
 
         private void InitializePropertyValues()
         {
-            myMediaElement.Source = songCollection.songs[0]; //new Uri(songCollection.songs[0].ToString(), UriKind.Relative); //new Uri(@"Resources\CasinoMusic.mp3", UriKind.Relative);
+            myMediaElement.Source = songCollection.songs[0].Filepath; 
             myMediaElement.Play();
             myMediaElement.Volume = (double)volumeSlider.Value;
         }
 
         private void NextBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (currentTrackIndex >= songCollection.songs.Count)
+            if (currentTrackIndex >= songCollection.songs.Count - 1)
             {
-                currentTrackIndex -= 1;
+                currentTrackIndex = 0;
             }
             else
             {
                 currentTrackIndex += 1;
             }
-            myMediaElement.Source = songCollection.songs[currentTrackIndex];
+            myMediaElement.Source = songCollection.songs[currentTrackIndex].Filepath;
             myMediaElement.Play();
         }
 
@@ -61,14 +62,15 @@ namespace _007.Views
         {
             if (currentTrackIndex <= 0)
             {
-                currentTrackIndex = 0;
+                currentTrackIndex = songCollection.songs.Count - 1;
             }
             
             else
             {
                 currentTrackIndex -= 1;
             }
-            myMediaElement.Source = songCollection.songs[currentTrackIndex];
+            
+            myMediaElement.Source = songCollection.songs[currentTrackIndex].Filepath;
             myMediaElement.Play();
         }
     }
