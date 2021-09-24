@@ -1,4 +1,5 @@
-﻿using _007.ViewModels;
+﻿using _007.Models;
+using _007.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace _007.Views
 {
     /// <summary>
@@ -19,11 +21,15 @@ namespace _007.Views
     /// </summary>
     public partial class SoundSettingsView : UserControl
     {
+        SongCollection songCollection = new SongCollection();
+        int currentTrackIndex = 0;
+
         public SoundSettingsView()
         {
             InitializeComponent();
             DataContext = new SoundSettingsViewModel();
             InitializePropertyValues();
+            
         }
 
         private void ChangeMediaVolume(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -33,8 +39,42 @@ namespace _007.Views
 
         private void InitializePropertyValues()
         {
+            myMediaElement.Source = songCollection.songs[0].Filepath; 
             myMediaElement.Play();
             myMediaElement.Volume = (double)volumeSlider.Value;
+            myMediaElement.MediaEnded += NextBtn_Click;
+        }
+
+        private void NextBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentTrackIndex >= songCollection.songs.Count - 1)
+            {
+                currentTrackIndex = 0;
+            }
+            else
+            {
+                currentTrackIndex += 1;
+            }
+            
+            myMediaElement.Source = songCollection.songs[currentTrackIndex].Filepath;
+            myMediaElement.Play();
+            
+        }
+
+        private void PreviousBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentTrackIndex <= 0)
+            {
+                currentTrackIndex = songCollection.songs.Count - 1;
+            }
+            
+            else
+            {
+                currentTrackIndex -= 1;
+            }
+            
+            myMediaElement.Source = songCollection.songs[currentTrackIndex].Filepath;
+            myMediaElement.Play();
         }
     }
 }

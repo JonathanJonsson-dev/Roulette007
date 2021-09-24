@@ -15,6 +15,10 @@
 
     <None Remove="Resources\LosingSound.wav" />
 
+    <None Remove="Resources\PathwayToHaven.mp3" />
+
+    <None Remove="Resources\Songs\ByYourSide.mp3" />
+
     <None Remove="Resources\WinningSound1.wav" />
 
     <None Remove="Resources\WinningSound2.mp3" />
@@ -34,7 +38,23 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
 
+    <EmbeddedResource Include="Resources\Songs\ByYourSide.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+
+    <EmbeddedResource Include="Resources\Songs\GlideWithMe.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+
+    <EmbeddedResource Include="Resources\Songs\MemoirOfSummer.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+
     <EmbeddedResource Include="Resources\LosingSound.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+
+    <EmbeddedResource Include="Resources\Songs\PathwayToHaven.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
 
