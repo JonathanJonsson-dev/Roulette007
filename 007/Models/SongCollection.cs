@@ -12,7 +12,8 @@ namespace _007.Models
         public List<Song> songs = new List<Song>
             {   new Song(){ Filepath = new Uri(@"Resources\Songs\MemoirOfSummer.mp3", UriKind.Relative)},
                 new Song(){ Filepath = new Uri(@"Resources\Songs\GlideWithMe.mp3", UriKind.Relative)},
-                new Song(){ Filepath = new Uri(@"Resources\Songs\PathwayToHaven.mp3", UriKind.Relative)}
+                new Song(){ Filepath = new Uri(@"Resources\Songs\PathwayToHaven.mp3", UriKind.Relative)},
+                new Song(){ Filepath = new Uri(@"Resources\Songs\ByYourSide.mp3", UriKind.Relative)}
             };
 
         public SongCollection()
