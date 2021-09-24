@@ -16,6 +16,7 @@ namespace _007.ViewModels
     public class GameViewModel : BaseViewModel
     {
         public SoundSettingsViewModel SoundSettingsView { get; set; } = new SoundSettingsViewModel();
+
         public GameView gameView;
         public BoardViewModel BoardViewModel { get; set; }
         public WheelViewModel WheelViewModel { get; set; }

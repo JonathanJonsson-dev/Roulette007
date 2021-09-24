@@ -46,6 +46,19 @@ namespace _007.Views
                     markerboard.Children.Remove(marker);
                     board.Children.Add(marker);
                 }
+                else
+                {
+                    Bet betToRemove = new Bet { Value = 0};
+                    foreach (var bet in gameViewModel.Player.Bets)
+                    {
+                        if(bet.Mark == marker)
+                        {
+                            betToRemove = bet;
+                        }
+                    }
+                    gameViewModel.Player.Bets.Remove(betToRemove);
+                    gameViewModel.Player.Pot += betToRemove.Value;
+                }
 
 
             }
