@@ -8,9 +8,6 @@ namespace _007.Models
     public class Player
     {
 
-        
-
-
     }
 
 }

@@ -8,7 +8,7 @@ namespace _007.ViewModels
     public class SoundSettingsViewModel : BaseViewModel
     {
         public int Volume { get; set; }
-        
+
 
         public SoundSettingsViewModel()
         {

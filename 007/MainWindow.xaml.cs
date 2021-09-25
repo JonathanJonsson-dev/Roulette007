@@ -1,4 +1,5 @@
 ﻿using _007.ViewModels;
+using _007.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,9 @@ namespace _Roulette007
         {
             InitializeComponent();
             DataContext = new MainViewModel();
+            //set player name window
+            DisplayName dn = new DisplayName();
+            dn.Show();
             //PlayBackgroundMusic();
         }
 

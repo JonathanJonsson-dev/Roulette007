@@ -25,6 +25,7 @@ namespace _007.ViewModels
         public ICommand ResetGameCommand { get; }
         public ShowRulesCommand ShowRulesCommand { get; }
         public ShowInstructionsCommand ShowInstructionsCommand { get; }
+        public ICommand ShowSetNameUCCommand { get; }
 
         public PlayerViewModel()
         {
@@ -33,6 +34,7 @@ namespace _007.ViewModels
             ShowRulesCommand = new ShowRulesCommand(this);
             ShowInstructionsCommand = new ShowInstructionsCommand(this);
             GetStarterMarkers();
+            ShowSetNameUCCommand = new ShowDisplayNameWinCommand();
         }
         
         private void GetStarterMarkers()
@@ -65,18 +67,15 @@ namespace _007.ViewModels
 
         public void ShowInstructions()
         {
-            MessageBox.Show($"Instructions here");
-        }
-
-        public void ShowRules()
-        {
             MessageBox.Show($"To place a bet, drag selected marker onto the desired field. " +
                 $"This can be done multiple times as long as there are money left in your pot. " +
                 $"When you are happy with your bets, spin the wheel. " +
                 $"If your pot runs out of money, you can always restart the game. Good luck!");
         }
 
-        
-
+        public void ShowRules()
+        {
+            MessageBox.Show($"Instructions here");
+        }
     }
 }
