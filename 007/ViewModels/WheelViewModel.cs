@@ -45,15 +45,14 @@ namespace _007.ViewModels
         public double WheelPieceWidth { get; set; }
         public double WheelPieceHeight { get; set; }
         public double WheelPieceDiameter { get; set; }
-        public double CenterCircleDiameter { get; set; }
-        public double OuterCircleDiameter { get; set; }
-        public double OuterCircleOffsetX { get; set; }
-        public double OuterCircleOffsetY { get; set; }
-        public double CenterCircleOffsetX { get; set; }
-        public double CenterCircleOffsetY { get; set; }
+        public double BallCenterX { get; set; }
+        public double BallCenterY { get; set; }
+        public double BallTranslateX { get; set; }
+        public double BallTranslateY { get; set; }
+
         public double CurrentAngle { get; set; }
 
-        //public double CurrentAngle { get; set; }
+
 
         #endregion
 
@@ -89,16 +88,24 @@ namespace _007.ViewModels
             CenterPointX = MainBoardWidth / 2;
             CenterPointY = MainBoardHeight / 2;
 
-            //center and outer circles diameter and offsets
-            CenterCircleDiameter = Constants.MainBorderWidth > Constants.MainBorderHeight ? Constants.CenterWheelDiameterPercentage * Constants.MainBorderHeight : Constants.CenterWheelDiameterPercentage * Constants.MainBorderWidth;
-            OuterCircleDiameter = Constants.MainBorderWidth > Constants.MainBorderHeight ? Constants.OuterWheelDiameterPercentage * Constants.MainBorderHeight : Constants.OuterWheelDiameterPercentage * Constants.MainBorderWidth;
+            //Ball
+            var ballYOffsetPixels = Constants.MainBorderWidth > Constants.MainBorderHeight ? (Constants.BallYOffsetPercentage * Constants.MainBorderHeight) / 2 : (Constants.BallYOffsetPercentage * Constants.MainBorderWidth) / 2;
+            BallCenterX = CenterPointX - 15;
+            BallCenterY = CenterPointY - 15;
+            // Ball xy translation (places the ball near the top-edge of the wheel).
+            BallTranslateX = BallCenterX;
+            BallTranslateY = BallCenterY - ballYOffsetPixels;
 
-            OuterCircleOffsetX = (MainBoardWidth / 2) - (OuterCircleDiameter / 2);
-            OuterCircleOffsetY = (MainBoardHeight / 2) - (CenterCircleDiameter / 2);
+        ////center and outer circles diameter and offsets
+        //CenterCircleDiameter = Constants.MainBorderWidth > Constants.MainBorderHeight ? Constants.CenterWheelDiameterPercentage * Constants.MainBorderHeight : Constants.CenterWheelDiameterPercentage * Constants.MainBorderWidth;
+        //OuterCircleDiameter = Constants.MainBorderWidth > Constants.MainBorderHeight ? Constants.OuterWheelDiameterPercentage * Constants.MainBorderHeight : Constants.OuterWheelDiameterPercentage * Constants.MainBorderWidth;
 
-            CenterCircleOffsetX = (MainBoardWidth / 2) - (OuterCircleDiameter / 2);
-            CenterCircleOffsetY = (MainBoardHeight / 2) - (CenterCircleDiameter / 2);
-        }
+        //OuterCircleOffsetX = (MainBoardWidth / 2) - (OuterCircleDiameter / 2);
+        //OuterCircleOffsetY = (MainBoardHeight / 2) - (CenterCircleDiameter / 2);
+
+        //CenterCircleOffsetX = (MainBoardWidth / 2) - (OuterCircleDiameter / 2);
+        //CenterCircleOffsetY = (MainBoardHeight / 2) - (CenterCircleDiameter / 2);
+    }
 
         /// <summary>
         /// Method fill wheel with numbers
@@ -201,8 +208,8 @@ namespace _007.ViewModels
 
                 double angle = WheelStopAngle;
 
-                //initialize Double Animation
-                #region
+            
+                #region initialize Double Animation
                 //rotates 720 degress
                 DoubleAnimation doubleSpinAnimation = new DoubleAnimation();
                 doubleSpinAnimation.From = Constants.StartAngle;
@@ -221,7 +228,7 @@ namespace _007.ViewModels
                 spinWheelAmination.FillBehavior = FillBehavior.HoldEnd;
                 spinWheelAmination.BeginTime = TimeSpan.FromSeconds(4);
                 spinWheelAmination.Completed += new EventHandler(spinWheelAnimation_Completed);
-                #endregion
+            #endregion
                 #region
                 //Reverts to original position
                 //DoubleAnimation revertAnimation = new DoubleAnimation();
@@ -232,25 +239,37 @@ namespace _007.ViewModels
                 //revertAnimation.FillBehavior = FillBehavior.Stop;
                 #endregion
 
+
+                #region Ball animation
+                DoubleAnimation ballSpinAnimation = new DoubleAnimation();
+                //DoubleAnimation ballSpinAnimation = spinWheelAmination.Clone();
+                ballSpinAnimation.From = 0;
+                ballSpinAnimation.To = angle;
+                ballSpinAnimation.Duration = new Duration(TimeSpan.FromSeconds(4)); //duration of spin in seconds
+                ballSpinAnimation.FillBehavior = FillBehavior.HoldEnd;
+                ballSpinAnimation.IsCumulative = true;
+                ballSpinAnimation.RepeatBehavior = new RepeatBehavior(2);
+                #endregion
+
                 #region MediaTimeline and media element for rolling ball
                 //Ball media element
                 MediaElement ballMediaElement = new MediaElement();
-                ballMediaElement.Volume = 3.0;
-                ballMediaElement.Visibility = Visibility.Hidden;
-                //ballMediaElement.MediaOpened += new RoutedEventHandler(BallMediaElementMediaOpenedEventHandler);
-                //ballMediaElement.LoadedBehavior = MediaState.Manual;
-                //ballMediaElement.UnloadedBehavior = MediaState.Stop;
-                view.MainGrid.Children.Add(ballMediaElement); //add media to WheelView
+                    ballMediaElement.Volume = 3.0;
+                    ballMediaElement.Visibility = Visibility.Hidden;
+                    //ballMediaElement.MediaOpened += new RoutedEventHandler(BallMediaElementMediaOpenedEventHandler);
+                    //ballMediaElement.LoadedBehavior = MediaState.Manual;
+                    //ballMediaElement.UnloadedBehavior = MediaState.Stop;
+                    view.MainGrid.Children.Add(ballMediaElement); //add media to WheelView
 
-                // Ball media timeline (sound).
-                MediaTimeline ballRollingMediaTimeline = new MediaTimeline
-                {
-                    FillBehavior = FillBehavior.Stop,
-                    BeginTime = TimeSpan.FromSeconds(Constants.Zero),
-                    Duration = new Duration(TimeSpan.FromSeconds(6)),
-                    Source = new Uri(Constants.BallSoundFilePath, UriKind.Relative),
-                };
-                #endregion
+                    // Ball media timeline (sound).
+                    MediaTimeline ballRollingMediaTimeline = new MediaTimeline
+                    {
+                        FillBehavior = FillBehavior.Stop,
+                        BeginTime = TimeSpan.FromSeconds(Constants.Zero),
+                        Duration = new Duration(TimeSpan.FromSeconds(6)),
+                        Source = new Uri(Constants.BallSoundFilePath, UriKind.Relative),
+                    };
+                    #endregion
 
                 #region Add Storyboard children
                 Storyboard spinWheelStoryBoard = new Storyboard();
