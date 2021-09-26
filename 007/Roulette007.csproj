@@ -13,6 +13,8 @@
 
     <None Remove="Resources\CasinoMusic.wav" />
 
+    <None Remove="Resources\ChipDown.wav" />
+
     <None Remove="Resources\LosingSound.wav" />
 
     <None Remove="Resources\PathwayToHaven.mp3" />
@@ -37,6 +39,10 @@
     <Content Include="Resources\CasinoMusic.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+
+    <EmbeddedResource Include="Resources\ChipDown.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
 
     <EmbeddedResource Include="Resources\Songs\ByYourSide.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
