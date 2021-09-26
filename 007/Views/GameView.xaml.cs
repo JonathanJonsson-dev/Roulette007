@@ -29,7 +29,7 @@ namespace _007.Views
             DataContext = gameViewModel;
             
         }
-
+        MediaPlayer player = new MediaPlayer();
         private void board_DragOver(object sender, DragEventArgs e)
         {
             object data = e.Data.GetData(DataFormats.Serializable);
@@ -245,6 +245,9 @@ namespace _007.Views
                             MessageBox.Show("You can't afford");
                         }
                     }
+                    player.Open(new Uri(@"Resources/ChipDown.wav", UriKind.Relative));
+                    player.Volume = 0.05;
+                    player.Play();
                 }
                 else
                 {
@@ -255,8 +258,9 @@ namespace _007.Views
                     MessageBox.Show("Please enter your name first.");
                 }
             }
-            
-            
+           
+
+
         }
 
         private void markerboard_Drop(object sender, DragEventArgs e)
@@ -284,7 +288,9 @@ namespace _007.Views
                     markerboard.Children.Remove(marker);
                 }
                 marker.Margin = marker.GetMarkerMargin(marker.colors);
-
+                player.Open(new Uri(@"Resources/ChipDown.wav", UriKind.Relative));
+                player.Volume = 0.05;
+                player.Play();
 
             }
         }
