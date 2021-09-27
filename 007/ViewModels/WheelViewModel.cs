@@ -181,18 +181,19 @@ namespace _007.ViewModels
         /// <param name="_view"></param>
         public void SpinWheelGetAngle(WheelView _view)
         {
-            //reset wheel before each spin using Refresh method
-            foreach(WheelPiece wheelPiece in WheelCollection)
-            {
-                if (wheelPiece.IsWinningNumber)
-                {
-                    wheelPiece.IsWinningNumber = false;
-                }
-            }
-            Refresh(WheelCollection); //refresh collection
-
+           
             if (gameViewModel.Player.Bets.Count != 0)
             {
+                //reset wheel before each spin using Refresh method
+                foreach (WheelPiece wheelPiece in WheelCollection)
+                {
+                    if (wheelPiece.IsWinningNumber)
+                    {
+                        wheelPiece.IsWinningNumber = false;
+                    }
+                }
+                Refresh(WheelCollection); //refresh collection
+
                 _view.BallControl.Visibility = Visibility.Visible; //Toss ball
 
                 WheelView view = _view; //Wheel object
@@ -264,6 +265,7 @@ namespace _007.ViewModels
 
                 //Ball
                 Storyboard spinBallStoryBoard = new Storyboard();
+               
                 spinBallStoryBoard.Children.Add(ballRollingMediaTimeline); //add media time line to storyboard
                 spinBallStoryBoard.Children.Add(ballDoubleSpinAnimation); //add animation to storyboard
                 spinBallStoryBoard.Children.Add(ballSpinAnimation); //add animation to storyboard
