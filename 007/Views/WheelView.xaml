@@ -10,6 +10,7 @@
 
     </UserControl.Resources>
 
+
     <Border x:Name="MainBorder" Background="Transparent" 
             Height="350" Width="350">
         <Grid x:Name="MainGrid"  >
@@ -18,6 +19,7 @@
                 <Ellipse Height="500" 
                          Width="500"
                          Fill="Brown" Canvas.Top="-74" Canvas.Left="-51">
+
                     <Ellipse.RenderTransform>
                         <TranslateTransform X="25" Y="50"/>
                     </Ellipse.RenderTransform>
@@ -131,6 +133,7 @@
                         RenderTransformOrigin="0.633,1.455" Canvas.Left="149"
                         Command="{Binding SpinWheelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}">
                 </Button>
+
             </Canvas>
         </Grid>
     </Border>
