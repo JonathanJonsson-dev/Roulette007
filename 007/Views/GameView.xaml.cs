@@ -148,8 +148,15 @@ namespace _007.Views
                 Canvas.SetTop(marker, dropPoint.Y);
                 if (!markerboard.Children.Contains(marker))
                 {
-                    board.Children.Remove(marker);
-                    markerboard.Children.Add(marker);
+                    try
+                    {
+                        board.Children.Remove(marker);
+                        markerboard.Children.Add(marker);
+                    }
+                    catch
+                    {
+
+                    }
                 }
 
 
@@ -181,18 +188,19 @@ namespace _007.Views
                             Point point = e.GetPosition(board);
                             point = GetAllowedPoint(point);
                             Bet bet = new Bet();
-                            if (point.X >= 115 && point.Y < 624 && point.Y>48)
+                            if (point.X >= 115 && point.Y < 624 && point.Y>29)
                             {
                                 bet = gameViewModel.GameEngine.CreateBet(marker, point);
 
                             }
-                            else if (point.Y < 48)// the number 0
+                            else if (point.Y <= 29)// the number 0
                             {
                                 bet.Mark = marker;
                                 List<int> list = new List<int>();
                                 list.Add(0);
                                 bet.Numbers = list;
                                 bet.Value = marker.Value;
+                                bet.Type = BetType.Zero;
                             }
                             else if (point.X > 75 && point.X < 130)
                             {
@@ -293,6 +301,10 @@ namespace _007.Views
                 player.Play();
 
             }
+        }
+        private void Nothing()
+        {
+
         }
     }
 }
