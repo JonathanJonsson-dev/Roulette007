@@ -34,7 +34,7 @@ namespace _007.Models
                 {
                     if (number == gameViewModel.WheelViewModel.WinningNumber)
                     {
-                        totalPayout+= bet.Value * GetPayoutRatio(bet.Type); //Returns the players payout
+                        totalPayout+= bet.Value * GetPayoutRatio(bet.Type) + bet.Value; //Returns the players payout
                     }
                 }
                 gameViewModel.gameView.board.Children.Remove(bet.Mark);
