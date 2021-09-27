@@ -20,14 +20,15 @@ namespace _007.ViewModels
         public int Pot { get; set; } = 1000;
 
         public ObservableCollection<Bet> Bets { get; set; } = new ObservableCollection<Bet>();
-
+        private GameViewModel gameViewModel;
         public RelayCommand SetNameCommand { get; }
         public ICommand ResetGameCommand { get; }
         public ShowRulesCommand ShowRulesCommand { get; }
         public ShowInstructionsCommand ShowInstructionsCommand { get; }
 
-        public PlayerViewModel()
+        public PlayerViewModel(GameViewModel gameViewModel)
         {
+            this.gameViewModel = gameViewModel;
             SetNameCommand = new RelayCommand(x => IsSetButtonEnabled(), x => SetPlayerName());
             ResetGameCommand = new ResetGameCommand(this);
             ShowRulesCommand = new ShowRulesCommand(this);
@@ -62,7 +63,11 @@ namespace _007.ViewModels
         {
             
             Pot = 1000;
-            GetStarterMarkers();
+            foreach (var bet in Bets)
+            {
+                gameViewModel.gameView.board.Children.Remove(bet.Mark);
+            }
+            Bets.Clear();
         }
 
         public void ShowInstructions() // method displaying a message box with basic instructions on how to play the game.

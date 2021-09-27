@@ -35,7 +35,7 @@ namespace _007.ViewModels
 
             WheelViewModel = new WheelViewModel(this);
 
-            Player = new PlayerViewModel();
+            Player = new PlayerViewModel(this);
 
             GameEngine = new GameEngine(this);
 
