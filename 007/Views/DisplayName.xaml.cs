@@ -21,6 +21,7 @@ namespace _007.Views
         public DisplayName()
         {
             InitializeComponent();
+            DataContext = new PlayerViewModel();
            
         }
 

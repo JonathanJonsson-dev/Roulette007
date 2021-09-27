@@ -16,10 +16,9 @@
         <Grid>
             <Ellipse HorizontalAlignment="Left" Height="90" Margin="11,140,0,0" Stroke="AntiqueWhite" Fill="SaddleBrown" VerticalAlignment="Top" Width="90" />
             <Border BorderThickness="2" BorderBrush="SaddleBrown" CornerRadius="5" HorizontalAlignment="Left" Height="120" Margin="205,42,0,0" VerticalAlignment="Top" Width="125"/>
-            <Label Content="{Binding Name, FallbackValue=Player, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="370" Foreground="AntiqueWhite" FontSize="24"/>
+            <Label x:Name="lblPlayerName" Content="{Binding Name, FallbackValue=Player, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="370" Foreground="AntiqueWhite" FontSize="24"/>
             <Label Content="Set Name" HorizontalAlignment="Left" Margin="198,177,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.843,5.1" Foreground="AntiqueWhite"/>
             <Label x:Name="lblPotAmountHeader" Content="Pot" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.843,5.1" FontSize="20" Foreground="AntiqueWhite"/>
-            <Label x:Name="lblPlayerName" Content="{Binding Name}" HorizontalAlignment="Left" Margin="127,92,0,0" Visibility="Hidden" VerticalAlignment="Top" Width="143" Foreground="AntiqueWhite"/>
             <Button x:Name="btnSet" Content="Set" Command="{Binding SetNameCommand}" HorizontalAlignment="Left" Margin="337,207,0,0" VerticalAlignment="Top" Width="43" Visibility="Visible" RenderTransformOrigin="-0.744,1.353" />
             <Button x:Name="btnResetGame" Content="Reset Game" Command="{Binding ResetGameCommand}" HorizontalAlignment="Left" Margin="18,170,0,0" VerticalAlignment="Top" Height="30" Width="76" Background="Transparent" BorderBrush="Transparent" Foreground="AntiqueWhite"/>
             <Label x:Name="lblPotAmount" Content="{Binding Pot}" HorizontalAlignment="Left" Margin="16,84,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.843,5.1" Foreground="Black" FontSize="24" Height="40" Width="106" BorderBrush="SaddleBrown" BorderThickness="2" Background="White"/>

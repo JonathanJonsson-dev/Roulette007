@@ -22,14 +22,7 @@ namespace _007.Views
     {
         public PlayerView()
         {
-
             InitializeComponent();
-          
-
         }
-
-
-        
-
     }
 }

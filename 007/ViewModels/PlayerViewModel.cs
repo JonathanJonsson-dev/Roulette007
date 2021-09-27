@@ -13,8 +13,6 @@ namespace _007.ViewModels
 {
     public class PlayerViewModel : BaseViewModel
     {
-
-
         public ObservableCollection<Marker> Markers { get; set; } = new ObservableCollection<Marker>();
         public string Name { get; set; } = "";
         public int Pot { get; set; } = 1000;
@@ -39,7 +37,6 @@ namespace _007.ViewModels
         
         private void GetStarterMarkers()
         {
-            
             Marker marker = new Marker { 
                  
                 Value = 100 };
@@ -49,7 +46,6 @@ namespace _007.ViewModels
         public void SetPlayerName() 
         {
             MessageBox.Show($"Welcome {Name}! To begin playing, please place your first bet and when you're ready, spin the wheel. Good luck!");
-
         }
 
         public bool IsSetButtonEnabled()

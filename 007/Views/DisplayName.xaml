@@ -14,9 +14,9 @@
                      VerticalAlignment="Top" Width="150" RenderTransformOrigin="1.331,1.577" Height="39"
                      VerticalContentAlignment="Center"/>
             <Button x:Name="btnSet" Content="Save" BorderBrush="SaddleBrown" BorderThickness="2"
-                    Command="{Binding SetNameCommand}" Click="btnSet_Click"
-                    HorizontalAlignment="Left" Margin="147,91,0,0" VerticalAlignment="Top" Width="142" Visibility="Visible" RenderTransformOrigin="-0.744,1.353" Height="37" />
-
-        </Grid>
+                    CommandParameter="{Binding}"
+                    Command="{Binding SetNameCommand}"                     
+                    Click="btnSet_Click"
+                    HorizontalAlignment="Left" Margin="147,91,0,0" VerticalAlignment="Top" Width="142" Visibility="Visible" RenderTransformOrigin="-0.744,1.353" Height="37" /></Grid>
     </Border>
 </Window>
