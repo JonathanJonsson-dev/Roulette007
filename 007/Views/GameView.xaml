@@ -3,15 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:_007.Views"
+             xmlns:views="clr-namespace:_007.Views"
              xmlns:models="clr-namespace:_007.Models"
-             xmlns:commands="clr-namespace:_007.Commands"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
+             d:DesignHeight="1000" d:DesignWidth="1200"
              xmlns:vm="clr-namespace:_007.ViewModels"
-             
-             >
-
+             xmlns:commands="clr-namespace:_007.Commands">
+    
     <Border
         Background="DarkGreen"
         BorderBrush="SaddleBrown" 
@@ -19,77 +17,145 @@
         BorderThickness="5">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="500"/>
+                <ColumnDefinition Width="700"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                
+                <ColumnDefinition Width="100"/>          
+                <ColumnDefinition Width="Auto"/>          
+                <ColumnDefinition Width="50"/>          
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="10"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0"
-                        Grid.Column="0" Width="500" HorizontalAlignment="Left">
-                <ContentControl Content="{Binding Wheel}"
+            <!--<ItemsControl Grid.Column="0" Grid.Row="1" ItemsSource="{Binding SoundSettingsView}"/>-->
+            <ContentControl Grid.Row="1" Grid.Column="4" Content="{Binding SoundSettingsView}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+
+            <UniformGrid Grid.Column="0" Grid.Row="1" Margin="-100,-200,0,0">
+                <views:WheelView />
+            </UniformGrid>
+
+            <Grid Grid.Row="4"
+                        Grid.Column="0" Width="700" HorizontalAlignment="Left" Margin="-25,-200,0,0">
+                <ContentControl Content="{Binding Player}" 
                         
                         VerticalAlignment="Stretch" 
                         HorizontalAlignment="Stretch"/>
             </Grid>
-            <Grid Grid.Row="3"
-                        Grid.Column="0" Width="500" HorizontalAlignment="Left">
-                <ContentControl Content="{Binding Player}"
+
+            <Canvas Name="board" Grid.Row="1" Grid.Column="2" Height="700" Width="400" DragOver="board_DragOver" AllowDrop="True" DragDrop.Drop="board_Drop">
+                
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
                         
-                        VerticalAlignment="Stretch" 
-                        HorizontalAlignment="Stretch"/>
-            </Grid>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        
+                    </Grid.RowDefinitions>
+                    <ItemsControl Grid.Column="2" Grid.Row="0" ItemsSource="{Binding BoardViewModel.Board}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Width="150"></WrapPanel>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                    <ItemsControl Grid.Column="3" Grid.Row="0" ItemsSource="{Binding Player.Bets}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Width="250" HorizontalAlignment="Right"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
 
+                    <Grid Grid.Column="2" Grid.Row="1">
+                        <ItemsControl ItemsSource="{Binding BoardViewModel.BoardBottom}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel VerticalAlignment="Top"></WrapPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </Grid>
 
-            <ItemsControl Grid.Column="2" Grid.Row="1" ItemsSource="{Binding BoardViewModel.Board}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Width="150"></WrapPanel>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-            <ItemsControl Grid.Column="3" Grid.Row="1" ItemsSource="{Binding BoardViewModel.CurrentBet}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Grid Width="150" HorizontalAlignment="Right"/> 
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
+                    <Grid Grid.Row="0" Grid.Column="1"  >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="75"/>
+                            <ColumnDefinition Width="60"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Column="1" Grid.Row="1">
+                            <ItemsControl Grid.Column="1" ItemsSource="{Binding BoardViewModel.SpecialBetBoardColumnTwo}"/>
+                        </Grid>
+                        <Grid Grid.Column="0" Grid.Row="1">
+                            <ItemsControl ItemsSource="{Binding BoardViewModel.SpecialBetBoardColumnOne}"/>
+                        </Grid>
+                    </Grid>
+                </Grid>
 
-            <Grid Grid.Column="2" Grid.Row="2">
-                <ItemsControl ItemsSource="{Binding BoardViewModel.BoardBottom}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel VerticalAlignment="Top"></WrapPanel>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
-            </Grid>
-
-            <Grid Grid.Row="1" Grid.Column="1" >
+               
+            </Canvas>
+            <Border Grid.Column="2" Grid.Row="3" Background="SaddleBrown" Width="250" CornerRadius="15" BorderThickness="5">
+            <StackPanel  Name="markerboard"  DragOver="markerboard_DragOver" Background="ForestGreen" AllowDrop="True"  Height="90" DragDrop.Drop="markerboard_Drop" Margin="10" Width="250">
+               
+                <views:Marker MarkerColor="Black" colors="Black" RenderTransformOrigin="0.5,0.5" Value="1000" Margin="0,0,0,0"></views:Marker>
+                <views:Marker MarkerColor="Red" colors="Red" RenderTransformOrigin="0.5,0.5" Value="500" Margin="40,0,0,0"></views:Marker>
+                <views:Marker MarkerColor="Green" colors="Green" RenderTransformOrigin="0.5,0.5" Value="100" Margin="80,0,0,0"></views:Marker>
+                <views:Marker MarkerColor="Blue" colors="Blue" RenderTransformOrigin="0.5,0.5" Value="50" Margin="120,0,0,0"></views:Marker>
+                
+            </StackPanel>
+            </Border>
+            <StackPanel  Grid.Column="2" Grid.Row="4">
+                <TextBlock Height="150" Background="Transparent" Panel.ZIndex="1"></TextBlock>
+            <Grid Name="ValueView" Margin="84,-150,0,0" AllowDrop="False" >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
+                  
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                    
                 </Grid.RowDefinitions>
-                <Grid Grid.Column="1" Grid.Row="1">
-                    <ItemsControl Grid.Column="1" ItemsSource="{Binding BoardViewModel.SpecialBetBoardColumnTwo}"/>
-                </Grid>
-                <Grid Grid.Column="0" Grid.Row="1">
-                    <ItemsControl ItemsSource="{Binding BoardViewModel.SpecialBetBoardColumnOne}"/>
-                </Grid>
+                
+                <UniformGrid Grid.Row="0" Grid.Column="0">
+                    <views:Marker MarkerColor="Black" RenderTransformOrigin="0.5,0.5" Margin="0,0,60,0" ></views:Marker>
+                    <Label Content="= 1000" FontSize="24" Margin="-34,0,0,-25" />
+                </UniformGrid>
+                <UniformGrid Grid.Row="0" Grid.Column="1">
+                    <views:Marker MarkerColor="Red" RenderTransformOrigin="0.5,0.5" Margin="0,0,60,0"  ></views:Marker>
+                    <Label Content="= 500" FontSize="24" Margin="-34,0,0,-25"/>
+                </UniformGrid>
+                <UniformGrid Grid.Row="1" Grid.Column="0">
+                    <views:Marker MarkerColor="Green" RenderTransformOrigin="0.5,0.5" Margin="0,0,60,0"  ></views:Marker>
+                    <Label Content="= 100" FontSize="24" Margin="-34,0,0,-25"/>
+                </UniformGrid>
+                <UniformGrid Grid.Row="1" Grid.Column="1">
+                    <views:Marker MarkerColor="Blue" RenderTransformOrigin="0.5,0.5" Margin="0,0,60,0" ></views:Marker>
+                    <Label Content="= 50" FontSize="24" Margin="-34,0,0,-25"/>
+                </UniformGrid>
+
+
             </Grid>
-           
+            </StackPanel>
+            <!--<Grid Grid.Column="1" Grid.Row="2" Width="100">
+                <Label Name="markertest" ></Label>
+            </Grid>-->
 
         </Grid>
     </Border>

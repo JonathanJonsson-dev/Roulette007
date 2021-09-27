@@ -18,5 +18,9 @@
             DataType="{x:Type viewModels:WheelViewModel}">
             <views:WheelView/>
         </DataTemplate>
+        <DataTemplate
+            DataType="{x:Type viewModels:SoundSettingsViewModel}">
+            <views:SoundSettingsView/>
+        </DataTemplate>
     </Application.Resources>
 </Application>

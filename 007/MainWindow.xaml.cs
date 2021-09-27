@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,6 +22,8 @@ namespace _Roulette007
     /// </summary>
     public partial class MainWindow : Window
     {
+        //SoundSettingsViewModel soundSettings = new SoundSettingsViewModel();
+
         public MainWindow()
         {
             InitializeComponent();

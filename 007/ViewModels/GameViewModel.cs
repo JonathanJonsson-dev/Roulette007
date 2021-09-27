@@ -1,5 +1,7 @@
 ﻿using _007.Commands;
+using _007.Data;
 using _007.Models;
+using _007.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,32 +15,37 @@ namespace _007.ViewModels
 
     public class GameViewModel : BaseViewModel
     {
+        public SoundSettingsViewModel SoundSettingsView { get; set; } = new SoundSettingsViewModel();
 
+        public GameView gameView;
         public BoardViewModel BoardViewModel { get; set; }
-        
-        public PlayerViewModel Player { get; set; } = new PlayerViewModel();
-       
-        public WheelViewModel Wheel { get; set; }
-        
-        public GameEngine GameEngine { get; set; } = new GameEngine();
+        public WheelViewModel WheelViewModel { get; set; }
+        public PlayerViewModel Player { get; set; } 
+		public GameEngine GameEngine { get; set; } 
         
         public ICommand PickBetCommand { get; }
         public ICommand PlaceBetCommand { get; }
         public ICommand CloseBetCommand { get; }
-        public ICommand StartGameCommand { get; }
+		public ICommand SpinWheelCommand { get; }
         
-        public GameViewModel()
+        public GameViewModel(GameView gameView)
         {
+            this.gameView = gameView;
+            BoardViewModel = new BoardViewModel(this.Player, this.GameEngine);
+
+            WheelViewModel = new WheelViewModel(this);
+
+            Player = new PlayerViewModel(this);
+
+            GameEngine = new GameEngine(this);
+
             PickBetCommand = new PickBetCommand(this);
+			
             PlaceBetCommand = new PlaceBetCommand(this);
+			
             CloseBetCommand = new CloseBetCommand(this);
-            StartGameCommand = new StartGameCommand(Wheel,this);
-            BoardViewModel = new BoardViewModel(this.Player,this.GameEngine);
-            Wheel = new WheelViewModel(this);
-
+            
+            SpinWheelCommand = new SpinWheelCommand(this.WheelViewModel);
         }
-
-
-
     }
 }
