@@ -205,19 +205,16 @@ namespace _007.ViewModels
                 double angle = WheelStopAngle;
 
                 #region initialize Double Animation
-                //rotates 720 degress
+                //rotates 1080 degress
                 DoubleAnimation doubleSpinAnimation = new DoubleAnimation();
                 doubleSpinAnimation.From = Constants.StartAngle;
-                doubleSpinAnimation.To = Constants.FullCircleDegrees*3;
-                doubleSpinAnimation.Duration = new Duration(TimeSpan.FromSeconds(Constants.WheelSpinDurationSeconds*3)); //duration of spin in seconds
+                doubleSpinAnimation.To = Constants.FullCircleDegrees*Constants.SpeedRatio;
+                doubleSpinAnimation.Duration = new Duration(TimeSpan.FromSeconds(Constants.WheelSpinDurationSeconds*Constants.SpeedRatio)); //duration of spin in seconds
                 doubleSpinAnimation.FillBehavior = FillBehavior.Stop;
                 
                 CubicEase cubicEase = new CubicEase();
                 cubicEase.EasingMode = EasingMode.EaseOut;
                 doubleSpinAnimation.EasingFunction = cubicEase;
-                PowerEase powerEase = new PowerEase();
-                powerEase.EasingMode = EasingMode.EaseOut;
-                //doubleSpinAnimation.RepeatBehavior = new RepeatBehavior(Constants.RepeatRatio);
 
                 // rotates to winningnumber
                 //DoubleAnimation spinWheelAmination = new DoubleAnimation();
@@ -236,11 +233,15 @@ namespace _007.ViewModels
                 //DoubleAnimation ballSpinAnimation = spinWheelAmination.Clone();
                 DoubleAnimation ballSpinAnimation = new DoubleAnimation();
                 ballSpinAnimation.From = -Constants.FullCircleDegrees;
-                ballSpinAnimation.To = 360-angle;
+                ballSpinAnimation.To = Constants.FullCircleDegrees-angle;
                 ballSpinAnimation.Duration = new Duration(TimeSpan.FromSeconds(4.5)); //duration of spin in seconds                                                                 
                 ballSpinAnimation.FillBehavior = FillBehavior.HoldEnd;
                 ballSpinAnimation.BeginTime = TimeSpan.FromSeconds(2);
+
+                PowerEase powerEase = new PowerEase();
+                powerEase.EasingMode = EasingMode.EaseOut;
                 ballSpinAnimation.EasingFunction = powerEase;
+
                 ballSpinAnimation.Completed += new EventHandler(ballSpinAnimation_Completed);
                 //720 degrees
                 DoubleAnimation ballDoubleSpinAnimation = doubleSpinAnimation.Clone();
