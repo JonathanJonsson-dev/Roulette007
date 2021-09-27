@@ -191,10 +191,10 @@ namespace _007.ViewModels
             }
             Refresh(WheelCollection); //refresh collection
 
-            _view.BallControl.Visibility = Visibility.Visible; //Toss ball
-
             if (gameViewModel.Player.Bets.Count != 0)
             {
+                _view.BallControl.Visibility = Visibility.Visible; //Toss ball
+
                 WheelView view = _view; //Wheel object
                 //Random angle generator
                 Random angleGenerator = new Random();
@@ -243,19 +243,19 @@ namespace _007.ViewModels
                 #region MediaTimeline and media element for rolling ball
                 //Ball media element
                 MediaElement ballMediaElement = new MediaElement();
-                    ballMediaElement.Volume = 3.0;
-                    ballMediaElement.Visibility = Visibility.Hidden;
-                    view.MainGrid.Children.Add(ballMediaElement); //add media to WheelView
+                ballMediaElement.Volume = 3.0;
+                ballMediaElement.Visibility = Visibility.Hidden;
+                view.MainGrid.Children.Add(ballMediaElement); //add media to WheelView
 
                     // Ball media timeline (sound).
-                    MediaTimeline ballRollingMediaTimeline = new MediaTimeline
-                    {
-                        FillBehavior = FillBehavior.Stop,
-                        BeginTime = TimeSpan.FromSeconds(Constants.Zero),
-                        Duration = new Duration(TimeSpan.FromSeconds(6)),
-                        Source = new Uri(Constants.BallSoundFilePath, UriKind.Relative),
-                    };
-                    #endregion
+                MediaTimeline ballRollingMediaTimeline = new MediaTimeline
+                {
+                    FillBehavior = FillBehavior.Stop,
+                    BeginTime = TimeSpan.FromSeconds(Constants.Zero),
+                    Duration = new Duration(TimeSpan.FromSeconds(6)),
+                    Source = new Uri(Constants.BallSoundFilePath, UriKind.Relative),
+                };
+                #endregion
 
                 #region Add Storyboard children
                 //Wheel
@@ -264,7 +264,6 @@ namespace _007.ViewModels
 
                 //Ball
                 Storyboard spinBallStoryBoard = new Storyboard();
-                spinBallStoryBoard.Children.Add(ballRollingMediaTimeline); //add media time line to storyboard
                 spinBallStoryBoard.Children.Add(ballRollingMediaTimeline); //add media time line to storyboard
                 spinBallStoryBoard.Children.Add(ballDoubleSpinAnimation); //add animation to storyboard
                 spinBallStoryBoard.Children.Add(ballSpinAnimation); //add animation to storyboard
