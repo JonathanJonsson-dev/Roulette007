@@ -37,7 +37,7 @@ namespace _007.Views
             {
                 var marker = (Marker)data;
                 Point dropPoint = e.GetPosition(board);
-
+                marker.Margin = new Thickness(0, 0, 0, 0);
                 var allowedPoint = GetAllowedPoint(dropPoint);
                 Canvas.SetLeft(marker, allowedPoint.X);
                 Canvas.SetTop(marker, allowedPoint.Y);
@@ -165,7 +165,7 @@ namespace _007.Views
 
         private void board_Drop(object sender, DragEventArgs e)
         {
-           
+            Random r = new Random();
             object data = e.Data.GetData(DataFormats.Serializable);
             Marker marker;
                 if (data is Marker)
@@ -242,7 +242,9 @@ namespace _007.Views
                                 Margin = marker.GetMarkerMargin(marker.colors),
                                 colors = marker.colors
                             };
+                            
                             markerboard.Children.Add(newMark);
+                            marker.Margin = new Thickness(r.Next(0, 10), r.Next(0, 10), r.Next(0, 10), r.Next(0, 10));
                         }
                         else
                         {
