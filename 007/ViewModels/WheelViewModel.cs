@@ -208,11 +208,16 @@ namespace _007.ViewModels
                 //rotates 720 degress
                 DoubleAnimation doubleSpinAnimation = new DoubleAnimation();
                 doubleSpinAnimation.From = Constants.StartAngle;
-                doubleSpinAnimation.To = Constants.FullCircleDegrees;
-                doubleSpinAnimation.Duration = new Duration(TimeSpan.FromSeconds(Constants.WheelSpinDurationSeconds)); //duration of spin in seconds
+                doubleSpinAnimation.To = Constants.FullCircleDegrees*3;
+                doubleSpinAnimation.Duration = new Duration(TimeSpan.FromSeconds(Constants.WheelSpinDurationSeconds*3)); //duration of spin in seconds
                 doubleSpinAnimation.FillBehavior = FillBehavior.Stop;
-                doubleSpinAnimation.IsCumulative = true;
-                doubleSpinAnimation.RepeatBehavior = new RepeatBehavior(Constants.RepeatRatio);
+                
+                CubicEase cubicEase = new CubicEase();
+                cubicEase.EasingMode = EasingMode.EaseOut;
+                doubleSpinAnimation.EasingFunction = cubicEase;
+                PowerEase powerEase = new PowerEase();
+                powerEase.EasingMode = EasingMode.EaseOut;
+                //doubleSpinAnimation.RepeatBehavior = new RepeatBehavior(Constants.RepeatRatio);
 
                 // rotates to winningnumber
                 //DoubleAnimation spinWheelAmination = new DoubleAnimation();
@@ -232,13 +237,16 @@ namespace _007.ViewModels
                 DoubleAnimation ballSpinAnimation = new DoubleAnimation();
                 ballSpinAnimation.From = -Constants.FullCircleDegrees;
                 ballSpinAnimation.To = 360-angle;
-                ballSpinAnimation.Duration = new Duration(TimeSpan.FromSeconds(Constants.WheelSpinDurationSeconds*Constants.BallSpeedRatio)); //duration of spin in seconds                                                                 
+                ballSpinAnimation.Duration = new Duration(TimeSpan.FromSeconds(4.5)); //duration of spin in seconds                                                                 
                 ballSpinAnimation.FillBehavior = FillBehavior.HoldEnd;
-                ballSpinAnimation.BeginTime = TimeSpan.FromSeconds(4);
-
+                ballSpinAnimation.BeginTime = TimeSpan.FromSeconds(2);
+                ballSpinAnimation.EasingFunction = powerEase;
                 ballSpinAnimation.Completed += new EventHandler(ballSpinAnimation_Completed);
                 //720 degrees
                 DoubleAnimation ballDoubleSpinAnimation = doubleSpinAnimation.Clone();
+                ballDoubleSpinAnimation.To = 720;
+                ballDoubleSpinAnimation.Duration = new Duration(TimeSpan.FromSeconds(2));
+                ballDoubleSpinAnimation.EasingFunction = null;
                 #endregion
 
                 #region MediaTimeline and media element for rolling ball
