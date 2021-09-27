@@ -13,11 +13,6 @@
     <Border x:Name="MainBorder" Background="Transparent" 
             Height="350" Width="350">
         <Grid x:Name="MainGrid"  >
-            <!--<Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="00*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>-->
             <Canvas Background="Transparent">
                 <!--Outermost wheel-->
                 <Ellipse Height="500" 
@@ -42,7 +37,7 @@
                               Width="{Binding WheelViewModel.MainBoardWidth, Mode=OneWay}"
                               Height="{Binding WheelViewModel.MainBoardHeight, Mode=OneWay}">
                     <ItemsControl.RenderTransform>
-                        <RotateTransform x:Name="Rotate" />
+                        <RotateTransform x:Name="RotateWheel" />
                     </ItemsControl.RenderTransform>
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -86,14 +81,6 @@
                                                          Points="{Binding Points, Mode=OneWay}">
                                                     <Polygon.Style>
                                                         <Style TargetType="{x:Type Polygon}">
-                                                            <!--<Setter Property="Effect" >
-                                                                <Setter.Value>
-                                                                    <DropShadowEffect
-                                                                                Color="PaleVioletRed"
-                                                                                BlurRadius="0"
-                                                                                ShadowDepth="0"/>
-                                                                </Setter.Value>
-                                                            </Setter>-->
                                                             <Style.Triggers>
                                                                 <DataTrigger Binding="{Binding IsGreenNumber}" Value="True">
                                                                     <Setter Property="Fill" Value="LimeGreen"/>
@@ -104,10 +91,6 @@
                                                                 <DataTrigger Binding="{Binding IsBlackNumber}" Value="True">
                                                                     <Setter Property="Fill" Value="Black"/>
                                                                 </DataTrigger>
-                                                                <!--<DataTrigger Binding="{Binding IsWinningNumber}" Value="True">
-                                                                    <Setter Property="Fill" Value="Transparent"/>
-                                                                </DataTrigger>-->
-
                                                             </Style.Triggers>
                                                         </Style>
                                                     </Polygon.Style>
@@ -120,8 +103,28 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-                <Polygon Points="0,0 20,0 10,75" Fill="Black" Canvas.Left="214" Canvas.Top="-24"/>
-
+                <!--<Polygon Points="0,0 20,0 10,75" Fill="Black" Canvas.Left="214" Canvas.Top="-24"/>-->
+                <Ellipse x:Name="BallControl" RenderTransformOrigin="0.5,0.5"
+                         HorizontalAlignment="Center" VerticalAlignment="Center"
+                         Width="30" Height="30" Visibility="Hidden"
+                         Fill="DarkBlue">
+                    <Ellipse.Effect>
+                        <DropShadowEffect
+                             Color="AliceBlue"
+                             BlurRadius="20"
+                             ShadowDepth="1"/>
+                    </Ellipse.Effect>
+                    <Ellipse.RenderTransform>
+                        <TransformGroup>
+                            <TranslateTransform Y="{Binding WheelViewModel.BallTranslateY}" 
+                                                X="{Binding WheelViewModel.BallTranslateX}"/>
+                            <RotateTransform x:Name="RotateBall" 
+                                             CenterX="{Binding WheelViewModel.BallCenterX}" 
+                                             CenterY="{Binding WheelViewModel.BallCenterY}"
+                                             />
+                        </TransformGroup>
+                    </Ellipse.RenderTransform>
+                </Ellipse>
                 <Button x:Name="btnSpin" 
                         BorderBrush="SaddleBrown" BorderThickness="5" 
                         Content="Spin Wheel" Width="150" Height="55" FontSize="25" Canvas.Top="498" 
