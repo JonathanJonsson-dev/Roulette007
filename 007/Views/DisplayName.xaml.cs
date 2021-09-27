@@ -23,5 +23,15 @@ namespace _007.Views
             InitializeComponent();
            
         }
+
+        /// <summary>
+        /// closes displayname pop up
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSet_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

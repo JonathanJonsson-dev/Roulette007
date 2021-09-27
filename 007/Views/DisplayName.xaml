@@ -4,10 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_007.Views"
-        mc:Ignorable="d"
+        mc:Ignorable="d" FontSize="20"
         Title="Set screen name" SizeToContent="WidthAndHeight">
-    <Grid >
-        <local:PlayerName Height="200" Width="340"/>
 
-    </Grid>
+    <Border BorderBrush="SaddleBrown" BorderThickness="5" Background="LightGray">
+        <Grid Margin="10" Background="DarkSlateGray" Width="310" Height="150">
+            <Label Content="Screen Name:" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.843,5.1" Foreground="AntiqueWhite" Width="135" Height="39"/>
+            <TextBox x:Name="txtSetName" HorizontalAlignment="Left" Margin="143,34,0,0" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" 
+                     VerticalAlignment="Top" Width="150" RenderTransformOrigin="1.331,1.577" Height="39"
+                     VerticalContentAlignment="Center"/>
+            <Button x:Name="btnSet" Content="Save" BorderBrush="SaddleBrown" BorderThickness="2"
+                    Command="{Binding SetNameCommand}" Click="btnSet_Click"
+                    HorizontalAlignment="Left" Margin="147,91,0,0" VerticalAlignment="Top" Width="142" Visibility="Visible" RenderTransformOrigin="-0.744,1.353" Height="37" />
+
+        </Grid>
+    </Border>
 </Window>
