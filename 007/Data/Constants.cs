@@ -24,6 +24,7 @@ namespace _007.Data
         public const int MainBorderWidth = 450;
         public const int MainBorderHeight = 450;
         public const string BallSoundFilePath = "././Views/Utilities/RouletteWheelSpinn.mp3";
+        public const string BallTossFilePath = "././Views/Utilities/BallBounce.wav";
         public const double BallYOffsetPercentage = 0.90;
         public const int SpeedRatio = 3;
     }

@@ -27,6 +27,10 @@ namespace _007.ViewModels
         private readonly GameViewModel gameViewModel;
 
         int winAmount;
+
+        Storyboard spinBallStoryBoard; //storyboard to spin ball
+
+        WheelView view;
         #endregion
 
         #region Properties
@@ -50,12 +54,18 @@ namespace _007.ViewModels
 
         #endregion
 
+        #region Events
+       
+        #endregion
+
+        //Constructor
         public WheelViewModel(GameViewModel gameViewModel)
         {
             this.gameViewModel = gameViewModel;
             DetermineWheelPieceValues(); //Set values to wheel piece variables
             FillWheel();
             UpdateWheelPieceValues(); //More wheel piece variable value
+            spinBallStoryBoard = new Storyboard(); //Initialize storyboard
         }
 
         /// <summary>
@@ -176,14 +186,75 @@ namespace _007.ViewModels
         }
 
         /// <summary>
+        /// Method to toss ball and animate bounce
+        /// </summary>
+        /// <param name="wheel"></param>
+        private void TossBall(WheelView wheel)
+        {
+            wheel.BallControl.Visibility = Visibility.Visible; //Toss ball
+
+            //Ball toss mediaelement
+            MediaElement tossBallMediaElement = new MediaElement
+            {
+                Volume = 5.0,
+                Visibility = Visibility.Hidden
+            };
+            wheel.MainGrid.Children.Add(tossBallMediaElement); //add media to WheelView
+
+            // Ball toss media timeline (sound)
+            MediaTimeline tossBallMediaTimeline = new MediaTimeline
+            {
+                Duration = new Duration(TimeSpan.FromSeconds(1)),
+                Source = new Uri(Constants.BallTossFilePath, UriKind.Relative),
+                RepeatBehavior = new RepeatBehavior(new TimeSpan(6))
+            };
+
+            //Bounce ball
+            DoubleAnimation tossBallAnimation = new DoubleAnimation
+            {
+                From = BallTranslateY,
+                To = BallTranslateY + 20,
+                Duration = new Duration(TimeSpan.FromSeconds(1)), //duration of bounce in seconds
+                BeginTime = TimeSpan.FromSeconds(0),
+                AutoReverse = true,
+                RepeatBehavior = new RepeatBehavior(3)
+            };
+            //easing function
+            BounceEase bounces = new BounceEase
+            {
+                Bounces = 1,
+                Bounciness = 3,
+                EasingMode = EasingMode.EaseOut
+            };
+            tossBallAnimation.EasingFunction = bounces;
+            //Set targets
+            Storyboard.SetTarget(tossBallMediaTimeline, tossBallMediaElement);
+            Storyboard.SetTarget(tossBallAnimation, wheel.BallControl);
+            Storyboard.SetTargetProperty(tossBallAnimation, new PropertyPath("RenderTransform.Children[0].Y"));
+            //Storyboard
+            Storyboard tossStoryboard = new Storyboard();
+            tossStoryboard.Children.Add(tossBallMediaTimeline);
+            tossStoryboard.Children.Add(tossBallAnimation);
+            tossStoryboard.SlipBehavior = SlipBehavior.Slip;
+            //Begin storyboard
+            tossStoryboard.Begin(wheel.BallControl, true);
+        }
+
+        /// <summary>
         /// Spins wheel
         /// </summary>
         /// <param name="_view"></param>
         public void SpinWheelGetAngle(WheelView _view)
         {
-           
+            view = _view; //Wheel object
+            //Checks for ongoing spin. only runs if none.
+            //if (spinBallStoryBoard.GetCurrentState(view.BallControl) == ClockState.Stopped || spinBallStoryBoard.GetIsPaused(view.BallControl) == false)                
+            //{
+            //checks for bets
             if (gameViewModel.Player.Bets.Count != 0)
             {
+                //Disable spin wheel button to prevent further spin
+                view.btnSpin.IsEnabled = false;
                 //reset wheel before each spin using Refresh method
                 foreach (WheelPiece wheelPiece in WheelCollection)
                 {
@@ -194,9 +265,13 @@ namespace _007.ViewModels
                 }
                 Refresh(WheelCollection); //refresh collection
 
-                _view.BallControl.Visibility = Visibility.Visible; //Toss ball
+            #region Toss ball
+            TossBall(view);
+            //view.BallControl.Visibility = Visibility.Visible;
 
-                WheelView view = _view; //Wheel object
+                #endregion
+
+                    
                 //Random angle generator
                 Random angleGenerator = new Random();
                 //spin wheel counter-clockwise
@@ -208,32 +283,21 @@ namespace _007.ViewModels
                 //rotates 1080 degress
                 DoubleAnimation doubleSpinAnimation = new DoubleAnimation();
                 doubleSpinAnimation.From = Constants.StartAngle;
-                doubleSpinAnimation.To = Constants.FullCircleDegrees*Constants.SpeedRatio;
-                doubleSpinAnimation.Duration = new Duration(TimeSpan.FromSeconds(Constants.WheelSpinDurationSeconds*Constants.SpeedRatio)); //duration of spin in seconds
+                doubleSpinAnimation.To = Constants.FullCircleDegrees * Constants.SpeedRatio;
+                doubleSpinAnimation.Duration = new Duration(TimeSpan.FromSeconds(Constants.WheelSpinDurationSeconds * Constants.SpeedRatio)); //duration of spin in seconds
                 doubleSpinAnimation.FillBehavior = FillBehavior.Stop;
-                
+
                 CubicEase cubicEase = new CubicEase();
                 cubicEase.EasingMode = EasingMode.EaseOut;
                 doubleSpinAnimation.EasingFunction = cubicEase;
 
-                // rotates to winningnumber
-                //DoubleAnimation spinWheelAmination = new DoubleAnimation();
-                //spinWheelAmination.From = -Constants.FullCircleDegrees;
-                //spinWheelAmination.To = angle;
-                //spinWheelAmination.Duration = new Duration(TimeSpan.FromSeconds(Constants.WheelSpinDurationSeconds)); //duration of spin in seconds                                                                 
-                //spinWheelAmination.FillBehavior = FillBehavior.HoldEnd;
-                //spinWheelAmination.BeginTime = TimeSpan.FromSeconds(4);
-                //spinWheelAmination.RepeatBehavior = new RepeatBehavior(Constants.RepeatRatio);
-                //spinWheelAmination.Completed += new EventHandler(spinWheelAnimation_Completed);
-
                 #endregion
-
 
                 #region Ball animation
                 //DoubleAnimation ballSpinAnimation = spinWheelAmination.Clone();
                 DoubleAnimation ballSpinAnimation = new DoubleAnimation();
                 ballSpinAnimation.From = -Constants.FullCircleDegrees;
-                ballSpinAnimation.To = Constants.FullCircleDegrees-angle;
+                ballSpinAnimation.To = Constants.FullCircleDegrees - angle;
                 ballSpinAnimation.Duration = new Duration(TimeSpan.FromSeconds(4.5)); //duration of spin in seconds                                                                 
                 ballSpinAnimation.FillBehavior = FillBehavior.HoldEnd;
                 ballSpinAnimation.BeginTime = TimeSpan.FromSeconds(2);
@@ -257,12 +321,12 @@ namespace _007.ViewModels
                 ballMediaElement.Visibility = Visibility.Hidden;
                 view.MainGrid.Children.Add(ballMediaElement); //add media to WheelView
 
-                    // Ball media timeline (sound).
+                // Ball media timeline (sound).
                 MediaTimeline ballRollingMediaTimeline = new MediaTimeline
                 {
                     FillBehavior = FillBehavior.Stop,
                     BeginTime = TimeSpan.FromSeconds(Constants.Zero),
-                    Duration = new Duration(TimeSpan.FromSeconds(6)),
+                    Duration = new Duration(TimeSpan.FromSeconds(5)),
                     Source = new Uri(Constants.BallSoundFilePath, UriKind.Relative),
                 };
                 #endregion
@@ -273,8 +337,6 @@ namespace _007.ViewModels
                 spinWheelStoryBoard.Children.Add(doubleSpinAnimation); //add animation to storyboard 
 
                 //Ball
-                Storyboard spinBallStoryBoard = new Storyboard();
-               
                 spinBallStoryBoard.Children.Add(ballRollingMediaTimeline); //add media time line to storyboard
                 spinBallStoryBoard.Children.Add(ballDoubleSpinAnimation); //add animation to storyboard
                 spinBallStoryBoard.Children.Add(ballSpinAnimation); //add animation to storyboard
@@ -350,6 +412,7 @@ namespace _007.ViewModels
             {
                 MessageBox.Show("Please place a bet first");
             }
+            //}
         }
 
         /// <summary>
@@ -366,6 +429,8 @@ namespace _007.ViewModels
             //Update player
             MessageBox.Show($"Winning Number is {WinningNumber} \n\n\r " +
                 $"Winning amount {winAmount}", "Win", MessageBoxButton.OK, MessageBoxImage.Information);
+            //enables spin button once spinning is completed
+            view.btnSpin.IsEnabled = true;
         }
 
         /// <summary>
