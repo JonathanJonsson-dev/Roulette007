@@ -69,8 +69,35 @@ namespace _007.Models
                 //sound.Play();
             }
             gameViewModel.Player.Pot += totalPayout; //Returns nothing for the player because the have lost
+            CheckHighscore();
             return totalPayout;
         }
+        private void CheckHighscore()
+        {
+            int maxValue = MaxValueObservableCollection();
+            if (gameViewModel.Player.Pot > maxValue)
+            {
+                HighscorePiece scorePiece = new HighscorePiece() { PlayerName = gameViewModel.Player.Name, Score = gameViewModel.Player.Pot };
+                gameViewModel.Highscores.Add(scorePiece);
+            }
+        }
+        /// <summary>
+        /// Gets the maximum score from highscores collection. 
+        /// </summary>
+        /// <returns>maxValue</returns>
+        private int MaxValueObservableCollection()
+        {
+            int maxValue = 0;
+            foreach (HighscorePiece game in gameViewModel.Highscores)
+            {
+                if (game.Score > maxValue)
+                {
+                    maxValue = game.Score;
+                }
+            }
+            return maxValue;
+        }
+
         private int GetPayoutRatio(BetType type)
         {
             switch (type)

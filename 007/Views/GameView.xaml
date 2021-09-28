@@ -32,9 +32,19 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <!--<ItemsControl Grid.Column="0" Grid.Row="1" ItemsSource="{Binding SoundSettingsView}"/>-->
-            <ContentControl Grid.Row="1" Grid.Column="4" Content="{Binding SoundSettingsView}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-
+            <StackPanel Grid.Row="1" Grid.Column="4">
+                <ContentControl Content="{Binding SoundSettingsView}" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+                <Label Content="Highscores" Foreground="White" FontSize="24"/>
+                <ItemsControl VerticalAlignment="Center" ItemsSource="{Binding Highscores}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Width="100" HorizontalAlignment="Left"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </StackPanel>
+            
+            <!--<ContentControl Grid.Row="1" Grid.Column="4" Content="{Binding SoundSettingsView}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>-->
             <UniformGrid Grid.Column="0" Grid.Row="1" Margin="-100,-200,0,0">
                 <views:WheelView />
             </UniformGrid>
@@ -78,6 +88,8 @@
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                     </ItemsControl>
+
+                    
 
                     <Grid Grid.Column="2" Grid.Row="1">
                         <ItemsControl ItemsSource="{Binding BoardViewModel.BoardBottom}">

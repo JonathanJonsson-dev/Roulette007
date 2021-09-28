@@ -32,8 +32,8 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">Change Song</TextBlock>
-            <Button x:Name="PreviousBtn" Grid.Row="1" Content="&lt;&lt;" Click="PreviousBtn_Click" Command="{Binding PreviousSongCommand}" HorizontalAlignment="left" VerticalAlignment="Center" Height="32" FontSize="14" Width="24"/>
-            <Button x:Name="NextBtn" Grid.Row="1" Content="&gt;&gt;" Click="NextBtn_Click" Command="{Binding NextSongCommand}" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="14" Height="32"/>
+            <Button x:Name="PreviousBtn" Grid.Row="1" Content="&lt;&lt;" Click="PreviousBtn_Click" HorizontalAlignment="left" VerticalAlignment="Center" Height="32" FontSize="14" Width="24"/>
+            <Button x:Name="NextBtn" Grid.Row="1" Content="&gt;&gt;" Click="NextBtn_Click" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="14" Height="32"/>
         </Grid>
     </Grid>
 </UserControl>

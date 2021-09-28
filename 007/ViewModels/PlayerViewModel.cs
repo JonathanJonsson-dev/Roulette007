@@ -16,10 +16,12 @@ namespace _007.ViewModels
 
 
         public ObservableCollection<Marker> Markers { get; set; } = new ObservableCollection<Marker>();
+        
         public string Name { get; set; } = "";
-        public int Pot { get; set; } = 1000;
+        public int Pot { get; set; } = 10000;
 
         public ObservableCollection<Bet> Bets { get; set; } = new ObservableCollection<Bet>();
+
         private GameViewModel gameViewModel;
         public RelayCommand SetNameCommand { get; }
         public ICommand ResetGameCommand { get; }
@@ -35,7 +37,7 @@ namespace _007.ViewModels
             ShowInstructionsCommand = new ShowInstructionsCommand(this);
             GetStarterMarkers();
         }
-        
+
         private void GetStarterMarkers()
         {
 

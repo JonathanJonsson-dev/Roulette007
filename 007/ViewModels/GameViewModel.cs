@@ -4,6 +4,7 @@ using _007.Models;
 using _007.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -16,6 +17,7 @@ namespace _007.ViewModels
     public class GameViewModel : BaseViewModel
     {
         public SoundSettingsViewModel SoundSettingsView { get; set; } = new SoundSettingsViewModel();
+        public ObservableCollection<HighscorePiece> Highscores { get; set; } = new ObservableCollection<HighscorePiece>();
 
         public GameView gameView;
         public BoardViewModel BoardViewModel { get; set; }
