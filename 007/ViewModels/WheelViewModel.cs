@@ -285,11 +285,10 @@ namespace _007.ViewModels
                 {
                     wheel = _wheel; //initialise wheel object
                 }
-                if(spinBallStoryBoard == null)
-                { 
+                
                     spinBallStoryBoard = new Storyboard(); //initialise ball spin storyboard
                     spinBallStoryBoard.Completed += new EventHandler(WheelSpin_Completed); //spin stopped event
-                }
+                
 
                 //Checks for ongoing spin. only runs if none.
                 //if (spinBallStoryBoard.GetCurrentState(wheel.BallControl) == ClockState.Stopped || spinBallStoryBoard.GetIsPaused(wheel.BallControl) == false)
@@ -315,7 +314,7 @@ namespace _007.ViewModels
 
                     #endregion
 
-                    
+
                     //Random angle generator
                     Random angleGenerator = new Random();
                     //spin wheel counter-clockwise
@@ -325,29 +324,37 @@ namespace _007.ViewModels
 
                     #region initialize Double Animation
                     //rotates 1080 degress
-                    DoubleAnimation doubleSpinAnimation = new DoubleAnimation();
-                    doubleSpinAnimation.From = Constants.StartAngle;
-                    doubleSpinAnimation.To = Constants.FullCircleDegrees * Constants.SpeedRatio;
-                    doubleSpinAnimation.Duration = new Duration(TimeSpan.FromSeconds(Constants.WheelSpinDurationSeconds * Constants.SpeedRatio)); //duration of spin in seconds
-                    doubleSpinAnimation.FillBehavior = FillBehavior.Stop;
+                    DoubleAnimation doubleSpinAnimation = new DoubleAnimation
+                    {
+                        From = Constants.StartAngle,
+                        To = Constants.FullCircleDegrees * Constants.SpeedRatio,
+                        Duration = new Duration(TimeSpan.FromSeconds(Constants.WheelSpinDurationSeconds * Constants.SpeedRatio)), //duration of spin in seconds
+                        FillBehavior = FillBehavior.Stop
+                    };
 
-                    CubicEase cubicEase = new CubicEase();
-                    cubicEase.EasingMode = EasingMode.EaseOut;
+                    CubicEase cubicEase = new CubicEase
+                    {
+                        EasingMode = EasingMode.EaseOut
+                    };
                     doubleSpinAnimation.EasingFunction = cubicEase;
 
                     #endregion
 
                     #region Ball animation
                     //DoubleAnimation ballSpinAnimation = spinWheelAmination.Clone();
-                    DoubleAnimation ballSpinAnimation = new DoubleAnimation();
-                    ballSpinAnimation.From = -Constants.FullCircleDegrees;
-                    ballSpinAnimation.To = Constants.FullCircleDegrees - angle;
-                    ballSpinAnimation.Duration = new Duration(TimeSpan.FromSeconds(4.5)); //duration of spin in seconds                                                                 
-                    ballSpinAnimation.FillBehavior = FillBehavior.HoldEnd;
-                    ballSpinAnimation.BeginTime = TimeSpan.FromSeconds(2);
+                    DoubleAnimation ballSpinAnimation = new DoubleAnimation
+                    {
+                        From = -Constants.FullCircleDegrees,
+                        To = Constants.FullCircleDegrees - angle,
+                        Duration = new Duration(TimeSpan.FromSeconds(4.5)), //duration of spin in seconds                                                                 
+                        FillBehavior = FillBehavior.HoldEnd,
+                        BeginTime = TimeSpan.FromSeconds(2)
+                    };
 
-                    PowerEase powerEase = new PowerEase();
-                    powerEase.EasingMode = EasingMode.EaseOut;
+                    PowerEase powerEase = new PowerEase
+                    {
+                        EasingMode = EasingMode.EaseOut
+                    };
                     ballSpinAnimation.EasingFunction = powerEase;
                
                     //720 degrees
@@ -359,9 +366,11 @@ namespace _007.ViewModels
 
                     #region MediaTimeline and media element for rolling ball
                     //Ball media element
-                    MediaElement ballMediaElement = new MediaElement();
-                    ballMediaElement.Volume = 3.0;
-                    ballMediaElement.Visibility = Visibility.Hidden;
+                    MediaElement ballMediaElement = new MediaElement
+                    {
+                        Volume = 3.0,
+                        Visibility = Visibility.Hidden
+                    };
                     wheel.MainGrid.Children.Add(ballMediaElement); //add media to WheelView
 
                     // Ball media timeline (sound).
@@ -482,6 +491,7 @@ namespace _007.ViewModels
                     $"Winning amount {winAmount}", "Win", MessageBoxButton.OK, MessageBoxImage.Information);
                 //enables spin button once spinning is completed
                 wheel.btnSpin.IsEnabled = true;
+                gameViewModel.GameEngine.NextRound();
             }
             catch (Exception ex)
             {

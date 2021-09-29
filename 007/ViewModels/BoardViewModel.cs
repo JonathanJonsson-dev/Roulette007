@@ -32,7 +32,16 @@ namespace _007.ViewModels
             this.gameEngine = gameEngine;
             FillBoard();
         }
-
+        public void ChangeBorderColorPowerUp(int id)
+        {
+            foreach (var boardPiece in CompleteBoard)
+            {
+                if (boardPiece.BorderColor == Brushes.Blue)
+                    boardPiece.BorderColor = Brushes.White;
+            }
+            if(id>=0)
+            CompleteBoard[id].BorderColor = Brushes.Blue;
+        }
         private void FillSpecialBetBoardColumnOne()
         {
             for (int i = 0; i < 6; i++)
@@ -234,24 +243,6 @@ namespace _007.ViewModels
             }
 
         }
-        public void CreateBet()
-        {
-            
-
-        }
-        
-   
-        public void StartRound(int winnningNumber)//Starts the game temporary placement
-        {
-            Payout();
-        }
-        public void Payout()//Sends all bets made to gameEnigne for payout
-        {
-
-            int totalPayout = 0;            
-            PlaySound(totalPayout);
-
-        }
        
         private void FillBoard()
         {
@@ -336,13 +327,6 @@ namespace _007.ViewModels
         }
 
        
-        /// <summary>
-        /// Play winning and losing sound
-        /// </summary>
-        /// <param name="totalPayout"></param>
-        private void PlaySound(int totalPayout)
-        {
-           
-        }
+        
     }
 }
