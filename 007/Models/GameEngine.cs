@@ -18,7 +18,10 @@ namespace _007.Models
     {
         private readonly GameViewModel gameViewModel;
         private static readonly Random random = new Random();
-        public int WinningNumber { get; set; }
+        
+        public int Round { get; private set; } = 1;
+        private int bonusRatio = 1;
+        private int nextPowerUp = 5;
         public GameEngine(GameViewModel gameViewModel)
         {
             this.gameViewModel = gameViewModel;
@@ -28,56 +31,7 @@ namespace _007.Models
         /// </summary>
         /// <param name="bet"></param>
         /// <returns></returns>
-        public int GetPayout(ObservableCollection<Bet> bets)
-        {
-            int totalPayout = 0;
-            
-            foreach (var bet in bets)//Loops through every number in the bet to check against the winning number
-            {
-                foreach (var number in bet.Numbers)
-                {
-                    if (number == gameViewModel.WheelViewModel.WinningNumber)
-                    {
-                        totalPayout+= bet.Value * GetPayoutRatio(bet.Type) + bet.Value; //Returns the players payout
-                    }
-                }
-                gameViewModel.gameView.board.Children.Remove(bet.Mark);
-            }
-            gameViewModel.Player.Bets.Clear();
-           
-            MediaPlayer player = new MediaPlayer();
-            if (totalPayout > 0)
-            {
-                if (random.NextDouble() > 0.5) // Play random winning sound. 
-                {
-                    player.Open(new Uri(@"Resources\WinningSound1.wav", UriKind.Relative));
-                    player.Volume = 0.1;
-                    player.Play();
-                }
-                else
-                {
-                    player.Open(new Uri(@"Resources\WinningSound2.mp3", UriKind.Relative));
-                    player.Volume = 0.1;
-                    player.Play();
-                }
-
-                //SoundPlayer sound = new SoundPlayer(Properties.Resources.WinningSound1);
-                //sound.Play();
-            }
-            else
-            {
-                player.Open(new Uri(@"Resources\LosingSound.wav", UriKind.Relative));
-                player.Volume = 0.1;
-                player.Play();
-                //SoundPlayer sound = new SoundPlayer(Properties.Resources.LosingSound);
-                //sound.Play();
-            }
-            gameViewModel.Player.Pot += totalPayout; //Returns nothing for the player because the have lost
-            CheckHighscore();
-            //SaveHighscoresToFile();
-            return totalPayout;
-        }
-
+       
         private void SaveHighscoresToFile()
         {
             List<HighscorePiece> highscoreList = new List<HighscorePiece>();
@@ -154,7 +108,66 @@ namespace _007.Models
             }
             return 0;
         }
-      
+
+        public int GetPayout(ObservableCollection<Bet> bets)
+        {
+            int totalPayout = 0;
+
+            foreach (var bet in bets)//Loops through every number in the bet to check against the winning number
+            {
+                foreach (var number in bet.Numbers)
+                {
+                    if (number == gameViewModel.WheelViewModel.WinningNumber)
+                    {
+                        totalPayout += (bet.Value * GetPayoutRatio(bet.Type) * bonusRatio) + bet.Value; //Returns the players payout
+                    }
+                }
+                gameViewModel.gameView.board.Children.Remove(bet.Mark);
+            }
+            gameViewModel.Player.Bets.Clear();
+
+            MediaPlayer player = new MediaPlayer();
+            if (totalPayout > 0)
+            {
+                if (random.NextDouble() > 0.5) // Play random winning sound. 
+                {
+                    player.Open(new Uri(@"Resources\WinningSound1.wav", UriKind.Relative));
+                    player.Volume = 0.1;
+                    player.Play();
+                }
+                else
+                {
+                    player.Open(new Uri(@"Resources\WinningSound2.mp3", UriKind.Relative));
+                    player.Volume = 0.1;
+                    player.Play();
+                }
+
+                //SoundPlayer sound = new SoundPlayer(Properties.Resources.WinningSound1);
+                //sound.Play();
+            }
+            else
+            {
+                player.Open(new Uri(@"Resources\LosingSound.wav", UriKind.Relative));
+                player.Volume = 0.1;
+                player.Play();
+                //SoundPlayer sound = new SoundPlayer(Properties.Resources.LosingSound);
+                //sound.Play();
+            }
+            gameViewModel.Player.Pot += totalPayout; //Returns nothing for the player because the have lost
+            CheckHighscore();
+            //SaveHighscoresToFile();
+            return totalPayout;
+        }
+
+        public void NextRound()
+        {
+            Round++;
+            PowerUp();
+        }
+        private BoardPiece PowerUp()
+        {
+            return null;
+        }
         public Bet CreateBet(Marker marker, Point point)// Handles inside bets
         {
             
