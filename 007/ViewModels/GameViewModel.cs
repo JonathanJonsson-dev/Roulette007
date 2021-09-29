@@ -46,7 +46,7 @@ namespace _007.ViewModels
             PlaceBetCommand = new PlaceBetCommand(this);
 			
             CloseBetCommand = new CloseBetCommand(this);
-            
+
             SpinWheelCommand = new SpinWheelCommand(this.WheelViewModel);
         }
     }

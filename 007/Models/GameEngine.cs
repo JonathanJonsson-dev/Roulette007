@@ -4,9 +4,12 @@ using _007.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;
+using System.Xml.Serialization;
 
 namespace _007.Models
 {
@@ -70,8 +73,21 @@ namespace _007.Models
             }
             gameViewModel.Player.Pot += totalPayout; //Returns nothing for the player because the have lost
             CheckHighscore();
+            //SaveHighscoresToFile();
             return totalPayout;
         }
+
+        private void SaveHighscoresToFile()
+        {
+            //XmlSerializer xs = new XmlSerializer(typeof(gameViewModel.Highscores));
+            //using (StreamWriter wr = new StreamWriter("highscores.xml"))
+            //{
+            //    xs.Serialize(wr, gameViewModel.Highscores);
+            //}
+        }
+        /// <summary>
+        /// Checks if the current player pot is higher than highest value in highscores. Then add the score to highscore collection. 
+        /// </summary>
         private void CheckHighscore()
         {
             int maxValue = MaxValueObservableCollection();
@@ -80,6 +96,7 @@ namespace _007.Models
                 HighscorePiece scorePiece = new HighscorePiece() { PlayerName = gameViewModel.Player.Name, Score = gameViewModel.Player.Pot };
                 gameViewModel.Highscores.Add(scorePiece);
             }
+            this.gameViewModel.Highscores = new ObservableCollection<HighscorePiece>(gameViewModel.Highscores.OrderByDescending(o => o.Score)); // Sorts the Highscore collection in descending order.
         }
         /// <summary>
         /// Gets the maximum score from highscores collection. 

@@ -34,14 +34,17 @@
 
             <StackPanel Grid.Row="1" Grid.Column="4">
                 <ContentControl Content="{Binding SoundSettingsView}" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
-                <Label Content="Highscores" Foreground="White" FontSize="24"/>
-                <ItemsControl VerticalAlignment="Center" ItemsSource="{Binding Highscores}">
+                <Label Content="Highscores" Foreground="White" FontSize="24" HorizontalAlignment="Center"/>
+
+                <ItemsControl VerticalAlignment="Center" ItemsSource="{Binding Highscores}" 
+                              HorizontalAlignment="Left">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Width="100" HorizontalAlignment="Left"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
+
             </StackPanel>
             
             <!--<ContentControl Grid.Row="1" Grid.Column="4" Content="{Binding SoundSettingsView}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>-->
@@ -161,7 +164,6 @@
                     <views:Marker MarkerColor="Blue" RenderTransformOrigin="0.5,0.5" Margin="0,0,60,0" ></views:Marker>
                     <Label Content="= 50" FontSize="24" Margin="-34,0,0,-25"/>
                 </UniformGrid>
-
 
             </Grid>
             </StackPanel>
