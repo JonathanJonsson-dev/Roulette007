@@ -14,12 +14,10 @@ namespace _007.ViewModels
     {
         public ObservableCollection<BoardPiece> Board { get; set; }
         public List<BoardPiece> CompleteBoard { get; set; } = new List<BoardPiece>();
-        
         public ObservableCollection<BoardPiece> BoardBottom { get; set; } 
         public ObservableCollection<BoardPiece> SpecialBetBoardColumnTwo { get; set; } 
-        public ObservableCollection<BoardPiece> SpecialBetBoardColumnOne { get; set; } 
-        
-      
+        public ObservableCollection<BoardPiece> SpecialBetBoardColumnOne { get; set; }
+
         public int LastWinningNumber { get; set; }
 
         private GameEngine gameEngine;
@@ -245,7 +243,6 @@ namespace _007.ViewModels
    
         public void StartRound(int winnningNumber)//Starts the game temporary placement
         {
-            
             Payout();
         }
         public void Payout()//Sends all bets made to gameEnigne for payout

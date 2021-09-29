@@ -4,9 +4,13 @@ using _007.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Media;
+using System.Xml.Serialization;
 
 namespace _007.Models
 {
@@ -69,8 +73,72 @@ namespace _007.Models
                 //sound.Play();
             }
             gameViewModel.Player.Pot += totalPayout; //Returns nothing for the player because the have lost
+            CheckHighscore();
+            //SaveHighscoresToFile();
+            //SaveHighscore();
             return totalPayout;
         }
+
+        private void SaveHighscoresToFile()
+        {
+            List<HighscorePiece> highscoreList = new List<HighscorePiece>();
+
+            foreach (HighscorePiece score in gameViewModel.Highscores)
+            {
+                highscoreList.Add(score);
+            }
+
+            string json = JsonSerializer.Serialize(highscoreList);
+            File.WriteAllText(@"C:\path.json", json);
+        }
+
+        private void SaveHighscore()
+        {
+            ObservableCollection<HighscorePiece> items;
+            items = gameViewModel.Highscores; // (ObservableCollection<HighscorePiece>)MainWindow.mcv.SourceCollection;
+            XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<HighscorePiece>));
+            TextWriter textWriter = new StreamWriter(@"items.xml");
+            serializer.Serialize(textWriter, items);
+            textWriter.Close();
+        }
+
+        /// <summary>
+        /// Checks if the current player pot is higher than highest value in highscores. Then add the score to highscore collection. 
+        /// Sorts by descending order and removes the last item if the collection is larger than 5 items. 
+        /// </summary>
+        private void CheckHighscore()
+        {
+            int maxValue = MaxValueObservableCollection();
+            if (gameViewModel.Player.Pot > maxValue)
+            {
+                HighscorePiece scorePiece = new HighscorePiece() { PlayerName = gameViewModel.Player.Name, Score = gameViewModel.Player.Pot };
+                gameViewModel.Highscores.Add(scorePiece);
+            }
+            this.gameViewModel.Highscores = new ObservableCollection<HighscorePiece>(gameViewModel.Highscores.OrderByDescending(o => o.Score)); // Sorts the Highscore collection in descending order.
+
+            if (gameViewModel.Highscores.Count > 5)
+            {
+                this.gameViewModel.Highscores.Remove(gameViewModel.Highscores.Last());
+            }
+        }
+
+        /// <summary>
+        /// Gets the maximum score from highscores collection. 
+        /// </summary>
+        /// <returns>maxValue</returns>
+        private int MaxValueObservableCollection()
+        {
+            int maxValue = 0;
+            foreach (HighscorePiece game in gameViewModel.Highscores)
+            {
+                if (game.Score > maxValue)
+                {
+                    maxValue = game.Score;
+                }
+            }
+            return maxValue;
+        }
+
         private int GetPayoutRatio(BetType type)
         {
             switch (type)

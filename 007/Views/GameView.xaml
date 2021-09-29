@@ -32,9 +32,23 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <!--<ItemsControl Grid.Column="0" Grid.Row="1" ItemsSource="{Binding SoundSettingsView}"/>-->
-            <ContentControl Grid.Row="1" Grid.Column="4" Content="{Binding SoundSettingsView}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <StackPanel Grid.Row="1" Grid.Column="4">
+                <ContentControl Content="{Binding SoundSettingsView}" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+            </StackPanel>
 
+            <StackPanel Grid.Row="3" Grid.Column="4">
+                <Label Content="Highscores" Foreground="White" FontSize="24" HorizontalAlignment="Center"/>
+
+                <ItemsControl VerticalAlignment="Center" ItemsSource="{Binding Highscores}" 
+                              HorizontalAlignment="Center">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Width="250" HorizontalAlignment="Center"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </StackPanel>
+            <!--<ContentControl Grid.Row="1" Grid.Column="4" Content="{Binding SoundSettingsView}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>-->
             <UniformGrid Grid.Column="0" Grid.Row="1" Margin="-100,-200,0,0">
                 <views:WheelView />
             </UniformGrid>
@@ -43,7 +57,6 @@
                         Grid.Column="0" Width="700" HorizontalAlignment="Left" Margin="-25,-200,0,0">
                 <ContentControl Content="{Binding Player}" 
                         
-                        VerticalAlignment="Stretch" 
                         HorizontalAlignment="Stretch"/>
             </Grid>
 
@@ -71,6 +84,7 @@
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                     </ItemsControl>
+
                     <ListBox
                         ItemsSource="{Binding Player.Bets}"
                         Grid.Column="3" 
@@ -78,7 +92,9 @@
                         MaxHeight="650"
                         VerticalAlignment="Top"
                         ></ListBox>
-                   
+
+
+                    
 
                     <Grid Grid.Column="2" Grid.Row="1">
                         <ItemsControl ItemsSource="{Binding BoardViewModel.BoardBottom}">
@@ -151,7 +167,6 @@
                     <views:Marker MarkerColor="Blue" RenderTransformOrigin="0.5,0.5" Margin="0,0,60,0" ></views:Marker>
                     <Label Content="= 50" FontSize="24" Margin="-34,0,0,-25"/>
                 </UniformGrid>
-
 
             </Grid>
             </StackPanel>

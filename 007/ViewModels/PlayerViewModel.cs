@@ -16,10 +16,13 @@ namespace _007.ViewModels
     public class PlayerViewModel : BaseViewModel
     {
 
+
+      
         public string Name { get; set; } = "";
         public int Pot { get; set; } = 10000;
 
         public ObservableCollection<Bet> Bets { get; set; } = new ObservableCollection<Bet>();
+
         private GameViewModel gameViewModel;
         public RelayCommand SetNameCommand { get; }
         public ICommand ResetGameCommand { get; }
@@ -37,9 +40,8 @@ namespace _007.ViewModels
             ResetGameCommand = new ResetGameCommand(this);
             ShowRulesCommand = new ShowRulesCommand(this);
             ShowInstructionsCommand = new ShowInstructionsCommand(this);
-            
-           
-            
+            DisplaySetNameCommand = new DisplaySetNameCommand(this);
+          
         }
 
         public void SetPlayerName() 
