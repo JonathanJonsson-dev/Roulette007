@@ -20,7 +20,7 @@ namespace _007.Models
         private static readonly Random random = new Random();
         
        
-        private int bonusRatio = 1;
+        public int bonusRatio = 1;
      
         public int poweredUpBoardPieceId;
         public GameEngine(GameViewModel gameViewModel)
@@ -113,16 +113,17 @@ namespace _007.Models
         public int GetPayout(ObservableCollection<Bet> bets)
         {
             int totalPayout = 0;
-
+            bool applyBonus = false;
             foreach (var bet in bets)//Loops through every number in the bet to check against the winning number
             {
                 foreach (var number in bet.Numbers)
                 {
                     if (number == gameViewModel.WheelViewModel.WinningNumber)
                     {
-                        if(gameViewModel.WheelViewModel.WinningNumber == poweredUpBoardPieceId)
-                            totalPayout += (bet.Value * GetPayoutRatio(bet.Type) * bonusRatio) + bet.Value; //Returns the players payout
-                        else
+                        if(bet.Type == gameViewModel.BoardViewModel.CompleteBoard[poweredUpBoardPieceId].Type)
+                        {
+                            applyBonus = true;
+                        }
                             totalPayout += bet.Value * GetPayoutRatio(bet.Type) + bet.Value; //Returns the players payout
                        
 
@@ -130,6 +131,8 @@ namespace _007.Models
                 }
                 gameViewModel.gameView.board.Children.Remove(bet.Mark);
             }
+            if (applyBonus)
+                totalPayout *= bonusRatio;
             gameViewModel.Player.Bets.Clear();
 
             MediaPlayer player = new MediaPlayer();
@@ -171,7 +174,8 @@ namespace _007.Models
             if(gameViewModel.NextPowerUp == 0)
             {
                 gameViewModel.BoardViewModel.ChangeBorderColorPowerUp(-1);
-                gameViewModel.NextPowerUp = random.Next(3, 9);
+                gameViewModel.NextPowerUp = random.Next(3, 11);
+                gameViewModel.BonusRatioMessage = "";
             }
             gameViewModel.NextPowerUp--;
             if(bonusRatio!=1)
@@ -182,9 +186,10 @@ namespace _007.Models
         {
             if(gameViewModel.NextPowerUp <= 0)
             {
-                poweredUpBoardPieceId = gameViewModel.BoardViewModel.CompleteBoard[random.Next(0,50)].BoardPieceNumber;
-                bonusRatio = random.Next(2, 11);
+                poweredUpBoardPieceId = gameViewModel.BoardViewModel.CompleteBoard[random.Next(0,49)].BoardPieceNumber;
+                bonusRatio = random.Next(2, 5);
                 gameViewModel.BoardViewModel.ChangeBorderColorPowerUp(poweredUpBoardPieceId);
+                gameViewModel.BonusRatioMessage = $"This Round {gameViewModel.BoardViewModel.CompleteBoard[poweredUpBoardPieceId].BoardPieceLabel} is worth {bonusRatio}X more";
                
             }
             
@@ -196,7 +201,7 @@ namespace _007.Models
         {
             
             List<int> numbers = new List<int>();
-            int numberToFind = 0;
+            int numberToFind;
             int row;
             int col;
             point.X = Math.Round(point.X);

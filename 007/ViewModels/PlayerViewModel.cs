@@ -23,7 +23,7 @@ namespace _007.ViewModels
 
         public ObservableCollection<Bet> Bets { get; set; } = new ObservableCollection<Bet>();
 
-        private GameViewModel gameViewModel;
+        private readonly GameViewModel gameViewModel;
         public RelayCommand SetNameCommand { get; }
         public ICommand ResetGameCommand { get; }
         public ShowRulesCommand ShowRulesCommand { get; }

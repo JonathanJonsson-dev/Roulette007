@@ -27,10 +27,9 @@ namespace _007.ViewModels
 		public GameEngine GameEngine { get; set; }
         public int Round { get; set; } = 1;
         public int NextPowerUp { get; set; } = 1;
-        public ICommand PickBetCommand { get; }
-        public ICommand PlaceBetCommand { get; }
-        public ICommand CloseBetCommand { get; }
-		public ICommand SpinWheelCommand { get; }
+        public string BonusRatioMessage { get; set; } = "";
+        
+        public ICommand SpinWheelCommand { get; }
         
         public GameViewModel(GameView gameView)
         {
@@ -44,6 +43,10 @@ namespace _007.ViewModels
             GameEngine = new GameEngine(this);
 
             SpinWheelCommand = new SpinWheelCommand(this.WheelViewModel);
+        }
+        public void UpdateBonusRatio()
+        {
+
         }
     }
 }
