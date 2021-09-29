@@ -97,7 +97,13 @@ namespace _007.Models
                 gameViewModel.Highscores.Add(scorePiece);
             }
             this.gameViewModel.Highscores = new ObservableCollection<HighscorePiece>(gameViewModel.Highscores.OrderByDescending(o => o.Score)); // Sorts the Highscore collection in descending order.
+
+            if (gameViewModel.Highscores.Count > 5)
+            {
+                this.gameViewModel.Highscores.Remove(gameViewModel.Highscores.Last());
+            }
         }
+
         /// <summary>
         /// Gets the maximum score from highscores collection. 
         /// </summary>
