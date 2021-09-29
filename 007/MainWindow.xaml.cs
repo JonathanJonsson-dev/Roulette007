@@ -29,9 +29,7 @@ namespace _Roulette007
         {
             InitializeComponent();
             DataContext = new MainViewModel();
-            SetPlayerNameView setPlayerNameView = new SetPlayerNameView();
-            setPlayerNameView.Show();
-            setPlayerNameView.Topmost = true;
+            
 
         }
     }

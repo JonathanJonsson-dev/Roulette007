@@ -27,7 +27,10 @@ namespace _007.Views
             InitializeComponent();
             gameViewModel = new GameViewModel(this);
             DataContext = gameViewModel;
-            
+            SetPlayerNameView setPlayerNameView = new SetPlayerNameView(gameViewModel.Player);
+            setPlayerNameView.Show();
+            setPlayerNameView.Focus();
+
         }
         MediaPlayer player = new MediaPlayer();
         private void board_DragOver(object sender, DragEventArgs e)

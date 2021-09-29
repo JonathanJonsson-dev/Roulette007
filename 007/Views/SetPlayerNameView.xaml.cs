@@ -19,17 +19,13 @@ namespace _007.Views
     /// </summary>
     public partial class SetPlayerNameView : Window
     {
-
-
-       
-
-       
-        public SetPlayerNameView()
+        //public ICommand DisplaySetNameCommand { get; }
+     
+        public SetPlayerNameView(PlayerViewModel playerViewModel)
         {
             InitializeComponent();
-            DataContext = new PlayerViewModel();
-            
-
+            //DisplaySetNameCommand = new DisplaySetNameCommand(this);
+           DataContext = playerViewModel;
         }
 
    

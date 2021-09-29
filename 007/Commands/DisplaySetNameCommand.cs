@@ -9,20 +9,10 @@ namespace _007.Commands
 {
     public class DisplaySetNameCommand : ICommand
     {
-
-        private SetPlayerNameView setPlayerNameView;
-        private PlayerView playerView;
-        public event EventHandler CanExecuteChanged;
-
-
-        public DisplaySetNameCommand(SetPlayerNameView setPlayerNameView)
+        private readonly PlayerViewModel playerViewModel;
+        public DisplaySetNameCommand(PlayerViewModel playerViewModel) // gives a pop-up where the player enters their name
         {
-            this.setPlayerNameView = setPlayerNameView;
-        }
-
-        public DisplaySetNameCommand(PlayerView playerView)
-        {
-            this.playerView = playerView;
+            this.playerViewModel = playerViewModel;
         }
 
 
@@ -43,7 +33,7 @@ namespace _007.Commands
 
         public void ShowControl()
         {
-            SetPlayerNameView setPlayerNameView = new SetPlayerNameView();
+            SetPlayerNameView setPlayerNameView = new SetPlayerNameView(playerViewModel);
             setPlayerNameView.Show();
             setPlayerNameView.Topmost = true;
         }
