@@ -26,7 +26,7 @@ namespace _007.ViewModels
         public PlayerViewModel Player { get; set; } 
 		public GameEngine GameEngine { get; set; }
         public int Round { get; set; } = 1;
-        public int NextPowerUp { get; set; } = 1;
+        public int NextPowerUp { get; set; } = 5;
         public string BonusRatioMessage { get; set; } = "";
         
         public ICommand SpinWheelCommand { get; }
