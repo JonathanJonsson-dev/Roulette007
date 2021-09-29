@@ -87,6 +87,7 @@ namespace _007.Models
         }
         /// <summary>
         /// Checks if the current player pot is higher than highest value in highscores. Then add the score to highscore collection. 
+        /// Sorts by descending order and removes the last item if the collection is larger than 5 items. 
         /// </summary>
         private void CheckHighscore()
         {
