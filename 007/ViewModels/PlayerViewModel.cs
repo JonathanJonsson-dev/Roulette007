@@ -29,7 +29,7 @@ namespace _007.ViewModels
         public ShowInstructionsCommand ShowInstructionsCommand { get; }
         public PlayerView PlayerView { get; set; }
         public SetPlayerNameView SetPlayerNameView { get; set; }
-        public ICommand DisplaySetNameCommand { get; }
+        
         
 
         public PlayerViewModel(GameViewModel gameViewModel)
@@ -46,7 +46,7 @@ namespace _007.ViewModels
             ResetGameCommand = new ResetGameCommand(this);
             ShowRulesCommand = new ShowRulesCommand(this);
             ShowInstructionsCommand = new ShowInstructionsCommand(this);
-            DisplaySetNameCommand = new DisplaySetNameCommand();
+            
 
         }
 
@@ -65,7 +65,8 @@ namespace _007.ViewModels
 
         public void SetPlayerName() 
         {
-            PlayerView = new PlayerView();
+            
+           PlayerView = new PlayerView();
 
             MessageBox.Show($"Welcome {Name}! To begin playing, please place your first bet and when you're ready, spin the wheel. \n \nGood luck!");
           

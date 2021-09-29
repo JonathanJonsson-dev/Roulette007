@@ -1,4 +1,5 @@
-﻿using _007.Models;
+﻿using _007.Commands;
+using _007.Models;
 using _007.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -20,9 +21,15 @@ namespace _007.Views
     /// </summary>
     public partial class PlayerView : UserControl
     {
+
+        public ICommand DisplaySetNameCommand { get; }
+
         public PlayerView()
         {
             InitializeComponent();
+            DataContext = new PlayerViewModel();
+            DisplaySetNameCommand = new DisplaySetNameCommand(this);
+            
         }
 
 

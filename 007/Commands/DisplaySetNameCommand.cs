@@ -10,11 +10,26 @@ namespace _007.Commands
     public class DisplaySetNameCommand : ICommand
     {
 
-        public DisplaySetNameCommand() // gives a pop-up where the player enters their name
-        {
-
-        }
+        private SetPlayerNameView setPlayerNameView;
+        private PlayerView playerView;
         public event EventHandler CanExecuteChanged;
+
+
+        public DisplaySetNameCommand(SetPlayerNameView setPlayerNameView)
+        {
+            this.setPlayerNameView = setPlayerNameView;
+        }
+
+        public DisplaySetNameCommand(PlayerView playerView)
+        {
+            this.playerView = playerView;
+        }
+
+
+        //public DisplaySetNameCommand() // gives a pop-up where the player enters their name
+        //{
+
+        //}
 
         public bool CanExecute(object parameter)
         {
@@ -30,7 +45,7 @@ namespace _007.Commands
         {
             SetPlayerNameView setPlayerNameView = new SetPlayerNameView();
             setPlayerNameView.Show();
-            setPlayerNameView.Focus();
+            setPlayerNameView.Topmost = true;
         }
 
     }
