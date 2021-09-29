@@ -19,9 +19,10 @@ namespace _007.Models
         private readonly GameViewModel gameViewModel;
         private static readonly Random random = new Random();
         
-        public int Round { get; private set; } = 1;
+       
         private int bonusRatio = 1;
-        private int nextPowerUp = 5;
+     
+        public int poweredUpBoardPieceId;
         public GameEngine(GameViewModel gameViewModel)
         {
             this.gameViewModel = gameViewModel;
@@ -119,7 +120,12 @@ namespace _007.Models
                 {
                     if (number == gameViewModel.WheelViewModel.WinningNumber)
                     {
-                        totalPayout += (bet.Value * GetPayoutRatio(bet.Type) * bonusRatio) + bet.Value; //Returns the players payout
+                        if(gameViewModel.WheelViewModel.WinningNumber == poweredUpBoardPieceId)
+                            totalPayout += (bet.Value * GetPayoutRatio(bet.Type) * bonusRatio) + bet.Value; //Returns the players payout
+                        else
+                            totalPayout += bet.Value * GetPayoutRatio(bet.Type) + bet.Value; //Returns the players payout
+                       
+
                     }
                 }
                 gameViewModel.gameView.board.Children.Remove(bet.Mark);
@@ -161,12 +167,30 @@ namespace _007.Models
 
         public void NextRound()
         {
-            Round++;
+            gameViewModel.Round++;
+            if(gameViewModel.NextPowerUp == 0)
+            {
+                gameViewModel.BoardViewModel.ChangeBorderColorPowerUp(-1);
+                gameViewModel.NextPowerUp = random.Next(3, 9);
+            }
+            gameViewModel.NextPowerUp--;
+            if(bonusRatio!=1)
+            bonusRatio = 1;
             PowerUp();
         }
-        private BoardPiece PowerUp()
+        private void PowerUp()
         {
-            return null;
+            if(gameViewModel.NextPowerUp <= 0)
+            {
+                poweredUpBoardPieceId = gameViewModel.BoardViewModel.CompleteBoard[random.Next(0,50)].BoardPieceNumber;
+                bonusRatio = random.Next(2, 11);
+                gameViewModel.BoardViewModel.ChangeBorderColorPowerUp(poweredUpBoardPieceId);
+               
+            }
+            
+            
+            
+           
         }
         public Bet CreateBet(Marker marker, Point point)// Handles inside bets
         {

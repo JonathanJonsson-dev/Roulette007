@@ -20,11 +20,13 @@ namespace _007.ViewModels
         public ObservableCollection<HighscorePiece> Highscores { get; set; } = new ObservableCollection<HighscorePiece>();
 
         public GameView gameView;
+        
         public BoardViewModel BoardViewModel { get; set; }
         public WheelViewModel WheelViewModel { get; set; }
         public PlayerViewModel Player { get; set; } 
-		public GameEngine GameEngine { get; set; } 
-        
+		public GameEngine GameEngine { get; set; }
+        public int Round { get; set; } = 1;
+        public int NextPowerUp { get; set; } = 1;
         public ICommand PickBetCommand { get; }
         public ICommand PlaceBetCommand { get; }
         public ICommand CloseBetCommand { get; }

@@ -48,9 +48,17 @@
             </StackPanel>
             
             <!--<ContentControl Grid.Row="1" Grid.Column="4" Content="{Binding SoundSettingsView}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>-->
-            <Grid Grid.Column="0" Grid.Row="1" Margin="-100,-200,0,0">
-                <Label></Label>
-                <views:WheelView />
+            <Grid Grid.Column="0" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Content="{Binding Round}" ContentStringFormat="Current round: {0}" Grid.Row="0" FontSize="24"></Label>
+                <Label Content="{Binding NextPowerUp}" ContentStringFormat="Rounds until next power-up: {0}" Grid.Row="0" FontSize="24" Margin="0,30,0,0"></Label>
+                <views:WheelView Grid.Row="1" Margin="-150,-200,0,0" />
             </Grid>
 
             <Grid Grid.Row="4"

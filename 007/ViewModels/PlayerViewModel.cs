@@ -63,13 +63,17 @@ namespace _007.ViewModels
 
         public void ResetGame() // method resetting pot to 1000 and markers back to starting point
         {
-            
+
             Pot = 10000;
             foreach (var bet in Bets)
             {
                 gameViewModel.gameView.board.Children.Remove(bet.Mark);
             }
             Bets.Clear();
+            gameViewModel.WheelViewModel = new WheelViewModel(gameViewModel);
+            gameViewModel.Round = 1;
+            gameViewModel.NextPowerUp = 1;
+
         }
 
         public void ShowInstructions() // method displaying a message box with basic instructions on how to play the game.

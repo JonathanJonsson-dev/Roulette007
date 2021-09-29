@@ -285,11 +285,10 @@ namespace _007.ViewModels
                 {
                     wheel = _wheel; //initialise wheel object
                 }
-                if(spinBallStoryBoard == null)
-                { 
+                
                     spinBallStoryBoard = new Storyboard(); //initialise ball spin storyboard
                     spinBallStoryBoard.Completed += new EventHandler(WheelSpin_Completed); //spin stopped event
-                }
+                
 
                 //Checks for ongoing spin. only runs if none.
                 //if (spinBallStoryBoard.GetCurrentState(wheel.BallControl) == ClockState.Stopped || spinBallStoryBoard.GetIsPaused(wheel.BallControl) == false)
@@ -315,7 +314,7 @@ namespace _007.ViewModels
 
                     #endregion
 
-                    
+
                     //Random angle generator
                     Random angleGenerator = new Random();
                     //spin wheel counter-clockwise
@@ -482,6 +481,7 @@ namespace _007.ViewModels
                     $"Winning amount {winAmount}", "Win", MessageBoxButton.OK, MessageBoxImage.Information);
                 //enables spin button once spinning is completed
                 wheel.btnSpin.IsEnabled = true;
+                gameViewModel.GameEngine.NextRound();
             }
             catch (Exception ex)
             {
