@@ -17,12 +17,13 @@ namespace _007.ViewModels
     {
 
 
-      
+
         public string Name { get; set; } = "";
         public int Pot { get; set; } = 10000;
 
         public ObservableCollection<Bet> Bets { get; set; } = new ObservableCollection<Bet>();
-        private GameViewModel gameViewModel;
+
+        private readonly GameViewModel gameViewModel;
         public RelayCommand SetNameCommand { get; }
         public ICommand ResetGameCommand { get; }
         public ShowRulesCommand ShowRulesCommand { get; }
@@ -39,9 +40,9 @@ namespace _007.ViewModels
             ResetGameCommand = new ResetGameCommand(this);
             ShowRulesCommand = new ShowRulesCommand(this);
             ShowInstructionsCommand = new ShowInstructionsCommand(this);
+
             DisplaySetNameCommand = new DisplaySetNameCommand(this);
-           
-            
+          
         }
 
         public void SetPlayerName() 
@@ -62,13 +63,17 @@ namespace _007.ViewModels
 
         public void ResetGame() // method resetting pot to 1000 and markers back to starting point
         {
-            
+
             Pot = 10000;
             foreach (var bet in Bets)
             {
                 gameViewModel.gameView.board.Children.Remove(bet.Mark);
             }
             Bets.Clear();
+            gameViewModel.WheelViewModel = new WheelViewModel(gameViewModel);
+            gameViewModel.Round = 1;
+            gameViewModel.NextPowerUp = 1;
+
         }
 
         public void ShowInstructions() // method displaying a message box with basic instructions on how to play the game.

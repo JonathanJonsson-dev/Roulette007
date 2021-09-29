@@ -4,9 +4,13 @@ using _007.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Media;
+using System.Xml.Serialization;
 
 namespace _007.Models
 {
@@ -14,10 +18,102 @@ namespace _007.Models
     {
         private readonly GameViewModel gameViewModel;
         private static readonly Random random = new Random();
-        public int WinningNumber { get; set; }
+        
+       
+        public int bonusRatio = 1;
+     
+        public int poweredUpBoardPieceId;
         public GameEngine(GameViewModel gameViewModel)
         {
             this.gameViewModel = gameViewModel;
+        }
+        
+
+        private void SaveHighscoresToFile()
+        {
+            List<HighscorePiece> highscoreList = new List<HighscorePiece>();
+
+            foreach (HighscorePiece score in gameViewModel.Highscores)
+            {
+                highscoreList.Add(score);
+            }
+
+            string json = JsonSerializer.Serialize(highscoreList);
+            File.WriteAllText(@"C:\path.json", json);
+        }
+
+        private void SaveHighscore()
+        {
+            ObservableCollection<HighscorePiece> items;
+            items = gameViewModel.Highscores; // (ObservableCollection<HighscorePiece>)MainWindow.mcv.SourceCollection;
+            XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<HighscorePiece>));
+            TextWriter textWriter = new StreamWriter(@"items.xml");
+            serializer.Serialize(textWriter, items);
+            textWriter.Close();
+        }
+
+        /// <summary>
+        /// Checks if the current player pot is higher than highest value in highscores. Then add the score to highscore collection. 
+        /// Sorts by descending order and removes the last item if the collection is larger than 5 items. 
+        /// </summary>
+        private void CheckHighscore()
+        {
+            int maxValue = MaxValueObservableCollection();
+            if (gameViewModel.Player.Pot > maxValue)
+            {
+                HighscorePiece scorePiece = new HighscorePiece() { PlayerName = gameViewModel.Player.Name, Score = gameViewModel.Player.Pot };
+                gameViewModel.Highscores.Add(scorePiece);
+            }
+            this.gameViewModel.Highscores = new ObservableCollection<HighscorePiece>(gameViewModel.Highscores.OrderByDescending(o => o.Score)); // Sorts the Highscore collection in descending order.
+
+            if (gameViewModel.Highscores.Count > 5)
+            {
+                this.gameViewModel.Highscores.Remove(gameViewModel.Highscores.Last());
+            }
+        }
+
+        /// <summary>
+        /// Gets the maximum score from highscores collection. 
+        /// </summary>
+        /// <returns>maxValue</returns>
+        private int MaxValueObservableCollection()
+        {
+            int maxValue = 0;
+            foreach (HighscorePiece game in gameViewModel.Highscores)
+            {
+                if (game.Score > maxValue)
+                {
+                    maxValue = game.Score;
+                }
+            }
+            return maxValue;
+        }
+
+        private int GetPayoutRatio(BetType type)
+        {
+            switch (type)
+            {
+                case Data.BetType.Straightup:
+                    return 35;
+                    
+                case Data.BetType.Split:
+                    return 17;
+
+                case Data.BetType.Basket: case Data.BetType.Street:
+                    return 11;
+
+                case Data.BetType.Corner:
+                    return 8;
+                case Data.BetType.Fivebet:
+                    return 3;
+
+                case Data.BetType.Sixline: case Data.BetType.Column: case Data.BetType.Dozen:
+                    return 2;
+
+                case Data.BetType.Odd: case Data.BetType.Even: case Data.BetType.Red: case Data.BetType.Black: case Data.BetType.Low: case Data.BetType.High:
+                    return 1;
+            }
+            return 0;
         }
         /// <summary>
         /// Loops through the numbers in the bet and return a payout based upon odds
@@ -27,20 +123,28 @@ namespace _007.Models
         public int GetPayout(ObservableCollection<Bet> bets)
         {
             int totalPayout = 0;
-            
+            bool applyBonus = false;
             foreach (var bet in bets)//Loops through every number in the bet to check against the winning number
             {
                 foreach (var number in bet.Numbers)
                 {
                     if (number == gameViewModel.WheelViewModel.WinningNumber)
                     {
-                        totalPayout+= bet.Value * GetPayoutRatio(bet.Type) + bet.Value; //Returns the players payout
+                        if(bet.Type == gameViewModel.BoardViewModel.CompleteBoard[poweredUpBoardPieceId].Type)
+                        {
+                            applyBonus = true;
+                        }
+                            totalPayout += bet.Value * GetPayoutRatio(bet.Type) + bet.Value; //Returns the players payout
+                       
+
                     }
                 }
                 gameViewModel.gameView.board.Children.Remove(bet.Mark);
             }
+            if (applyBonus)
+                totalPayout *= bonusRatio;
             gameViewModel.Player.Bets.Clear();
-           
+
             MediaPlayer player = new MediaPlayer();
             if (totalPayout > 0)
             {
@@ -69,40 +173,45 @@ namespace _007.Models
                 //sound.Play();
             }
             gameViewModel.Player.Pot += totalPayout; //Returns nothing for the player because the have lost
+            CheckHighscore();
+            //SaveHighscoresToFile();
             return totalPayout;
         }
-        private int GetPayoutRatio(BetType type)
+
+        public void NextRound()
         {
-            switch (type)
+            gameViewModel.Round++;
+            if(gameViewModel.NextPowerUp == 0)
             {
-                case Data.BetType.Straightup:
-                    return 35;
-                    
-                case Data.BetType.Split:
-                    return 17;
-
-                case Data.BetType.Basket: case Data.BetType.Street:
-                    return 11;
-
-                case Data.BetType.Corner:
-                    return 8;
-                case Data.BetType.Fivebet:
-                    return 3;
-
-                case Data.BetType.Sixline: case Data.BetType.Column: case Data.BetType.Dozen:
-                    return 2;
-
-                case Data.BetType.Odd: case Data.BetType.Even: case Data.BetType.Red: case Data.BetType.Black: case Data.BetType.Low: case Data.BetType.High:
-                    return 1;
+                gameViewModel.BoardViewModel.ChangeBorderColorPowerUp(-1);
+                gameViewModel.NextPowerUp = random.Next(3, 11);
+                gameViewModel.BonusRatioMessage = "";
             }
-            return 0;
+            gameViewModel.NextPowerUp--;
+            if(bonusRatio!=1)
+            bonusRatio = 1;
+            PowerUp();
         }
-      
+        private void PowerUp()
+        {
+            if(gameViewModel.NextPowerUp <= 0)
+            {
+                poweredUpBoardPieceId = gameViewModel.BoardViewModel.CompleteBoard[random.Next(0,49)].BoardPieceNumber;
+                bonusRatio = random.Next(2, 5);
+                gameViewModel.BoardViewModel.ChangeBorderColorPowerUp(poweredUpBoardPieceId);
+                gameViewModel.BonusRatioMessage = $"This Round {gameViewModel.BoardViewModel.CompleteBoard[poweredUpBoardPieceId].BoardPieceLabel} is worth {bonusRatio}X more";
+               
+            }
+            
+            
+            
+           
+        }
         public Bet CreateBet(Marker marker, Point point)// Handles inside bets
         {
             
             List<int> numbers = new List<int>();
-            int numberToFind = 0;
+            int numberToFind;
             int row;
             int col;
             point.X = Math.Round(point.X);
