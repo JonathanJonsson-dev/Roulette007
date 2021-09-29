@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Media;
 using System.Xml.Serialization;
@@ -79,6 +80,7 @@ namespace _007.Models
 
         private void SaveHighscoresToFile()
         {
+            //string jsonString = JsonSerializer.Serialize(gameViewModel.Highscores);
             //XmlSerializer xs = new XmlSerializer(typeof(gameViewModel.Highscores));
             //using (StreamWriter wr = new StreamWriter("highscores.xml"))
             //{

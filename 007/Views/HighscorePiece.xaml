@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="200">
     <Grid>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
             <Label Foreground="White" Content="{Binding PlayerName, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
             <Label Foreground="White" Content="{Binding Score, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
         </StackPanel>
