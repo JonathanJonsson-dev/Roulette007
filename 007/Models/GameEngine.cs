@@ -27,12 +27,8 @@ namespace _007.Models
         {
             this.gameViewModel = gameViewModel;
         }
-        /// <summary>
-        /// Loops through the numbers in the bet and return a payout based upon odds
-        /// </summary>
-        /// <param name="bet"></param>
-        /// <returns></returns>
-       
+        
+
         private void SaveHighscoresToFile()
         {
             List<HighscorePiece> highscoreList = new List<HighscorePiece>();
@@ -44,6 +40,16 @@ namespace _007.Models
 
             string json = JsonSerializer.Serialize(highscoreList);
             File.WriteAllText(@"C:\path.json", json);
+        }
+
+        private void SaveHighscore()
+        {
+            ObservableCollection<HighscorePiece> items;
+            items = gameViewModel.Highscores; // (ObservableCollection<HighscorePiece>)MainWindow.mcv.SourceCollection;
+            XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<HighscorePiece>));
+            TextWriter textWriter = new StreamWriter(@"items.xml");
+            serializer.Serialize(textWriter, items);
+            textWriter.Close();
         }
 
         /// <summary>
@@ -109,7 +115,11 @@ namespace _007.Models
             }
             return 0;
         }
-
+        /// <summary>
+        /// Loops through the numbers in the bet and return a payout based upon odds
+        /// </summary>
+        /// <param name="bet"></param>
+        /// <returns></returns>
         public int GetPayout(ObservableCollection<Bet> bets)
         {
             int totalPayout = 0;
