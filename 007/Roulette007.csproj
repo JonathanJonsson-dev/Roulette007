@@ -29,6 +29,8 @@
 
     <None Remove="Resources\WinningSound2.mp3" />
 
+    <None Remove="Views\Utilities\BallBounce.wav" />
+
     <None Remove="Views\Utilities\RouletteWheelSpinn.mp3" />
 
     <None Remove="Views\Utilities\SingleZeroWheel.jpg" />
@@ -57,6 +59,10 @@
 
     <Content Include="Resources\CasinoMusic.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+
+    <Content Include="Views\Utilities\BallBounce.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
 
     <EmbeddedResource Include="Resources\Songs\007JamesBondTheme.mp3">
