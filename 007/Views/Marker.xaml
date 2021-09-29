@@ -95,7 +95,16 @@
                 <SolidColorBrush Color="{Binding MarkerColor, RelativeSource={RelativeSource AncestorType=UserControl}}"></SolidColorBrush>
             </Ellipse.Fill>
         </Ellipse>
-        <Label Content="007" Foreground="White" Canvas.Left="6" Canvas.Top="7" FontFamily="Sylfaen"></Label>
+        <Label Content="{Binding ChipLabel, RelativeSource={RelativeSource AncestorType=UserControl}}" Foreground="White" Canvas.Top="4" FontFamily="Sylfaen" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="31" RenderTransformOrigin="0.5,0.5" >
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="-0.184"/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="-0.059"/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
 
 
 
