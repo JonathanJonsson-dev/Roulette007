@@ -27,23 +27,27 @@ namespace _007.ViewModels
         public ICommand ResetGameCommand { get; }
         public ShowRulesCommand ShowRulesCommand { get; }
         public ShowInstructionsCommand ShowInstructionsCommand { get; }
-
-        public PlayerViewModel(GameViewModel gameViewModel)
         public PlayerView PlayerView { get; set; }
         public SetPlayerNameView SetPlayerNameView { get; set; }
         public ICommand DisplaySetNameCommand { get; }
         
 
-        public PlayerViewModel()
+        public PlayerViewModel(GameViewModel gameViewModel)
         {
             this.gameViewModel = gameViewModel;
+            GetStarterMarkers();
+            
+        }
+
+        public PlayerViewModel()
+        {
+           
             SetNameCommand = new RelayCommand(x => IsSetButtonEnabled(), x => SetPlayerName());
             ResetGameCommand = new ResetGameCommand(this);
             ShowRulesCommand = new ShowRulesCommand(this);
             ShowInstructionsCommand = new ShowInstructionsCommand(this);
             DisplaySetNameCommand = new DisplaySetNameCommand();
-            GetStarterMarkers();
-            
+
         }
 
 
@@ -78,13 +82,12 @@ namespace _007.ViewModels
         public void ResetGame() // method resetting pot to 1000 and markers back to starting point
         {
             
-            Pot = 1000;
+            Pot = 10000;
             foreach (var bet in Bets)
             {
                 gameViewModel.gameView.board.Children.Remove(bet.Mark);
             }
             Bets.Clear();
-            Pot = 10000;
             GetStarterMarkers();
         }
 
