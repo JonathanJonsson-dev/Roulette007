@@ -80,13 +80,17 @@ namespace _007.Models
 
         private void SaveHighscoresToFile()
         {
-            //string jsonString = JsonSerializer.Serialize(gameViewModel.Highscores);
-            //XmlSerializer xs = new XmlSerializer(typeof(gameViewModel.Highscores));
-            //using (StreamWriter wr = new StreamWriter("highscores.xml"))
-            //{
-            //    xs.Serialize(wr, gameViewModel.Highscores);
-            //}
+            List<HighscorePiece> highscoreList = new List<HighscorePiece>();
+
+            foreach (HighscorePiece score in gameViewModel.Highscores)
+            {
+                highscoreList.Add(score);
+            }
+
+            string json = JsonSerializer.Serialize(highscoreList);
+            File.WriteAllText(@"C:\path.json", json);
         }
+
         /// <summary>
         /// Checks if the current player pot is higher than highest value in highscores. Then add the score to highscore collection. 
         /// Sorts by descending order and removes the last item if the collection is larger than 5 items. 
