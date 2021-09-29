@@ -75,6 +75,7 @@ namespace _007.Models
             gameViewModel.Player.Pot += totalPayout; //Returns nothing for the player because the have lost
             CheckHighscore();
             //SaveHighscoresToFile();
+            //SaveHighscore();
             return totalPayout;
         }
 
@@ -89,6 +90,16 @@ namespace _007.Models
 
             string json = JsonSerializer.Serialize(highscoreList);
             File.WriteAllText(@"C:\path.json", json);
+        }
+
+        private void SaveHighscore()
+        {
+            ObservableCollection<HighscorePiece> items;
+            items = gameViewModel.Highscores; // (ObservableCollection<HighscorePiece>)MainWindow.mcv.SourceCollection;
+            XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<HighscorePiece>));
+            TextWriter textWriter = new StreamWriter(@"items.xml");
+            serializer.Serialize(textWriter, items);
+            textWriter.Close();
         }
 
         /// <summary>

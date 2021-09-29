@@ -34,6 +34,9 @@
 
             <StackPanel Grid.Row="1" Grid.Column="4">
                 <ContentControl Content="{Binding SoundSettingsView}" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="3" Grid.Column="4">
                 <Label Content="Highscores" Foreground="White" FontSize="24" HorizontalAlignment="Center"/>
 
                 <ItemsControl VerticalAlignment="Center" ItemsSource="{Binding Highscores}" 
@@ -44,9 +47,7 @@
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
-
             </StackPanel>
-            
             <!--<ContentControl Grid.Row="1" Grid.Column="4" Content="{Binding SoundSettingsView}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>-->
             <UniformGrid Grid.Column="0" Grid.Row="1" Margin="-100,-200,0,0">
                 <views:WheelView />
@@ -56,7 +57,6 @@
                         Grid.Column="0" Width="700" HorizontalAlignment="Left" Margin="-25,-200,0,0">
                 <ContentControl Content="{Binding Player}" 
                         
-                        VerticalAlignment="Stretch" 
                         HorizontalAlignment="Stretch"/>
             </Grid>
 
