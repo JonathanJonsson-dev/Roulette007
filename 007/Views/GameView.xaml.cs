@@ -235,10 +235,10 @@ namespace _007.Views
 
                             gameViewModel.Player.Bets.Add(bet);
                             gameViewModel.Player.Pot -= (int)marker.Value;
-                            string chipLabel = null;
-                            if(marker.ChipLabel == "All in")
+                            string chipLabel = "007";
+                            if(marker.ChipLabel == "All In")
                             {
-                                chipLabel = "All in";
+                                chipLabel = "All In";
                             }
                             Marker newMark = new Marker
                             {
