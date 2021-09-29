@@ -16,8 +16,6 @@ namespace _007.ViewModels
     public class PlayerViewModel : BaseViewModel
     {
 
-
-      
         public string Name { get; set; } = "";
         public int Pot { get; set; } = 10000;
 
@@ -39,7 +37,7 @@ namespace _007.ViewModels
             ResetGameCommand = new ResetGameCommand(this);
             ShowRulesCommand = new ShowRulesCommand(this);
             ShowInstructionsCommand = new ShowInstructionsCommand(this);
-            DisplaySetNameCommand = new DisplaySetNameCommand(this);
+            
            
             
         }

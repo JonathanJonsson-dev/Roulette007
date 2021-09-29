@@ -22,13 +22,12 @@ namespace _007.Views
     public partial class PlayerView : UserControl
     {
 
-        public ICommand DisplaySetNameCommand { get; }
+        public ICommand DisplaySetNameCommand {get;}
 
         public PlayerView()
         {
             InitializeComponent();
-            DataContext = new PlayerViewModel();
-            DisplaySetNameCommand = new DisplaySetNameCommand(this);
+
             
         }
 
