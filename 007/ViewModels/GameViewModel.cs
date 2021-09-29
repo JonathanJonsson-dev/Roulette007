@@ -38,12 +38,6 @@ namespace _007.ViewModels
             Player = new PlayerViewModel(this);
 
             GameEngine = new GameEngine(this);
-
-            PickBetCommand = new PickBetCommand(this);
-			
-            PlaceBetCommand = new PlaceBetCommand(this);
-			
-            CloseBetCommand = new CloseBetCommand(this);
             
             SpinWheelCommand = new SpinWheelCommand(this.WheelViewModel);
         }
