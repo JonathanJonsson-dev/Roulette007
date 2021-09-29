@@ -42,6 +42,9 @@ namespace _007.Views
                 case MarkColors.Blue:
                     margin = new Thickness(120, 0, 0, 0);
                     break;
+                case MarkColors.Gold:
+                    margin = new Thickness(160, 0, 0, 0);
+                    break;
             }
             return margin;
         }
@@ -56,6 +59,18 @@ namespace _007.Views
         // Using a DependencyProperty as the backing store for colors.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty colorsProperty =
             DependencyProperty.Register("colors", typeof(MarkColors), typeof(Marker), new PropertyMetadata(MarkColors.Black));
+
+
+
+        public string ChipLabel
+        {
+            get { return (string)GetValue(ChipLabelProperty); }
+            set { SetValue(ChipLabelProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ChipLabel.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ChipLabelProperty =
+            DependencyProperty.Register("ChipLabel", typeof(string), typeof(Marker), new PropertyMetadata("007"));
 
 
 

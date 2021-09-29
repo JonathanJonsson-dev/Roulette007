@@ -235,12 +235,18 @@ namespace _007.Views
 
                             gameViewModel.Player.Bets.Add(bet);
                             gameViewModel.Player.Pot -= (int)marker.Value;
+                            string chipLabel = null;
+                            if(marker.ChipLabel == "All in")
+                            {
+                                chipLabel = "All in";
+                            }
                             Marker newMark = new Marker
                             {
                                 Value = marker.Value,
                                 MarkerColor = marker.MarkerColor,
                                 Margin = marker.GetMarkerMargin(marker.colors),
-                                colors = marker.colors
+                                colors = marker.colors,
+                                ChipLabel = chipLabel
                             };
                             
                             markerboard.Children.Add(newMark);
