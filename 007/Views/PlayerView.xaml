@@ -5,19 +5,20 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:_007.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="1000">
+             d:DesignHeight="450" d:DesignWidth="1000"
+             FontSize="20">
     <Border
         Background="DarkSlateGray"
         BorderBrush="SaddleBrown" 
         CornerRadius="0"
         BorderThickness="5"
         Width="400"
-        Height="250">
-        <Grid>
-            <Border BorderThickness="2" BorderBrush="SaddleBrown" CornerRadius="5" HorizontalAlignment="Left" Height="132" Margin="205,63,0,0" VerticalAlignment="Top" Width="125"/>
-            <Label Content="{Binding Name, FallbackValue=Player, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="370" Foreground="AntiqueWhite" FontSize="24"/>
-            <Label x:Name="lblPotAmountHeader" Content="Pot" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.843,5.1" FontSize="20" Foreground="AntiqueWhite"/>
-            <Button x:Name="btnResetGame" Content="Reset Game" Command="{Binding ResetGameCommand}" HorizontalAlignment="Left" Margin="18,145,0,0" VerticalAlignment="Top" Height="85" Width="104" BorderBrush="Transparent" Foreground="AntiqueWhite">
+        Height="300">
+        <Grid Margin="0,0,0,-20">
+            <Border BorderThickness="2" BorderBrush="SaddleBrown" CornerRadius="5" HorizontalAlignment="Left" Height="172" Margin="210,65,0,0" VerticalAlignment="Top" Width="152" RenderTransformOrigin="0.526,0.744"/>
+            <Label Content="{Binding Name, FallbackValue=Player, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="334" Foreground="AntiqueWhite" FontSize="24" Margin="0,8,0,0"/>
+            <Label x:Name="lblPotAmountHeader" Content="Pot" HorizontalAlignment="Left" Margin="21,55,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.843,5.1" FontSize="20" Foreground="AntiqueWhite"/>
+            <Button x:Name="btnResetGame" Content="Reset Game" Command="{Binding ResetGameCommand}" HorizontalAlignment="Left" Margin="27,155,0,0" VerticalAlignment="Top" Height="115" Width="117" BorderBrush="Transparent" Foreground="AntiqueWhite">
                 <Button.Background>
                     <VisualBrush>
                         <VisualBrush.Visual>
@@ -26,10 +27,10 @@
                     </VisualBrush>
                 </Button.Background>
             </Button>
-            <Label x:Name="lblPotAmount" Content="{Binding Pot}" HorizontalAlignment="Left" Margin="16,84,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.843,5.1" Foreground="Black" FontSize="24" Height="40" Width="106" BorderBrush="SaddleBrown" BorderThickness="2" Background="White"/>
-            <Button Content="Instructions" HorizontalAlignment="Left" Margin="228,84,0,0" Command="{Binding ShowInstructionsCommand}" VerticalAlignment="Top" RenderTransformOrigin="2.701,0.789" Width="78"/>
-            <Button Content="Rules" HorizontalAlignment="Left" Margin="228,125,0,0" Command="{Binding ShowRulesCommand}" VerticalAlignment="Top" RenderTransformOrigin="-1.45,0.401" Width="78"/>
-            <Button x:Name="btnSetName" Content="Set Name" Command="{Binding DisplaySetNameCommand}" HorizontalAlignment="Left" Margin="228,165,0,0" VerticalAlignment="Top" Width="78"/>
+            <Label x:Name="lblPotAmount" Content="{Binding Pot}" HorizontalAlignment="Left" Margin="27,92,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.843,5.1" Foreground="Black" FontSize="24" Height="40" Width="106" BorderBrush="SaddleBrown" BorderThickness="2" Background="White"/>
+            <Button Content="Instructions" HorizontalAlignment="Left" Margin="224,88,0,0" Command="{Binding ShowInstructionsCommand}" VerticalAlignment="Top" RenderTransformOrigin="2.701,0.789" Width="124"/>
+            <Button Content="Rules" HorizontalAlignment="Left" Margin="247,136,0,0" Command="{Binding ShowRulesCommand}" VerticalAlignment="Top" RenderTransformOrigin="-1.45,0.401" Width="78"/>
+            <Button x:Name="btnSetName" Content="Set Name" Command="{Binding DisplaySetNameCommand}" HorizontalAlignment="Left" Margin="235,187,0,0" VerticalAlignment="Top" Width="102"/>
 
 
 
