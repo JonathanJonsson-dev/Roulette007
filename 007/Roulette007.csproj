@@ -29,7 +29,11 @@
 
     <None Remove="Resources\WinningSound2.mp3" />
 
+    <None Remove="Views\Utilities\007.png" />
+
     <None Remove="Views\Utilities\BallBounce.wav" />
+
+    <None Remove="Views\Utilities\Logo.png" />
 
     <None Remove="Views\Utilities\RouletteWheelSpinn.mp3" />
 
@@ -62,6 +66,10 @@
     </Content>
 
     <Content Include="Views\Utilities\BallBounce.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+
+    <Content Include="Views\Utilities\Logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
 
