@@ -315,10 +315,10 @@ namespace _007.ViewModels
                     #endregion
 
 
-                    //Random angle generator
-                    Random angleGenerator = new Random();
+                    //Random number generator
+                    Random numberGenerator = new Random();
                     //spin wheel counter-clockwise
-                    WheelStopAngle = -1 * angleGenerator.Next(0, 361);
+                    WheelStopAngle = -1 * (Constants.WheelPieceDegrees * numberGenerator.Next(1, 38));
 
                     double angle = WheelStopAngle;
 
