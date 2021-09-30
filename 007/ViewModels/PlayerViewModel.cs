@@ -18,49 +18,47 @@ namespace _007.ViewModels
 
 
 
+       
 
         public string Name { get; set; }
 
         public int Pot { get; set; }
 
-
         private readonly GameViewModel gameViewModel;
        
         public ICommand ResetGameCommand { get; }
-        public ShowRulesCommand ShowRulesCommand { get; }
+        public ICommand ShowRulesCommand { get; }
+        public ICommand DisplaySetNameCommand { get; }
+        
         public ShowInstructionsCommand ShowInstructionsCommand { get; }
         public PlayerView PlayerView { get; set; }
-        public SetPlayerNameView SetPlayerNameView { get; set; }
-        public ICommand DisplaySetNameCommand { get; }
         
 
         public PlayerViewModel(GameViewModel gameViewModel)
         {
             this.gameViewModel = gameViewModel;
-            
             ResetGameCommand = new ResetGameCommand(this);
-            ShowRulesCommand = new ShowRulesCommand(this);
             ShowInstructionsCommand = new ShowInstructionsCommand(this);
-
+            ShowRulesCommand = new ShowRulesCommand(this);
             DisplaySetNameCommand = new DisplaySetNameCommand(gameViewModel);
             
         }
 
-       
-
         public void ResetGame() // method resetting pot to 1000 and markers back to starting point
         {
-
+            
+            gameViewModel.Name = "";
             gameViewModel.Pot = 10000;
             foreach (var bet in gameViewModel.Bets)
+                
             {
                 gameViewModel.gameView.board.Children.Remove(bet.Mark);
             }
             gameViewModel.Bets.Clear();
+            
             gameViewModel.WheelViewModel = new WheelViewModel(gameViewModel);
             gameViewModel.Round = 1;
-            gameViewModel.NextPowerUp = 1;
-
+            gameViewModel.NextPowerUp = 5;
         }
 
         public void ShowInstructions() // method displaying a message box with basic instructions on how to play the game.

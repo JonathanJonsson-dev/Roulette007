@@ -29,7 +29,7 @@ namespace _007.Views
             DataContext = gameViewModel;
             SetPlayerNameView setPlayerNameView = new SetPlayerNameView(gameViewModel);
             setPlayerNameView.Show();
-            setPlayerNameView.Focus();
+            setPlayerNameView.Topmost = true;
 
         }
         readonly MediaPlayer player = new MediaPlayer();

@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace _007.Commands
 {
-    public class ShowRulesCommand : ICommand
+    public class ShowRulesCommand : ICommand // shows messagebox with rules when player presses rules button
     {
         private PlayerViewModel playerViewModel;
         public event EventHandler CanExecuteChanged;
