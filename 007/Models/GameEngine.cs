@@ -89,34 +89,9 @@ namespace _007.Models
             return maxValue;
         }
 
-        private int GetPayoutRatio(BetType type)
-        {
-            switch (type)
-            {
-                case Data.BetType.Straightup:
-                    return 35;
-                    
-                case Data.BetType.Split:
-                    return 17;
-
-                case Data.BetType.Basket: case Data.BetType.Street:
-                    return 11;
-
-                case Data.BetType.Corner:
-                    return 8;
-                case Data.BetType.Fivebet:
-                    return 3;
-
-                case Data.BetType.Sixline: case Data.BetType.Column: case Data.BetType.Dozen:
-                    return 2;
-
-                case Data.BetType.Odd: case Data.BetType.Even: case Data.BetType.Red: case Data.BetType.Black: case Data.BetType.Low: case Data.BetType.High:
-                    return 1;
-            }
-            return 0;
-        }
+        #region
         /// <summary>
-        /// Loops through the numbers in the bet and return a payout based upon odds
+        /// Loops through the numbers in the bet and return a payout based upon BetType
         /// </summary>
         /// <param name="bet"></param>
         /// <returns></returns>
@@ -130,13 +105,13 @@ namespace _007.Models
                 {
                     if (number == gameViewModel.WheelViewModel.WinningNumber)
                     {
-                        if(bet.Type == gameViewModel.BoardViewModel.CompleteBoard[poweredUpBoardPieceId].Type)
+                        if(bet.Type == gameViewModel.BoardViewModel.CompleteBoard[poweredUpBoardPieceId].Type) //If bet type = the powered up bets type
                         {
-                            totalPayout += bet.Value * GetPayoutRatio(bet.Type) * bonusRatio + bet.Value; //Returns the players payout
+                            totalPayout += bet.Value * GetPayoutRatio(bet.Type) * bonusRatio + bet.Value; 
                         }
                         else
                         {
-                            totalPayout += bet.Value * GetPayoutRatio(bet.Type) + bet.Value; //Returns the players payout
+                            totalPayout += bet.Value * GetPayoutRatio(bet.Type) + bet.Value; 
 
                         }
 
@@ -153,7 +128,45 @@ namespace _007.Models
             //SaveHighscoresToFile();
             return totalPayout;
         }
-        
+        /// <summary>
+        /// Returns payout ratio based upon BetType as int
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        private int GetPayoutRatio(BetType type)
+        {
+            switch (type)
+            {
+                case Data.BetType.Straightup:
+                    return 35;
+
+                case Data.BetType.Split:
+                    return 17;
+
+                case Data.BetType.Basket:
+                case Data.BetType.Street:
+                    return 11;
+
+                case Data.BetType.Corner:
+                    return 8;
+                case Data.BetType.Fivebet:
+                    return 3;
+
+                case Data.BetType.Sixline:
+                case Data.BetType.Column:
+                case Data.BetType.Dozen:
+                    return 2;
+
+                case Data.BetType.Odd:
+                case Data.BetType.Even:
+                case Data.BetType.Red:
+                case Data.BetType.Black:
+                case Data.BetType.Low:
+                case Data.BetType.High:
+                    return 1;
+            }
+            return 0;
+        }
         private void PlayWinningLosingSound(int totalPayout)
         {
             MediaPlayer player = new MediaPlayer();
@@ -179,7 +192,11 @@ namespace _007.Models
                 player.Play();
             }
         }
-
+        #endregion
+        #region
+        /// <summary>
+        /// Goes to next round and if power up round launches powerup method
+        /// </summary>
         public void NextRound()
         {
             gameViewModel.Round++;
@@ -192,33 +209,32 @@ namespace _007.Models
             gameViewModel.NextPowerUp--;
             if(bonusRatio!=1)
             bonusRatio = 1;
-            PowerUp();
+            if (gameViewModel.NextPowerUp <= 0)
+            {
+                PowerUp();
+            }
         }
+        /// <summary>
+        /// Chooses a boradpiece to power up
+        /// </summary>
         private void PowerUp()
         {
-            if(gameViewModel.NextPowerUp <= 0)
-            {
                 poweredUpBoardPieceId = gameViewModel.BoardViewModel.CompleteBoard[6].BoardPieceNumber;
                 bonusRatio = random.Next(2, 5);
                 gameViewModel.BoardViewModel.ChangeBorderColorPowerUp(poweredUpBoardPieceId);
                 gameViewModel.BonusRatioMessage = $"This Round {gameViewModel.BoardViewModel.CompleteBoard[poweredUpBoardPieceId].BoardPieceLabel}" +
                     $" is worth {bonusRatio}X more if betting on {gameViewModel.BoardViewModel.CompleteBoard[poweredUpBoardPieceId].Type}";
 
-
-            }
-            
-            
-            
-           
         }
+        #endregion
+        #region
         /// <summary>
-        /// Generates bets
+        /// Generates inside bets
         /// </summary>
         /// <param name="marker"></param>
         /// <param name="point"></param>
         /// <returns></returns>
-        #region
-        public Bet CreateBet(Marker marker, Point point)// Handles inside bets
+        public Bet CreateBet(Marker marker, Point point)
         {
             
             List<int> numbers = new List<int>();
@@ -347,7 +363,13 @@ namespace _007.Models
             };
             return bet;
         }
-        public Bet CreateBet(Marker marker, BetType betType, Point point)// handles outside bet
+        /// <summary>
+        /// Generates inside bets
+        /// </summary>
+        /// <param name="marker"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public Bet CreateBet(Marker marker, BetType betType, Point point)
         {
             List<int> numbers = new List<int>();
             switch (betType)
