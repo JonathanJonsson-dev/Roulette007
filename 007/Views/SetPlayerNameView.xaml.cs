@@ -21,20 +21,12 @@ namespace _007.Views
     {
         //public ICommand DisplaySetNameCommand { get; }
      
-        public SetPlayerNameView(PlayerViewModel playerViewModel)
+        public SetPlayerNameView(GameViewModel gameViewModel)
         {
             InitializeComponent();
             //DisplaySetNameCommand = new DisplaySetNameCommand(this);
-           DataContext = playerViewModel;
+           DataContext = gameViewModel;
         }
-
-        //public void ShowControl()
-        //{
-        //    //return (UserControl)XamlReader.Load(new FileStream(@"../../../Views/PlayerName.xaml", FileMode.Open));
-        //    SetPlayerNameView setPlayerNameView = new SetPlayerNameView();
-        //    setPlayerNameView.Show();
-        //    setPlayerNameView.Focus();
-        //}
 
         /// <summary>
         /// closes displayname pop up

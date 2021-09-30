@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace _007.Commands
 {
-    public class SetNameCommand : ICommand
+    public class SetNameCommand : ICommand // sets name and shows welcome message
     {
         private PlayerViewModel playerViewModel;
         public event EventHandler CanExecuteChanged;

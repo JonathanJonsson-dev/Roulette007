@@ -20,9 +20,9 @@ namespace _007.Models
         private static readonly Random random = new Random();
         
        
-        public int bonusRatio = 1;
+        private int bonusRatio = 1;
      
-        public int poweredUpBoardPieceId;
+        private int poweredUpBoardPieceId;
         public GameEngine(GameViewModel gameViewModel)
         {
             this.gameViewModel = gameViewModel;
@@ -59,9 +59,9 @@ namespace _007.Models
         private void CheckHighscore()
         {
             int maxValue = MaxValueObservableCollection();
-            if (gameViewModel.Player.Pot > maxValue)
+            if (gameViewModel.Pot > maxValue)
             {
-                HighscorePiece scorePiece = new HighscorePiece() { PlayerName = gameViewModel.Player.Name, Score = gameViewModel.Player.Pot };
+                HighscorePiece scorePiece = new HighscorePiece() { PlayerName = gameViewModel.Name, Score = gameViewModel.Pot };
                 gameViewModel.Highscores.Add(scorePiece);
             }
             this.gameViewModel.Highscores = new ObservableCollection<HighscorePiece>(gameViewModel.Highscores.OrderByDescending(o => o.Score)); // Sorts the Highscore collection in descending order.
@@ -143,8 +143,16 @@ namespace _007.Models
             }
             if (applyBonus)
                 totalPayout *= bonusRatio;
-            gameViewModel.Player.Bets.Clear();
-
+            gameViewModel.Bets.Clear();
+            PlayWinningLosingSound(totalPayout);
+            gameViewModel.Player.Pot += totalPayout; //Returns nothing for the player because the have lost
+            CheckHighscore();
+            //SaveHighscoresToFile();
+            return totalPayout;
+        }
+        
+        private void PlayWinningLosingSound(int totalPayout)
+        {
             MediaPlayer player = new MediaPlayer();
             if (totalPayout > 0)
             {
@@ -160,22 +168,13 @@ namespace _007.Models
                     player.Volume = 0.1;
                     player.Play();
                 }
-
-                //SoundPlayer sound = new SoundPlayer(Properties.Resources.WinningSound1);
-                //sound.Play();
             }
             else
             {
                 player.Open(new Uri(@"Resources\LosingSound.wav", UriKind.Relative));
                 player.Volume = 0.1;
                 player.Play();
-                //SoundPlayer sound = new SoundPlayer(Properties.Resources.LosingSound);
-                //sound.Play();
             }
-            gameViewModel.Player.Pot += totalPayout; //Returns nothing for the player because the have lost
-            CheckHighscore();
-            //SaveHighscoresToFile();
-            return totalPayout;
         }
 
         public void NextRound()
@@ -199,8 +198,9 @@ namespace _007.Models
                 poweredUpBoardPieceId = gameViewModel.BoardViewModel.CompleteBoard[random.Next(0,49)].BoardPieceNumber;
                 bonusRatio = random.Next(2, 5);
                 gameViewModel.BoardViewModel.ChangeBorderColorPowerUp(poweredUpBoardPieceId);
-                gameViewModel.BonusRatioMessage = $"This Round {gameViewModel.BoardViewModel.CompleteBoard[poweredUpBoardPieceId].BoardPieceLabel} is worth {bonusRatio}X more";
-               
+                gameViewModel.BonusRatioMessage = $"This Round {gameViewModel.BoardViewModel.CompleteBoard[poweredUpBoardPieceId].BoardPieceLabel} is worth {bonusRatio}X more if betting on {gameViewModel.BoardViewModel.CompleteBoard[poweredUpBoardPieceId].Type}";
+
+
             }
             
             

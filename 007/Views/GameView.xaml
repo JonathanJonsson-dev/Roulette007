@@ -59,7 +59,7 @@
                 </Grid.RowDefinitions>
                 <Label Content="{Binding Round}" ContentStringFormat="Current round: {0}" Grid.Row="0" FontSize="20"></Label>
                 <Label Content="{Binding NextPowerUp}" ContentStringFormat="Rounds until next power-up: {0}" Grid.Row="0" FontSize="20" Margin="0,30,0,0"></Label>
-                <Label Content="{Binding BonusRatioMessage}" Grid.Row="0" FontSize="20" Margin="350,0,0,0"></Label>
+                <Label Content="{Binding BonusRatioMessage}" Grid.Row="0" FontSize="20" Margin="0,60,0,0"></Label>
                 <views:WheelView Grid.Row="1" Margin="-150,-200,0,0" />
             </Grid>
 
@@ -96,7 +96,7 @@
                     </ItemsControl>
 
                     <ListBox Margin="10 0 0 0"
-                        ItemsSource="{Binding Player.Bets}"
+                        ItemsSource="{Binding Bets}"
                         Grid.Column="3" 
                         Grid.Row="0"
                         MaxHeight="650"
@@ -143,7 +143,7 @@
                 <views:Marker MarkerColor="Red" colors="Red" RenderTransformOrigin="0.5,0.5" Value="500" Margin="40,0,0,0"></views:Marker>
                 <views:Marker MarkerColor="Green" colors="Green" RenderTransformOrigin="0.5,0.5" Value="100" Margin="80,0,0,0"></views:Marker>
                 <views:Marker MarkerColor="Blue" colors="Blue" RenderTransformOrigin="0.5,0.5" Value="50" Margin="120,0,0,0"></views:Marker>
-                <views:Marker MarkerColor="DarkGoldenrod" ChipLabel="All In"  Value="{Binding Player.Pot}" colors="Gold" RenderTransformOrigin="0.5,0.5" Margin="160,0,0,0"></views:Marker>
+                <views:Marker MarkerColor="DarkGoldenrod" ChipLabel="All In"  Value="{Binding Pot}" colors="Gold" RenderTransformOrigin="0.5,0.5" Margin="160,0,0,0"></views:Marker>
                 
             </StackPanel>
             </Border>
