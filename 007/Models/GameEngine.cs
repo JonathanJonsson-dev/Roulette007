@@ -143,7 +143,7 @@ namespace _007.Models
             }
             if (applyBonus)
                 totalPayout *= bonusRatio;
-            gameViewModel.Player.Bets.Clear();
+            gameViewModel.Bets.Clear();
             PlayWinningLosingSound(totalPayout);
             gameViewModel.Player.Pot += totalPayout; //Returns nothing for the player because the have lost
             CheckHighscore();
