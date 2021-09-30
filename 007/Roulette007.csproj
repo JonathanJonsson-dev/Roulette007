@@ -9,10 +9,6 @@
 
   <ItemGroup>
 
-    <None Remove="Resources\CasinoMusic.mp3" />
-
-    <None Remove="Resources\CasinoMusic.wav" />
-
     <None Remove="Resources\ChipDown.wav" />
 
     <None Remove="Resources\LosingSound.wav" />
@@ -56,14 +52,6 @@
   </ItemGroup>
 
   <ItemGroup>
-
-    <Content Include="Resources\CasinoMusic.mp3">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-
-    <Content Include="Resources\CasinoMusic.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
 
     <Content Include="Views\Utilities\BallBounce.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
