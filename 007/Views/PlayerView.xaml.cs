@@ -22,8 +22,6 @@ namespace _007.Views
     public partial class PlayerView : UserControl
     {
 
-        public ICommand DisplaySetNameCommand {get;}
-
         public PlayerView()
         {
             InitializeComponent();

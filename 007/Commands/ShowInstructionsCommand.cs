@@ -12,7 +12,7 @@ namespace _007.Commands
         public event EventHandler CanExecuteChanged;
 
 
-        public ShowInstructionsCommand(PlayerViewModel playerViewModel)
+        public ShowInstructionsCommand(PlayerViewModel playerViewModel) // shows messagebox with instructions when player presses instructions button
         {
             this.playerViewModel = playerViewModel;
         }
@@ -27,9 +27,6 @@ namespace _007.Commands
             playerViewModel.ShowInstructions();
 
         }
-
-
-
 
     }
 }

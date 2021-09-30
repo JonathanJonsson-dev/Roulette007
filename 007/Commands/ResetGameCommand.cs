@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace _007.Commands
 {
-    public class ResetGameCommand : ICommand
+    public class ResetGameCommand : ICommand // resets game - resets pot and markers. Name stays
     {
         private PlayerViewModel playerViewModel;
         public event EventHandler CanExecuteChanged;
