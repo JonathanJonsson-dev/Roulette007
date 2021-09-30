@@ -143,8 +143,16 @@ namespace _007.Models
             }
             if (applyBonus)
                 totalPayout *= bonusRatio;
-            gameViewModel.Bets.Clear();
-
+            gameViewModel.Player.Bets.Clear();
+            PlayWinningLosingSound(totalPayout);
+            gameViewModel.Player.Pot += totalPayout; //Returns nothing for the player because the have lost
+            CheckHighscore();
+            //SaveHighscoresToFile();
+            return totalPayout;
+        }
+        
+        private void PlayWinningLosingSound(int totalPayout)
+        {
             MediaPlayer player = new MediaPlayer();
             if (totalPayout > 0)
             {
@@ -160,22 +168,13 @@ namespace _007.Models
                     player.Volume = 0.1;
                     player.Play();
                 }
-
-                //SoundPlayer sound = new SoundPlayer(Properties.Resources.WinningSound1);
-                //sound.Play();
             }
             else
             {
                 player.Open(new Uri(@"Resources\LosingSound.wav", UriKind.Relative));
                 player.Volume = 0.1;
                 player.Play();
-                //SoundPlayer sound = new SoundPlayer(Properties.Resources.LosingSound);
-                //sound.Play();
             }
-            gameViewModel.Pot += totalPayout; //Returns nothing for the player because the have lost
-            CheckHighscore();
-            //SaveHighscoresToFile();
-            return totalPayout;
         }
 
         public void NextRound()
