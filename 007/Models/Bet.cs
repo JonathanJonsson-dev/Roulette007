@@ -19,7 +19,7 @@ namespace _007.Models
         public List<int> Numbers { get; set; } = new List<int>();
         public override string ToString()
         {
-            return $"Betting on: {this.Type} for {this.Value}\n \t Odds: {this.Odds}\n";
+            return $"Betting on: {this.Type} for {this.Value}\n \t Payout: {this.Odds:1}\n";
         }
 
     }
