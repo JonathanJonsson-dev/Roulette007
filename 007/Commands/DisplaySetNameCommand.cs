@@ -7,18 +7,18 @@ using System.Windows.Input;
 
 namespace _007.Commands
 {
-    public class DisplaySetNameCommand : ICommand
+    public class DisplaySetNameCommand : ICommand // gives a pop-up where the player enters their name
     {
         private readonly PlayerViewModel playerViewModel;
         private readonly PlayerView playerView;
-        public DisplaySetNameCommand(PlayerViewModel playerViewModel) // gives a pop-up where the player enters their name
+        public DisplaySetNameCommand(PlayerViewModel playerViewModel) 
         {
             this.playerViewModel = playerViewModel;
         }
 
         public event EventHandler CanExecuteChanged;
 
-        public DisplaySetNameCommand(PlayerView playerView) // gives a pop-up where the player enters their name
+        public DisplaySetNameCommand(PlayerView playerView) 
         {
             this.playerView = playerView;
         }

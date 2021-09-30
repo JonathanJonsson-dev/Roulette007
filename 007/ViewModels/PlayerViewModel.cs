@@ -30,8 +30,9 @@ namespace _007.ViewModels
         public ShowInstructionsCommand ShowInstructionsCommand { get; }
         public PlayerView PlayerView { get; set; }
         public SetPlayerNameView SetPlayerNameView { get; set; }
-        
-        
+        public DisplaySetNameCommand DisplaySetNameCommand { get; set; }
+
+
 
         public PlayerViewModel(GameViewModel gameViewModel)
         {

@@ -43,5 +43,7 @@ namespace _007.ViewModels
 
             SpinWheelCommand = new SpinWheelCommand(this.WheelViewModel);
         }
+
+        
     }
 }
