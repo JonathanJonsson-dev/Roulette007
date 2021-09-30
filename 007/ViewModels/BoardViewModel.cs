@@ -48,6 +48,7 @@ namespace _007.ViewModels
             {
                 List<int> numbers = new List<int>();
                 string label = "";
+                Data.BetType type;
                 SolidColorBrush color = Brushes.Transparent;
                 //Generete bettingnumbers that is stored in each boardpiece
                 if (i == 0)
@@ -58,7 +59,7 @@ namespace _007.ViewModels
                         numbers.Add(n);
                     }
                     label = "1 to 18";
-                   
+                    type = Data.BetType.High;
                 }
                 else if (i == 1)
                 {
@@ -73,7 +74,7 @@ namespace _007.ViewModels
                         
                     }
                     label = "Even";
-
+                    type = Data.BetType.Even;
                 }
                 else if (i == 2)
                 {
@@ -87,7 +88,7 @@ namespace _007.ViewModels
                         }
                     }
                     color = Brushes.Red;
-                    
+                    type = Data.BetType.Red;
                 }
                 else if (i == 3)
                 {
@@ -100,6 +101,7 @@ namespace _007.ViewModels
                         }
                     }
                     color = Brushes.Black;
+                    type = Data.BetType.Black;
                 }
                 else if (i == 4)
                 {
@@ -113,7 +115,7 @@ namespace _007.ViewModels
 
                     }
                     label = "Odd";
-                  
+                    type = Data.BetType.Odd;
                 }
                 else
                 {
@@ -126,6 +128,7 @@ namespace _007.ViewModels
                         
                     }
                     label = "19 to 36";
+                    type = Data.BetType.High;
                    
                 }
                 BoardPiece specialBoardPiece = new BoardPiece
@@ -135,7 +138,7 @@ namespace _007.ViewModels
                     Numbers = numbers,
                     BoardPieceFontSize = 15,
                     BoardPieceColor = color,
-                    Type = Data.BetType.Low
+                    Type = type
 
                 };
                 specialBoardPiece.Height = 100;

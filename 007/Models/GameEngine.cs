@@ -123,7 +123,7 @@ namespace _007.Models
         public int GetPayout(ObservableCollection<Bet> bets)
         {
             int totalPayout = 0;
-            bool applyBonus = false;
+            
             foreach (var bet in bets)//Loops through every number in the bet to check against the winning number
             {
                 foreach (var number in bet.Numbers)
@@ -132,20 +132,23 @@ namespace _007.Models
                     {
                         if(bet.Type == gameViewModel.BoardViewModel.CompleteBoard[poweredUpBoardPieceId].Type)
                         {
-                            applyBonus = true;
+                            totalPayout += bet.Value * GetPayoutRatio(bet.Type) * bonusRatio + bet.Value; //Returns the players payout
                         }
+                        else
+                        {
                             totalPayout += bet.Value * GetPayoutRatio(bet.Type) + bet.Value; //Returns the players payout
-                       
+
+                        }
+
 
                     }
                 }
                 gameViewModel.gameView.board.Children.Remove(bet.Mark);
             }
-            if (applyBonus)
-                totalPayout *= bonusRatio;
+            
             gameViewModel.Bets.Clear();
             PlayWinningLosingSound(totalPayout);
-            gameViewModel.Player.Pot += totalPayout; //Returns nothing for the player because the have lost
+            gameViewModel.Pot += totalPayout; //Returns nothing for the player because the have lost
             CheckHighscore();
             //SaveHighscoresToFile();
             return totalPayout;
@@ -195,10 +198,11 @@ namespace _007.Models
         {
             if(gameViewModel.NextPowerUp <= 0)
             {
-                poweredUpBoardPieceId = gameViewModel.BoardViewModel.CompleteBoard[random.Next(0,49)].BoardPieceNumber;
+                poweredUpBoardPieceId = gameViewModel.BoardViewModel.CompleteBoard[6].BoardPieceNumber;
                 bonusRatio = random.Next(2, 5);
                 gameViewModel.BoardViewModel.ChangeBorderColorPowerUp(poweredUpBoardPieceId);
-                gameViewModel.BonusRatioMessage = $"This Round {gameViewModel.BoardViewModel.CompleteBoard[poweredUpBoardPieceId].BoardPieceLabel} is worth {bonusRatio}X more if betting on {gameViewModel.BoardViewModel.CompleteBoard[poweredUpBoardPieceId].Type}";
+                gameViewModel.BonusRatioMessage = $"This Round {gameViewModel.BoardViewModel.CompleteBoard[poweredUpBoardPieceId].BoardPieceLabel}" +
+                    $" is worth {bonusRatio}X more if betting on {gameViewModel.BoardViewModel.CompleteBoard[poweredUpBoardPieceId].Type}";
 
 
             }
@@ -207,6 +211,13 @@ namespace _007.Models
             
            
         }
+        /// <summary>
+        /// Generates bets
+        /// </summary>
+        /// <param name="marker"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        #region
         public Bet CreateBet(Marker marker, Point point)// Handles inside bets
         {
             
@@ -451,5 +462,6 @@ namespace _007.Models
             };
             return bet;
         }
+        #endregion
     }
 }
