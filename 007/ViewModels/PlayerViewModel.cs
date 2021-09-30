@@ -16,8 +16,6 @@ namespace _007.ViewModels
     public class PlayerViewModel : BaseViewModel
     {
 
-
-
         public string Name { get; set; } = "";
         public int Pot { get; set; } = 10000;
 
@@ -30,8 +28,7 @@ namespace _007.ViewModels
         public ShowInstructionsCommand ShowInstructionsCommand { get; }
         public PlayerView PlayerView { get; set; }
         public SetPlayerNameView SetPlayerNameView { get; set; }
-        public ICommand DisplaySetNameCommand { get; }
-        
+        public DisplaySetNameCommand DisplaySetNameCommand { get; set; }
 
         public PlayerViewModel(GameViewModel gameViewModel)
         {
@@ -40,40 +37,38 @@ namespace _007.ViewModels
             ResetGameCommand = new ResetGameCommand(this);
             ShowRulesCommand = new ShowRulesCommand(this);
             ShowInstructionsCommand = new ShowInstructionsCommand(this);
-
-            DisplaySetNameCommand = new DisplaySetNameCommand(this);
-          
+            DisplaySetNameCommand = new DisplaySetNameCommand(this); 
         }
 
         public void SetPlayerName() 
         {
-            PlayerView = new PlayerView();
-
-            MessageBox.Show($"Welcome {Name}! To begin playing, please place your first bet and when you're ready, spin the wheel. \n \nGood luck!");
-          
-
+           PlayerView = new PlayerView();
+           MessageBox.Show($"Welcome {Name}! To begin playing, please place your first bet and when you're ready, spin the wheel. \n \nGood luck!");
         }
 
         public bool IsSetButtonEnabled() // method checking if a name has been entered
         {
-
             return Name.Length > 0;
-
         }
 
         public void ResetGame() // method resetting pot to 1000 and markers back to starting point
         {
-
             Pot = 10000;
+            Name = "";
+            SetPlayerNameView setPlayerNameView = new SetPlayerNameView(gameViewModel.Player);
+            setPlayerNameView.Show();
+            setPlayerNameView.Topmost = true;
+
             foreach (var bet in Bets)
             {
                 gameViewModel.gameView.board.Children.Remove(bet.Mark);
             }
+
             Bets.Clear();
+
             gameViewModel.WheelViewModel = new WheelViewModel(gameViewModel);
             gameViewModel.Round = 1;
             gameViewModel.NextPowerUp = 1;
-
         }
 
         public void ShowInstructions() // method displaying a message box with basic instructions on how to play the game.
