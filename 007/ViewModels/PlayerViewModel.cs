@@ -18,13 +18,14 @@ namespace _007.ViewModels
 
 
 
-        public string Name { get; set; } = "";
-        public int Pot { get; set; } = 10000;
 
-        public ObservableCollection<Bet> Bets { get; set; } = new ObservableCollection<Bet>();
+        public string Name { get; set; }
+
+        public int Pot { get; set; }
+
 
         private readonly GameViewModel gameViewModel;
-        public RelayCommand SetNameCommand { get; }
+       
         public ICommand ResetGameCommand { get; }
         public ShowRulesCommand ShowRulesCommand { get; }
         public ShowInstructionsCommand ShowInstructionsCommand { get; }
@@ -36,40 +37,26 @@ namespace _007.ViewModels
         public PlayerViewModel(GameViewModel gameViewModel)
         {
             this.gameViewModel = gameViewModel;
-            SetNameCommand = new RelayCommand(x => IsSetButtonEnabled(), x => SetPlayerName());
+            
             ResetGameCommand = new ResetGameCommand(this);
             ShowRulesCommand = new ShowRulesCommand(this);
             ShowInstructionsCommand = new ShowInstructionsCommand(this);
 
-            DisplaySetNameCommand = new DisplaySetNameCommand(this);
-          
+            DisplaySetNameCommand = new DisplaySetNameCommand(gameViewModel);
+            
         }
 
-        public void SetPlayerName() 
-        {
-            PlayerView = new PlayerView();
-
-            MessageBox.Show($"Welcome {Name}! To begin playing, please place your first bet and when you're ready, spin the wheel. \n \nGood luck!");
-          
-
-        }
-
-        public bool IsSetButtonEnabled() // method checking if a name has been entered
-        {
-
-            return Name.Length > 0;
-
-        }
+       
 
         public void ResetGame() // method resetting pot to 1000 and markers back to starting point
         {
 
-            Pot = 10000;
-            foreach (var bet in Bets)
+            gameViewModel.Pot = 10000;
+            foreach (var bet in gameViewModel.Bets)
             {
                 gameViewModel.gameView.board.Children.Remove(bet.Mark);
             }
-            Bets.Clear();
+            gameViewModel.Bets.Clear();
             gameViewModel.WheelViewModel = new WheelViewModel(gameViewModel);
             gameViewModel.Round = 1;
             gameViewModel.NextPowerUp = 1;

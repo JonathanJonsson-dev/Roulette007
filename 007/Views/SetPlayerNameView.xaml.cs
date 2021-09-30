@@ -21,11 +21,11 @@ namespace _007.Views
     {
         //public ICommand DisplaySetNameCommand { get; }
      
-        public SetPlayerNameView(PlayerViewModel playerViewModel)
+        public SetPlayerNameView(GameViewModel gameViewModel)
         {
             InitializeComponent();
             //DisplaySetNameCommand = new DisplaySetNameCommand(this);
-           DataContext = playerViewModel;
+           DataContext = gameViewModel;
         }
 
         //public void ShowControl()
