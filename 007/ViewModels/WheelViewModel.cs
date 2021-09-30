@@ -294,7 +294,7 @@ namespace _007.ViewModels
                 //if (spinBallStoryBoard.GetCurrentState(wheel.BallControl) == ClockState.Stopped || spinBallStoryBoard.GetIsPaused(wheel.BallControl) == false)
                     //        {
                 //checks for bets
-                if (gameViewModel.Player.Bets.Count != 0)
+                if (gameViewModel.Bets.Count != 0)
                 {
                     //Disable spin wheel button to prevent further spin
                     wheel.btnSpin.IsEnabled = false;
@@ -485,7 +485,7 @@ namespace _007.ViewModels
                 //Get winning number
                 GetWinningNumber();
                 //Get Pay
-                winAmount = gameViewModel.GameEngine.GetPayout(gameViewModel.Player.Bets);
+                winAmount = gameViewModel.GameEngine.GetPayout(gameViewModel.Bets);
                 //Update player
                 MessageBox.Show($"Winning Number is {WinningNumber} \n\n\r " +
                     $"Winning amount {winAmount}", "Win", MessageBoxButton.OK, MessageBoxImage.Information);

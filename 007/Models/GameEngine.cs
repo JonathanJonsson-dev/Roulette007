@@ -20,9 +20,9 @@ namespace _007.Models
         private static readonly Random random = new Random();
         
        
-        public int bonusRatio = 1;
+        private int bonusRatio = 1;
      
-        public int poweredUpBoardPieceId;
+        private int poweredUpBoardPieceId;
         public GameEngine(GameViewModel gameViewModel)
         {
             this.gameViewModel = gameViewModel;
@@ -59,9 +59,9 @@ namespace _007.Models
         private void CheckHighscore()
         {
             int maxValue = MaxValueObservableCollection();
-            if (gameViewModel.Player.Pot > maxValue)
+            if (gameViewModel.Pot > maxValue)
             {
-                HighscorePiece scorePiece = new HighscorePiece() { PlayerName = gameViewModel.Player.Name, Score = gameViewModel.Player.Pot };
+                HighscorePiece scorePiece = new HighscorePiece() { PlayerName = gameViewModel.Name, Score = gameViewModel.Pot };
                 gameViewModel.Highscores.Add(scorePiece);
             }
             this.gameViewModel.Highscores = new ObservableCollection<HighscorePiece>(gameViewModel.Highscores.OrderByDescending(o => o.Score)); // Sorts the Highscore collection in descending order.
