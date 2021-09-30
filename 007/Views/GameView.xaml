@@ -59,7 +59,7 @@
                 </Grid.RowDefinitions>
                 <Label Content="{Binding Round}" ContentStringFormat="Current round: {0}" Grid.Row="0" FontSize="20"></Label>
                 <Label Content="{Binding NextPowerUp}" ContentStringFormat="Rounds until next power-up: {0}" Grid.Row="0" FontSize="20" Margin="0,30,0,0"></Label>
-                <Label Content="{Binding BonusRatioMessage}" Grid.Row="0" FontSize="20" Margin="350,0,0,0"></Label>
+                <Label Content="{Binding BonusRatioMessage}" Grid.Row="0" FontSize="20" Margin="0,60,0,0"></Label>
                 <views:WheelView Grid.Row="1" Margin="-150,-200,0,0" />
             </Grid>
 

@@ -198,8 +198,9 @@ namespace _007.Models
                 poweredUpBoardPieceId = gameViewModel.BoardViewModel.CompleteBoard[random.Next(0,49)].BoardPieceNumber;
                 bonusRatio = random.Next(2, 5);
                 gameViewModel.BoardViewModel.ChangeBorderColorPowerUp(poweredUpBoardPieceId);
-                gameViewModel.BonusRatioMessage = $"This Round {gameViewModel.BoardViewModel.CompleteBoard[poweredUpBoardPieceId].BoardPieceLabel} is worth {bonusRatio}X more";
-               
+                gameViewModel.BonusRatioMessage = $"This Round {gameViewModel.BoardViewModel.CompleteBoard[poweredUpBoardPieceId].BoardPieceLabel} is worth {bonusRatio}X more if betting on {gameViewModel.BoardViewModel.CompleteBoard[poweredUpBoardPieceId].Type}";
+
+
             }
             
             
