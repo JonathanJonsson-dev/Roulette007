@@ -465,13 +465,13 @@ namespace _007.ViewModels
                     MessageBox.Show("Please place a bet first");
                 }
                 //}
-                }
+            }
             catch(Exception ex)
             {
                 throw new Exception("WheelViewModel.SpinWheelGetAngle(): " + ex.ToString());
             }
 
-            }
+        }
 
         /// <summary>
         /// Calculate pay, set winning number and update wheel

@@ -14,11 +14,18 @@
         Width="400"
         Height="250">
         <Grid>
-            <Ellipse HorizontalAlignment="Left" Height="90" Margin="11,140,0,0" Stroke="AntiqueWhite" Fill="SaddleBrown" VerticalAlignment="Top" Width="90" />
             <Border BorderThickness="2" BorderBrush="SaddleBrown" CornerRadius="5" HorizontalAlignment="Left" Height="132" Margin="205,63,0,0" VerticalAlignment="Top" Width="125"/>
             <Label Content="{Binding Name, FallbackValue=Player, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="370" Foreground="AntiqueWhite" FontSize="24"/>
             <Label x:Name="lblPotAmountHeader" Content="Pot" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.843,5.1" FontSize="20" Foreground="AntiqueWhite"/>
-            <Button x:Name="btnResetGame" Content="Reset Game" Command="{Binding ResetGameCommand}" HorizontalAlignment="Left" Margin="18,170,0,0" VerticalAlignment="Top" Height="30" Width="76" Background="Transparent" BorderBrush="Transparent" Foreground="AntiqueWhite"/>
+            <Button x:Name="btnResetGame" Content="Reset Game" Command="{Binding ResetGameCommand}" HorizontalAlignment="Left" Margin="18,145,0,0" VerticalAlignment="Top" Height="85" Width="104" BorderBrush="Transparent" Foreground="AntiqueWhite">
+                <Button.Background>
+                    <VisualBrush>
+                        <VisualBrush.Visual>
+                            <Ellipse HorizontalAlignment="Left" Height="90" Margin="11,140,0,0" Stroke="AntiqueWhite" Fill="SaddleBrown" VerticalAlignment="Top" Width="90" />
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </Button.Background>
+            </Button>
             <Label x:Name="lblPotAmount" Content="{Binding Pot}" HorizontalAlignment="Left" Margin="16,84,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.843,5.1" Foreground="Black" FontSize="24" Height="40" Width="106" BorderBrush="SaddleBrown" BorderThickness="2" Background="White"/>
             <Button Content="Instructions" HorizontalAlignment="Left" Margin="228,84,0,0" Command="{Binding ShowInstructionsCommand}" VerticalAlignment="Top" RenderTransformOrigin="2.701,0.789" Width="78"/>
             <Button Content="Rules" HorizontalAlignment="Left" Margin="228,125,0,0" Command="{Binding ShowRulesCommand}" VerticalAlignment="Top" RenderTransformOrigin="-1.45,0.401" Width="78"/>
