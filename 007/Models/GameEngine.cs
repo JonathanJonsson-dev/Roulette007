@@ -144,7 +144,15 @@ namespace _007.Models
             if (applyBonus)
                 totalPayout *= bonusRatio;
             gameViewModel.Player.Bets.Clear();
-
+            PlayWinningLosingSound(totalPayout);
+            gameViewModel.Player.Pot += totalPayout; //Returns nothing for the player because the have lost
+            CheckHighscore();
+            //SaveHighscoresToFile();
+            return totalPayout;
+        }
+        
+        private void PlayWinningLosingSound(int totalPayout)
+        {
             MediaPlayer player = new MediaPlayer();
             if (totalPayout > 0)
             {
@@ -172,10 +180,6 @@ namespace _007.Models
                 //SoundPlayer sound = new SoundPlayer(Properties.Resources.LosingSound);
                 //sound.Play();
             }
-            gameViewModel.Player.Pot += totalPayout; //Returns nothing for the player because the have lost
-            CheckHighscore();
-            //SaveHighscoresToFile();
-            return totalPayout;
         }
 
         public void NextRound()
