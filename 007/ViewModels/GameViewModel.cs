@@ -54,7 +54,7 @@ namespace _007.ViewModels
         public GameViewModel(GameView gameView)
         {
             this.gameView = gameView;
-            BoardViewModel = new BoardViewModel(this.Player, this.GameEngine);
+            BoardViewModel = new BoardViewModel();
 
             WheelViewModel = new WheelViewModel(this);
 

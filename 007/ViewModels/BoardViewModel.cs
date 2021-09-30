@@ -18,18 +18,8 @@ namespace _007.ViewModels
         public ObservableCollection<BoardPiece> SpecialBetBoardColumnTwo { get; set; } 
         public ObservableCollection<BoardPiece> SpecialBetBoardColumnOne { get; set; }
 
-        public int LastWinningNumber { get; set; }
-
-        private GameEngine gameEngine;
-
-        private PlayerViewModel player;
-        
-        public List<Bet> bets { get; set; } = new List<Bet>();
-
-        public BoardViewModel(PlayerViewModel player, GameEngine gameEngine)
+        public BoardViewModel()
         {
-            this.player = player;
-            this.gameEngine = gameEngine;
             FillBoard();
         }
         public void ChangeBorderColorPowerUp(int id)
@@ -151,7 +141,7 @@ namespace _007.ViewModels
             for (int i = 0; i < 3; i++)
             {
                 List<int> numbers = new List<int>();
-                string label = "";
+                string label;
                 SolidColorBrush color = Brushes.Transparent;
                 //Generete bettingnumbers that is stored in each boardpiece
                 if (i == 0)
@@ -251,74 +241,50 @@ namespace _007.ViewModels
         {
             for (int i = 0; i < 37; i++)
             {
-                List<int> numbers = new List<int>();
-                numbers.Add(i);
+                List<int> numbers = new List<int>
+                {
+                    i
+                };
+                SolidColorBrush boardPieceColor;
+             
+                int width = 50;
+
                 if (i == 0)
                 {
-                    
-                    BoardPiece boardPiece = new BoardPiece
-                    {
-                        BoardPieceColor = Brushes.Green,
-                        BoardPieceLabel = "0",
-                        Numbers = numbers,
-                        BoardPieceNumber = 0
-                    };
-
-                    boardPiece.Width = 150;
-                    CompleteBoard.Add(boardPiece);
+                    boardPieceColor = Brushes.Green;
+                    width = 150;
 
                 }
                 else if (i == 11 || i == 13 || i == 15 || i == 17 || i == 29 || i == 31 || i == 33 || i == 35)
-                {
+                {               
+                    boardPieceColor = Brushes.Black;
                     
-                    BoardPiece boardPiece = new BoardPiece
-                    {
-                        BoardPieceColor = Brushes.Black,
-                        BoardPieceLabel = i.ToString(),
-                        Numbers = numbers,
-                        BoardPieceNumber = i
-                    };
-
-                    CompleteBoard.Add(boardPiece);
                 }
                 else if (i == 12 || i == 14 || i == 16 || i == 18 || i == 30 || i == 32 || i == 34 || i == 36)
                 {
-                  
-                    BoardPiece boardPiece = new BoardPiece
-                    {
-                        BoardPieceColor = Brushes.Red,
-                        BoardPieceLabel = i.ToString(),
-                        Numbers = numbers,
-                        BoardPieceNumber = i
-                    };
-
-                    CompleteBoard.Add(boardPiece);
+                    boardPieceColor = Brushes.Red;
+                    
                 }
                 else if (i % 2 == 0)
                 {
-                    
-                    BoardPiece boardPiece = new BoardPiece
-                    {
-                        BoardPieceColor = Brushes.Black,
-                        BoardPieceLabel = i.ToString(),
-                        Numbers = numbers,
-                        BoardPieceNumber = i
-                    };
-
-                    CompleteBoard.Add(boardPiece);
+                    boardPieceColor = Brushes.Black;
+                   
                 }
                 else
-                {
+                { 
+                    boardPieceColor = Brushes.Red;
                     
-                    BoardPiece boardPiece = new BoardPiece
-                    {
-                        BoardPieceColor = Brushes.Red,
-                        BoardPieceLabel = i.ToString(),
-                        Numbers = numbers,
-                        BoardPieceNumber = i
-                    };
-                    CompleteBoard.Add(boardPiece);
                 }
+                BoardPiece boardPiece = new BoardPiece
+                {
+                    BoardPieceColor = boardPieceColor,
+                    BoardPieceLabel = i.ToString(),
+                    Numbers = numbers,
+                    BoardPieceNumber = i,
+                    Width = width
+
+                };
+                CompleteBoard.Add(boardPiece);
             }
             Board = new ObservableCollection<BoardPiece>(CompleteBoard.Skip(0).Take(37));
             FillBottomBoard();
