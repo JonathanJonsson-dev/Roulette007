@@ -32,7 +32,7 @@ namespace _007.Views
             setPlayerNameView.Topmost = true;
 
         }
-        MediaPlayer player = new MediaPlayer();
+        readonly MediaPlayer player = new MediaPlayer();
         private void board_DragOver(object sender, DragEventArgs e)
         {
             object data = e.Data.GetData(DataFormats.Serializable);
@@ -199,8 +199,10 @@ namespace _007.Views
                             else if (point.Y <= 29)// the number 0
                             {
                                 bet.Mark = marker;
-                                List<int> list = new List<int>();
-                                list.Add(0);
+                                List<int> list = new List<int>
+                                {
+                                    0
+                                };
                                 bet.Numbers = list;
                                 bet.Value = marker.Value;
                                 bet.Type = BetType.Zero;
@@ -313,9 +315,6 @@ namespace _007.Views
 
             }
         }
-        private void Nothing()
-        {
-
-        }
+       
     }
 }

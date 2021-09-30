@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:_007.Views"
              xmlns:ViewModel="clr-namespace:_007.ViewModels"
-             mc:Ignorable="d" Height="Auto" Width="Auto">
+             mc:Ignorable="d" Height="500" Width="500">
     <UserControl.Resources>
 
     </UserControl.Resources>

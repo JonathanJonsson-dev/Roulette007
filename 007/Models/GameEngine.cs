@@ -18,66 +18,16 @@ namespace _007.Models
     {
         private readonly GameViewModel gameViewModel;
         private static readonly Random random = new Random();
-        public int WinningNumber { get; set; }
+        
+       
+        public int bonusRatio = 1;
+     
+        public int poweredUpBoardPieceId;
         public GameEngine(GameViewModel gameViewModel)
         {
             this.gameViewModel = gameViewModel;
         }
-        /// <summary>
-        /// Loops through the numbers in the bet and return a payout based upon odds
-        /// </summary>
-        /// <param name="bet"></param>
-        /// <returns></returns>
-        public int GetPayout(ObservableCollection<Bet> bets)
-        {
-            int totalPayout = 0;
-            
-            foreach (var bet in bets)//Loops through every number in the bet to check against the winning number
-            {
-                foreach (var number in bet.Numbers)
-                {
-                    if (number == gameViewModel.WheelViewModel.WinningNumber)
-                    {
-                        totalPayout+= bet.Value * GetPayoutRatio(bet.Type) + bet.Value; //Returns the players payout
-                    }
-                }
-                gameViewModel.gameView.board.Children.Remove(bet.Mark);
-            }
-            gameViewModel.Player.Bets.Clear();
-           
-            MediaPlayer player = new MediaPlayer();
-            if (totalPayout > 0)
-            {
-                if (random.NextDouble() > 0.5) // Play random winning sound. 
-                {
-                    player.Open(new Uri(@"Resources\WinningSound1.wav", UriKind.Relative));
-                    player.Volume = 0.1;
-                    player.Play();
-                }
-                else
-                {
-                    player.Open(new Uri(@"Resources\WinningSound2.mp3", UriKind.Relative));
-                    player.Volume = 0.1;
-                    player.Play();
-                }
-
-                //SoundPlayer sound = new SoundPlayer(Properties.Resources.WinningSound1);
-                //sound.Play();
-            }
-            else
-            {
-                player.Open(new Uri(@"Resources\LosingSound.wav", UriKind.Relative));
-                player.Volume = 0.1;
-                player.Play();
-                //SoundPlayer sound = new SoundPlayer(Properties.Resources.LosingSound);
-                //sound.Play();
-            }
-            gameViewModel.Player.Pot += totalPayout; //Returns nothing for the player because the have lost
-            CheckHighscore();
-            //SaveHighscoresToFile();
-            //SaveHighscore();
-            return totalPayout;
-        }
+        
 
         private void SaveHighscoresToFile()
         {
@@ -165,12 +115,103 @@ namespace _007.Models
             }
             return 0;
         }
-      
+        /// <summary>
+        /// Loops through the numbers in the bet and return a payout based upon odds
+        /// </summary>
+        /// <param name="bet"></param>
+        /// <returns></returns>
+        public int GetPayout(ObservableCollection<Bet> bets)
+        {
+            int totalPayout = 0;
+            bool applyBonus = false;
+            foreach (var bet in bets)//Loops through every number in the bet to check against the winning number
+            {
+                foreach (var number in bet.Numbers)
+                {
+                    if (number == gameViewModel.WheelViewModel.WinningNumber)
+                    {
+                        if(bet.Type == gameViewModel.BoardViewModel.CompleteBoard[poweredUpBoardPieceId].Type)
+                        {
+                            applyBonus = true;
+                        }
+                            totalPayout += bet.Value * GetPayoutRatio(bet.Type) + bet.Value; //Returns the players payout
+                       
+
+                    }
+                }
+                gameViewModel.gameView.board.Children.Remove(bet.Mark);
+            }
+            if (applyBonus)
+                totalPayout *= bonusRatio;
+            gameViewModel.Player.Bets.Clear();
+
+            MediaPlayer player = new MediaPlayer();
+            if (totalPayout > 0)
+            {
+                if (random.NextDouble() > 0.5) // Play random winning sound. 
+                {
+                    player.Open(new Uri(@"Resources\WinningSound1.wav", UriKind.Relative));
+                    player.Volume = 0.1;
+                    player.Play();
+                }
+                else
+                {
+                    player.Open(new Uri(@"Resources\WinningSound2.mp3", UriKind.Relative));
+                    player.Volume = 0.1;
+                    player.Play();
+                }
+
+                //SoundPlayer sound = new SoundPlayer(Properties.Resources.WinningSound1);
+                //sound.Play();
+            }
+            else
+            {
+                player.Open(new Uri(@"Resources\LosingSound.wav", UriKind.Relative));
+                player.Volume = 0.1;
+                player.Play();
+                //SoundPlayer sound = new SoundPlayer(Properties.Resources.LosingSound);
+                //sound.Play();
+            }
+            gameViewModel.Player.Pot += totalPayout; //Returns nothing for the player because the have lost
+            CheckHighscore();
+            //SaveHighscoresToFile();
+            return totalPayout;
+        }
+
+        public void NextRound()
+        {
+            gameViewModel.Round++;
+            if(gameViewModel.NextPowerUp == 0)
+            {
+                gameViewModel.BoardViewModel.ChangeBorderColorPowerUp(-1);
+                gameViewModel.NextPowerUp = random.Next(3, 11);
+                gameViewModel.BonusRatioMessage = "";
+            }
+            gameViewModel.NextPowerUp--;
+            if(bonusRatio!=1)
+            bonusRatio = 1;
+            PowerUp();
+        }
+        private void PowerUp()
+        {
+            if(gameViewModel.NextPowerUp <= 0)
+            {
+                poweredUpBoardPieceId = gameViewModel.BoardViewModel.CompleteBoard[random.Next(0,49)].BoardPieceNumber;
+                bonusRatio = random.Next(2, 5);
+                gameViewModel.BoardViewModel.ChangeBorderColorPowerUp(poweredUpBoardPieceId);
+                gameViewModel.BonusRatioMessage = $"This Round {gameViewModel.BoardViewModel.CompleteBoard[poweredUpBoardPieceId].BoardPieceLabel} is worth {bonusRatio}X more";
+               
+            }
+            
+            
+            
+           
+        }
         public Bet CreateBet(Marker marker, Point point)// Handles inside bets
         {
             
             List<int> numbers = new List<int>();
-            int numberToFind = 0;
+            int numberToFind;
             int row;
             int col;
             point.X = Math.Round(point.X);
