@@ -168,17 +168,12 @@ namespace _007.Models
                     player.Volume = 0.1;
                     player.Play();
                 }
-
-                //SoundPlayer sound = new SoundPlayer(Properties.Resources.WinningSound1);
-                //sound.Play();
             }
             else
             {
                 player.Open(new Uri(@"Resources\LosingSound.wav", UriKind.Relative));
                 player.Volume = 0.1;
                 player.Play();
-                //SoundPlayer sound = new SoundPlayer(Properties.Resources.LosingSound);
-                //sound.Play();
             }
         }
 
