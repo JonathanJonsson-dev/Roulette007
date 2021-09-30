@@ -181,18 +181,18 @@ namespace _007.Models
                 else
                 {
                     player.Open(new Uri(@"Resources\WinningSound2.mp3", UriKind.Relative));
-                    player.Volume = 0.1;
+                    player.Volume = 0.8;
                     player.Play();
                 }
             }
             else
             {
                 player.Open(new Uri(@"Resources\LosingSound.wav", UriKind.Relative));
-                player.Volume = 0.1;
+                player.Volume = 0.2;
                 player.Play();
             }
         }
-        #endregion
+        #endregion 
         #region
         /// <summary>
         /// Goes to next round and if power up round launches powerup method
