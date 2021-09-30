@@ -342,7 +342,7 @@ namespace _007.Models
                 Mark = marker,
                 Type = betType,
                 Value = marker.Value,
-                Odds = GetPayoutRatio(betType),
+                PayoutRatio = GetPayoutRatio(betType),
                 Numbers = numbers
             };
             return bet;
@@ -457,7 +457,7 @@ namespace _007.Models
                 Mark = marker,
                 Type = betType,
                 Value = marker.Value,
-                Odds = GetPayoutRatio(betType),
+                PayoutRatio = GetPayoutRatio(betType),
                 Numbers = numbers
             };
             return bet;
