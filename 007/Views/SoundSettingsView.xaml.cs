@@ -31,12 +31,18 @@ namespace _007.Views
             InitializePropertyValues();
             
         }
-
+        /// <summary>
+        /// Changes the media volume
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ChangeMediaVolume(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             myMediaElement.Volume = (double)volumeSlider.Value;
         }
-
+        /// <summary>
+        /// Starts the backgroundmusic and if the media has ended the nextbutton clicks. 
+        /// </summary>
         private void InitializePropertyValues()
         {
             myMediaElement.Source = songCollection.songs[0].Filepath; 
@@ -44,7 +50,11 @@ namespace _007.Views
             myMediaElement.Volume = (double)volumeSlider.Value;
             myMediaElement.MediaEnded += NextBtn_Click;
         }
-
+        /// <summary>
+        /// Play next song
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NextBtn_Click(object sender, RoutedEventArgs e)
         {
             if (currentTrackIndex >= songCollection.songs.Count - 1)
@@ -60,7 +70,11 @@ namespace _007.Views
             myMediaElement.Play();
             
         }
-
+        /// <summary>
+        /// Play previous song
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PreviousBtn_Click(object sender, RoutedEventArgs e)
         {
             if (currentTrackIndex <= 0)

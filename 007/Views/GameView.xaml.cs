@@ -27,9 +27,12 @@ namespace _007.Views
             InitializeComponent();
             gameViewModel = new GameViewModel(this);
             DataContext = gameViewModel;
-            
+            SetPlayerNameView setPlayerNameView = new SetPlayerNameView(gameViewModel);
+            setPlayerNameView.Show();
+            setPlayerNameView.Topmost = true;
+
         }
-        MediaPlayer player = new MediaPlayer();
+        readonly MediaPlayer player = new MediaPlayer();
         private void board_DragOver(object sender, DragEventArgs e)
         {
             object data = e.Data.GetData(DataFormats.Serializable);
@@ -37,7 +40,7 @@ namespace _007.Views
             {
                 var marker = (Marker)data;
                 Point dropPoint = e.GetPosition(board);
-
+                marker.Margin = new Thickness(0, 0, 0, 0);
                 var allowedPoint = GetAllowedPoint(dropPoint);
                 Canvas.SetLeft(marker, allowedPoint.X);
                 Canvas.SetTop(marker, allowedPoint.Y);
@@ -49,15 +52,15 @@ namespace _007.Views
                 else
                 {
                     Bet betToRemove = new Bet { Value = 0};
-                    foreach (var bet in gameViewModel.Player.Bets)
+                    foreach (var bet in gameViewModel.Bets)
                     {
                         if(bet.Mark == marker)
                         {
                             betToRemove = bet;
                         }
                     }
-                    gameViewModel.Player.Bets.Remove(betToRemove);
-                    gameViewModel.Player.Pot += betToRemove.Value;
+                    gameViewModel.Bets.Remove(betToRemove);
+                    gameViewModel.Pot += betToRemove.Value;
                 }
 
 
@@ -165,16 +168,16 @@ namespace _007.Views
 
         private void board_Drop(object sender, DragEventArgs e)
         {
-           
+            Random r = new Random();
             object data = e.Data.GetData(DataFormats.Serializable);
             Marker marker;
                 if (data is Marker)
                 {
                     marker = (Marker)data;
-                if (gameViewModel.Player.Name != "")
+                if (gameViewModel.Name != "")
                 {
                     bool isAlreadyOn = false;
-                    foreach (var bet in gameViewModel.Player.Bets)
+                    foreach (var bet in gameViewModel.Bets)
                     {
                         if (marker == bet.Mark)
                         {
@@ -183,7 +186,7 @@ namespace _007.Views
                     }
                     if (!isAlreadyOn)
                     {
-                        if (gameViewModel.Player.Pot - marker.Value >= 0)
+                        if (gameViewModel.Pot - marker.Value >= 0)
                         {
                             Point point = e.GetPosition(board);
                             point = GetAllowedPoint(point);
@@ -196,8 +199,10 @@ namespace _007.Views
                             else if (point.Y <= 29)// the number 0
                             {
                                 bet.Mark = marker;
-                                List<int> list = new List<int>();
-                                list.Add(0);
+                                List<int> list = new List<int>
+                                {
+                                    0
+                                };
                                 bet.Numbers = list;
                                 bet.Value = marker.Value;
                                 bet.Type = BetType.Zero;
@@ -233,16 +238,24 @@ namespace _007.Views
                            
 
 
-                            gameViewModel.Player.Bets.Add(bet);
-                            gameViewModel.Player.Pot -= (int)marker.Value;
+                            gameViewModel.Bets.Add(bet);
+                            gameViewModel.Pot -= (int)marker.Value;
+                            string chipLabel = "007";
+                            if(marker.ChipLabel == "All In")
+                            {
+                                chipLabel = "All In";
+                            }
                             Marker newMark = new Marker
                             {
                                 Value = marker.Value,
                                 MarkerColor = marker.MarkerColor,
                                 Margin = marker.GetMarkerMargin(marker.colors),
-                                colors = marker.colors
+                                colors = marker.colors,
+                                ChipLabel = chipLabel
                             };
+                            
                             markerboard.Children.Add(newMark);
+                            marker.Margin = new Thickness(r.Next(0, 10), r.Next(0, 10), r.Next(0, 10), r.Next(0, 10));
                         }
                         else
                         {
@@ -279,7 +292,7 @@ namespace _007.Views
             {
                 marker = (Marker)data;
                 Bet betToRemove = null;
-                foreach (var bet in gameViewModel.Player.Bets)
+                foreach (var bet in gameViewModel.Bets)
                 {
                     if (marker == bet.Mark)
                     {
@@ -288,11 +301,11 @@ namespace _007.Views
                 }
                 if (betToRemove != null)
                 {
-                    gameViewModel.Player.Bets.Remove(betToRemove);
+                    gameViewModel.Bets.Remove(betToRemove);
 
 
                    
-                    gameViewModel.Player.Pot += (int)marker.Value;
+                    gameViewModel.Pot += (int)marker.Value;
                     markerboard.Children.Remove(marker);
                 }
                 marker.Margin = marker.GetMarkerMargin(marker.colors);
@@ -302,9 +315,6 @@ namespace _007.Views
 
             }
         }
-        private void Nothing()
-        {
-
-        }
+       
     }
 }

@@ -6,6 +6,6 @@ namespace _007.Data
 {
     public enum MarkColors
     {
-        Red, Black, Green, Blue
+        Red, Black, Green, Blue, Gold
     }
 }

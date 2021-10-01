@@ -6,7 +6,7 @@
              xmlns:views="clr-namespace:_007.Views"
              xmlns:models="clr-namespace:_007.Models"
              mc:Ignorable="d" 
-             d:DesignHeight="1000" d:DesignWidth="1200"
+             d:DesignHeight="1000" d:DesignWidth="1550"
              xmlns:vm="clr-namespace:_007.ViewModels"
              xmlns:commands="clr-namespace:_007.Commands">
     
@@ -32,18 +32,51 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <!--<ItemsControl Grid.Column="0" Grid.Row="1" ItemsSource="{Binding SoundSettingsView}"/>-->
-            <ContentControl Grid.Row="1" Grid.Column="4" Content="{Binding SoundSettingsView}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            
+            <StackPanel Grid.Row="1" Grid.Column="4">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <ContentControl Grid.Row="0" Content="{Binding SoundSettingsView}" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+                    
+                    <Grid Grid.Row="1" Margin="0 150 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Content="{Binding Round}" ContentStringFormat="Current round: {0}" Grid.Row="0" FontSize="20"></Label>
+                        <Label Content="{Binding NextPowerUp}" ContentStringFormat="Rounds until next power-up: {0}" Grid.Row="0" FontSize="20" Margin="0,30,0,0"></Label>
+                        <Label Content="{Binding BonusRatioMessage}" Grid.Row="0" FontSize="20" Margin="0,60,0,0"></Label>
+                        
+                    </Grid>
+                </Grid>
+                
+            </StackPanel>
 
-            <UniformGrid Grid.Column="0" Grid.Row="1" Margin="-100,-200,0,0">
-                <views:WheelView />
-            </UniformGrid>
+            <StackPanel Grid.Row="3" Grid.Column="4">
+                <Label Content="Highscores" Foreground="White" FontSize="24" HorizontalAlignment="Center"/>
 
+                <ItemsControl VerticalAlignment="Center" ItemsSource="{Binding Highscores}" 
+                              HorizontalAlignment="Center">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Width="250" HorizontalAlignment="Center"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </StackPanel>
+            <!--<ContentControl Grid.Row="1" Grid.Column="4" Content="{Binding SoundSettingsView}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>-->
+            <views:WheelView Grid.Column="0" Grid.Row="1" Margin="-150,-200,0,0" />
+            
             <Grid Grid.Row="4"
                         Grid.Column="0" Width="700" HorizontalAlignment="Left" Margin="-25,-200,0,0">
                 <ContentControl Content="{Binding Player}" 
                         
-                        VerticalAlignment="Stretch" 
                         HorizontalAlignment="Stretch"/>
             </Grid>
 
@@ -71,13 +104,17 @@
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                     </ItemsControl>
-                    <ItemsControl Grid.Column="3" Grid.Row="0" ItemsSource="{Binding Player.Bets}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Width="250" HorizontalAlignment="Right"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                    </ItemsControl>
+
+                    <ListBox Margin="10 0 0 0"
+                        ItemsSource="{Binding Bets}"
+                        Grid.Column="3" 
+                        Grid.Row="0"
+                        MaxHeight="650"
+                        VerticalAlignment="Top"
+                        ></ListBox>
+
+
+                    
 
                     <Grid Grid.Column="2" Grid.Row="1">
                         <ItemsControl ItemsSource="{Binding BoardViewModel.BoardBottom}">
@@ -109,13 +146,14 @@
 
                
             </Canvas>
-            <Border Grid.Column="2" Grid.Row="3" Background="SaddleBrown" Width="250" CornerRadius="15" BorderThickness="5">
+            <Border Grid.Column="2" Grid.Row="3" Background="SaddleBrown" Width="250" CornerRadius="15" BorderThickness="5" Margin="10">
             <StackPanel  Name="markerboard"  DragOver="markerboard_DragOver" Background="ForestGreen" AllowDrop="True"  Height="90" DragDrop.Drop="markerboard_Drop" Margin="10" Width="250">
                
                 <views:Marker MarkerColor="Black" colors="Black" RenderTransformOrigin="0.5,0.5" Value="1000" Margin="0,0,0,0"></views:Marker>
                 <views:Marker MarkerColor="Red" colors="Red" RenderTransformOrigin="0.5,0.5" Value="500" Margin="40,0,0,0"></views:Marker>
                 <views:Marker MarkerColor="Green" colors="Green" RenderTransformOrigin="0.5,0.5" Value="100" Margin="80,0,0,0"></views:Marker>
                 <views:Marker MarkerColor="Blue" colors="Blue" RenderTransformOrigin="0.5,0.5" Value="50" Margin="120,0,0,0"></views:Marker>
+                <views:Marker MarkerColor="DarkGoldenrod" ChipLabel="All In"  Value="{Binding Pot}" colors="Gold" RenderTransformOrigin="0.5,0.5" Margin="160,0,0,0"></views:Marker>
                 
             </StackPanel>
             </Border>
@@ -149,7 +187,6 @@
                     <views:Marker MarkerColor="Blue" RenderTransformOrigin="0.5,0.5" Margin="0,0,60,0" ></views:Marker>
                     <Label Content="= 50" FontSize="24" Margin="-34,0,0,-25"/>
                 </UniformGrid>
-
 
             </Grid>
             </StackPanel>

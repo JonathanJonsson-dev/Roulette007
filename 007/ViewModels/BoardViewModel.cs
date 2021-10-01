@@ -14,33 +14,31 @@ namespace _007.ViewModels
     {
         public ObservableCollection<BoardPiece> Board { get; set; }
         public List<BoardPiece> CompleteBoard { get; set; } = new List<BoardPiece>();
-        
         public ObservableCollection<BoardPiece> BoardBottom { get; set; } 
         public ObservableCollection<BoardPiece> SpecialBetBoardColumnTwo { get; set; } 
-        public ObservableCollection<BoardPiece> SpecialBetBoardColumnOne { get; set; } 
-        
-      
-        public int LastWinningNumber { get; set; }
+        public ObservableCollection<BoardPiece> SpecialBetBoardColumnOne { get; set; }
 
-        private GameEngine gameEngine;
-
-        private PlayerViewModel player;
-        
-        public List<Bet> bets { get; set; } = new List<Bet>();
-
-        public BoardViewModel(PlayerViewModel player, GameEngine gameEngine)
+        public BoardViewModel()
         {
-            this.player = player;
-            this.gameEngine = gameEngine;
             FillBoard();
         }
-
+        public void ChangeBorderColorPowerUp(int id)
+        {
+            foreach (var boardPiece in CompleteBoard)
+            {
+                if (boardPiece.BorderColor == Brushes.Blue)
+                    boardPiece.BorderColor = Brushes.White;
+            }
+            if(id>=0)
+            CompleteBoard[id].BorderColor = Brushes.Blue;
+        }
         private void FillSpecialBetBoardColumnOne()
         {
             for (int i = 0; i < 6; i++)
             {
                 List<int> numbers = new List<int>();
                 string label = "";
+                Data.BetType type;
                 SolidColorBrush color = Brushes.Transparent;
                 //Generete bettingnumbers that is stored in each boardpiece
                 if (i == 0)
@@ -51,7 +49,7 @@ namespace _007.ViewModels
                         numbers.Add(n);
                     }
                     label = "1 to 18";
-                   
+                    type = Data.BetType.High;
                 }
                 else if (i == 1)
                 {
@@ -66,7 +64,7 @@ namespace _007.ViewModels
                         
                     }
                     label = "Even";
-
+                    type = Data.BetType.Even;
                 }
                 else if (i == 2)
                 {
@@ -80,7 +78,7 @@ namespace _007.ViewModels
                         }
                     }
                     color = Brushes.Red;
-                    
+                    type = Data.BetType.Red;
                 }
                 else if (i == 3)
                 {
@@ -93,6 +91,7 @@ namespace _007.ViewModels
                         }
                     }
                     color = Brushes.Black;
+                    type = Data.BetType.Black;
                 }
                 else if (i == 4)
                 {
@@ -106,7 +105,7 @@ namespace _007.ViewModels
 
                     }
                     label = "Odd";
-                  
+                    type = Data.BetType.Odd;
                 }
                 else
                 {
@@ -119,6 +118,7 @@ namespace _007.ViewModels
                         
                     }
                     label = "19 to 36";
+                    type = Data.BetType.High;
                    
                 }
                 BoardPiece specialBoardPiece = new BoardPiece
@@ -128,7 +128,7 @@ namespace _007.ViewModels
                     Numbers = numbers,
                     BoardPieceFontSize = 15,
                     BoardPieceColor = color,
-                    Type = Data.BetType.Low
+                    Type = type
 
                 };
                 specialBoardPiece.Height = 100;
@@ -141,7 +141,7 @@ namespace _007.ViewModels
             for (int i = 0; i < 3; i++)
             {
                 List<int> numbers = new List<int>();
-                string label = "";
+                string label;
                 SolidColorBrush color = Brushes.Transparent;
                 //Generete bettingnumbers that is stored in each boardpiece
                 if (i == 0)
@@ -236,98 +236,57 @@ namespace _007.ViewModels
             }
 
         }
-        public void CreateBet()
-        {
-            
-
-        }
-        
-   
-        public void StartRound(int winnningNumber)//Starts the game temporary placement
-        {
-            
-            Payout();
-        }
-        public void Payout()//Sends all bets made to gameEnigne for payout
-        {
-
-            int totalPayout = 0;            
-            PlaySound(totalPayout);
-
-        }
-       
+       /// <summary>
+       /// Fills the board with boardPieces based on odd even numbers. 
+       /// </summary>
         private void FillBoard()
         {
             for (int i = 0; i < 37; i++)
             {
-                List<int> numbers = new List<int>();
-                numbers.Add(i);
+                List<int> numbers = new List<int>
+                {
+                    i
+                };
+                SolidColorBrush boardPieceColor;
+             
+                int width = 50;
+
                 if (i == 0)
                 {
-                    
-                    BoardPiece boardPiece = new BoardPiece
-                    {
-                        BoardPieceColor = Brushes.Green,
-                        BoardPieceLabel = "0",
-                        Numbers = numbers,
-                        BoardPieceNumber = 0
-                    };
-
-                    boardPiece.Width = 150;
-                    CompleteBoard.Add(boardPiece);
+                    boardPieceColor = Brushes.Green;
+                    width = 150;
 
                 }
                 else if (i == 11 || i == 13 || i == 15 || i == 17 || i == 29 || i == 31 || i == 33 || i == 35)
-                {
+                {               
+                    boardPieceColor = Brushes.Black;
                     
-                    BoardPiece boardPiece = new BoardPiece
-                    {
-                        BoardPieceColor = Brushes.Black,
-                        BoardPieceLabel = i.ToString(),
-                        Numbers = numbers,
-                        BoardPieceNumber = i
-                    };
-
-                    CompleteBoard.Add(boardPiece);
                 }
                 else if (i == 12 || i == 14 || i == 16 || i == 18 || i == 30 || i == 32 || i == 34 || i == 36)
                 {
-                  
-                    BoardPiece boardPiece = new BoardPiece
-                    {
-                        BoardPieceColor = Brushes.Red,
-                        BoardPieceLabel = i.ToString(),
-                        Numbers = numbers,
-                        BoardPieceNumber = i
-                    };
-
-                    CompleteBoard.Add(boardPiece);
+                    boardPieceColor = Brushes.Red;
+                    
                 }
                 else if (i % 2 == 0)
                 {
-                    
-                    BoardPiece boardPiece = new BoardPiece
-                    {
-                        BoardPieceColor = Brushes.Black,
-                        BoardPieceLabel = i.ToString(),
-                        Numbers = numbers,
-                        BoardPieceNumber = i
-                    };
-
-                    CompleteBoard.Add(boardPiece);
+                    boardPieceColor = Brushes.Black;
+                   
                 }
                 else
-                {
+                { 
+                    boardPieceColor = Brushes.Red;
                     
-                    BoardPiece boardPiece = new BoardPiece
-                    {
-                        BoardPieceColor = Brushes.Red,
-                        BoardPieceLabel = i.ToString(),
-                        Numbers = numbers,
-                        BoardPieceNumber = i
-                    };
-                    CompleteBoard.Add(boardPiece);
                 }
+                BoardPiece boardPiece = new BoardPiece
+                {
+                    BoardPieceColor = boardPieceColor,
+                    BoardPieceLabel = i.ToString(),
+                    Numbers = numbers,
+                    BoardPieceNumber = i,
+                    Width = width
+
+                };
+                CompleteBoard.Add(boardPiece);
             }
             Board = new ObservableCollection<BoardPiece>(CompleteBoard.Skip(0).Take(37));
             FillBottomBoard();
@@ -339,13 +298,6 @@ namespace _007.ViewModels
         }
 
        
-        /// <summary>
-        /// Play winning and losing sound
-        /// </summary>
-        /// <param name="totalPayout"></param>
-        private void PlaySound(int totalPayout)
-        {
-           
-        }
+        
     }
 }

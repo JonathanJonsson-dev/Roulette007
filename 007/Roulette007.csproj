@@ -9,10 +9,6 @@
 
   <ItemGroup>
 
-    <None Remove="Resources\CasinoMusic.mp3" />
-
-    <None Remove="Resources\CasinoMusic.wav" />
-
     <None Remove="Resources\ChipDown.wav" />
 
     <None Remove="Resources\LosingSound.wav" />
@@ -29,19 +25,40 @@
 
     <None Remove="Resources\WinningSound2.mp3" />
 
+    <None Remove="Views\Utilities\007.png" />
+
+    <None Remove="Views\Utilities\BallBounce.wav" />
+
+    <None Remove="Views\Utilities\Logo.png" />
+
     <None Remove="Views\Utilities\RouletteWheelSpinn.mp3" />
 
     <None Remove="Views\Utilities\SingleZeroWheel.jpg" />
   </ItemGroup>
 
   <ItemGroup>
+    <COMReference Include="{000204ef-0000-0000-c000-000000000046}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>6</VersionMajor>
+      <Guid>000204ef-0000-0000-c000-000000000046</Guid>
+    </COMReference>
+    <COMReference Include="{ea544a21-c82d-11d1-a3e4-00a0c90aea82}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>6</VersionMajor>
+      <Guid>ea544a21-c82d-11d1-a3e4-00a0c90aea82</Guid>
+    </COMReference>
+  </ItemGroup>
 
-    <Content Include="Resources\CasinoMusic.mp3">
+  <ItemGroup>
+
+    <Content Include="Views\Utilities\BallBounce.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
 
-    <Content Include="Resources\CasinoMusic.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="Views\Utilities\Logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
 
     <EmbeddedResource Include="Resources\Songs\007JamesBondTheme.mp3">
@@ -95,6 +112,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="PropertyChanged.Fody" Version="3.4.0" />
   </ItemGroup>
 

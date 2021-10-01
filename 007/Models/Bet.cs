@@ -14,10 +14,12 @@ namespace _007.Models
 
         public Marker Mark { get; set; }
 
+        public int PayoutRatio { get; set; } =  35;
+
         public List<int> Numbers { get; set; } = new List<int>();
         public override string ToString()
         {
-            return $"Betting on: {this.Type} for {this.Value}";
+            return $"Betting on: {this.Type} for {this.Value}\n \t Payout: {this.PayoutRatio}:1\n";
         }
 
     }

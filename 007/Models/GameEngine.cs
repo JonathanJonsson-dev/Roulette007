@@ -1,12 +1,17 @@
 ﻿using _007.Data;
 using _007.ViewModels;
 using _007.Views;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Media;
+using System.Xml.Serialization;
 
 namespace _007.Models
 {
@@ -14,13 +19,122 @@ namespace _007.Models
     {
         private readonly GameViewModel gameViewModel;
         private static readonly Random random = new Random();
-        public int WinningNumber { get; set; }
+        
+       
+        private int bonusRatio = 1;
+     
+        private int poweredUpBoardPieceId;
         public GameEngine(GameViewModel gameViewModel)
         {
             this.gameViewModel = gameViewModel;
         }
+
+
         /// <summary>
-        /// Loops through the numbers in the bet and return a payout based upon odds
+        /// https://stackoverflow.com/questions/16352879/write-list-of-objects-to-a-file
+        /// Writes the given object instance to a Json file.
+        /// <para>Object type must have a parameterless constructor.</para>
+        /// <para>Only Public properties and variables will be written to the file. These can be any type though, even other classes.</para>
+        /// <para>If there are public properties/variables that you do not want written to the file, decorate them with the [JsonIgnore] attribute.</para>
+        /// </summary>
+        /// <typeparam name="T">The type of object being written to the file.</typeparam>
+        /// <param name="filePath">The file path to write the object instance to.</param>
+        /// <param name="objectToWrite">The object instance to write to the file.</param>
+        /// <param name="append">If false the file will be overwritten if it already exists. If true the contents will be appended to the file.</param>
+        public static void WriteToJsonFile<T>(string filePath, T objectToWrite, bool append = false) where T : new()
+        {
+            TextWriter writer = null;
+            try
+            {
+                var contentsToWriteToFile = JsonConvert.SerializeObject(objectToWrite);
+                writer = new StreamWriter(filePath, append);
+                writer.Write(contentsToWriteToFile);
+            }
+            finally
+            {
+                if (writer != null)
+                    writer.Close();
+            }
+        }
+
+        /// <summary>
+        /// https://stackoverflow.com/questions/16352879/write-list-of-objects-to-a-file
+        /// Reads an object instance from an Json file.
+        /// <para>Object type must have a parameterless constructor.</para>
+        /// </summary>
+        /// <typeparam name="T">The type of object to read from the file.</typeparam>
+        /// <param name="filePath">The file path to read the object instance from.</param>
+        /// <returns>Returns a new instance of the object read from the Json file.</returns>
+        public static T ReadFromJsonFile<T>(string filePath) where T : new()
+        {
+            TextReader reader = null;
+            try
+            {
+                reader = new StreamReader(filePath);
+                var fileContents = reader.ReadToEnd();
+                return JsonConvert.DeserializeObject<T>(fileContents);
+            }
+            finally
+            {
+                if (reader != null)
+                    reader.Close();
+            }
+        }
+        /// <summary>
+        /// Creates a list of highscores and then writes to Json file. Does not work at the moment due to an error, would be nice to implement in a new version of the game. 
+        /// </summary>
+        private void SaveHighscoresToFile()
+        {
+            List<HighscorePiece> highscores = new List<HighscorePiece>();
+
+            foreach (HighscorePiece highscorePiece in gameViewModel.Highscores)
+            {
+                highscores.Add(highscorePiece);
+            }
+
+            WriteToJsonFile<List<HighscorePiece>>(@"Resources/highscores.txt", highscores);
+        }
+
+        /// <summary>
+        /// Checks if the current player pot is higher than highest value in highscores. Then add the score to highscore collection. 
+        /// Sorts by descending order and removes the last item if the collection is larger than 5 items. 
+        /// </summary>
+        private void CheckHighscore()
+        {
+            int maxValue = MaxValueObservableCollection();
+            if (gameViewModel.Pot > maxValue)
+            {
+                HighscorePiece scorePiece = new HighscorePiece() { PlayerName = gameViewModel.Name, Score = gameViewModel.Pot };
+                gameViewModel.Highscores.Add(scorePiece);
+            }
+            this.gameViewModel.Highscores = new ObservableCollection<HighscorePiece>(gameViewModel.Highscores.OrderByDescending(o => o.Score)); // Sorts the Highscore collection in descending order.
+
+            if (gameViewModel.Highscores.Count > 5)
+            {
+                this.gameViewModel.Highscores.Remove(gameViewModel.Highscores.Last());
+            }
+        }
+
+        /// <summary>
+        /// Gets the maximum score from highscores collection. 
+        /// </summary>
+        /// <returns>maxValue</returns>
+        private int MaxValueObservableCollection()
+        {
+            int maxValue = 0;
+            foreach (HighscorePiece game in gameViewModel.Highscores)
+            {
+                if (game.Score > maxValue)
+                {
+                    maxValue = game.Score;
+                }
+            }
+            return maxValue;
+        }
+
+        #region
+        /// <summary>
+        /// Loops through the numbers in the bet and return a payout based upon BetType
         /// </summary>
         /// <param name="bet"></param>
         /// <returns></returns>
@@ -34,13 +148,74 @@ namespace _007.Models
                 {
                     if (number == gameViewModel.WheelViewModel.WinningNumber)
                     {
-                        totalPayout+= bet.Value * GetPayoutRatio(bet.Type); //Returns the players payout
+                        if(bet.Type == gameViewModel.BoardViewModel.CompleteBoard[poweredUpBoardPieceId].Type) //If bet type = the powered up bets type
+                        {
+                            totalPayout += bet.Value * GetPayoutRatio(bet.Type) * bonusRatio + bet.Value; 
+                        }
+                        else
+                        {
+                            totalPayout += bet.Value * GetPayoutRatio(bet.Type) + bet.Value; 
+
+                        }
+
+
                     }
                 }
                 gameViewModel.gameView.board.Children.Remove(bet.Mark);
             }
-            gameViewModel.Player.Bets.Clear();
-           
+            
+            gameViewModel.Bets.Clear();
+            PlayWinningLosingSound(totalPayout);
+            gameViewModel.Pot += totalPayout; //Returns nothing for the player because the have lost
+            CheckHighscore();
+            //SaveHighscoresToFile();
+            return totalPayout;
+        }
+        /// <summary>
+        /// Returns payout ratio based upon BetType as int
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        private int GetPayoutRatio(BetType type)
+        {
+            switch (type)
+            {
+                case Data.BetType.Straightup:
+                    return 35;
+
+                case Data.BetType.Split:
+                    return 17;
+
+                case Data.BetType.Basket:
+                case Data.BetType.Street:
+                    return 11;
+
+                case Data.BetType.Corner:
+                    return 8;
+                case Data.BetType.Fivebet:
+                    return 3;
+
+                case Data.BetType.Sixline:
+                case Data.BetType.Column:
+                case Data.BetType.Dozen:
+                    return 2;
+
+                case Data.BetType.Odd:
+                case Data.BetType.Even:
+                case Data.BetType.Red:
+                case Data.BetType.Black:
+                case Data.BetType.Low:
+                case Data.BetType.High:
+                    return 1;
+            }
+            return 0;
+        }
+        /// <summary>
+        /// Play winning or losing sound depending on if totalPayout is negative or positive. 
+        /// </summary>
+        /// <param name="totalPayout"></param>
+        private void PlayWinningLosingSound(int totalPayout)
+        {
             MediaPlayer player = new MediaPlayer();
             if (totalPayout > 0)
             {
@@ -53,56 +228,64 @@ namespace _007.Models
                 else
                 {
                     player.Open(new Uri(@"Resources\WinningSound2.mp3", UriKind.Relative));
-                    player.Volume = 0.1;
+                    player.Volume = 0.8;
                     player.Play();
                 }
-
-                //SoundPlayer sound = new SoundPlayer(Properties.Resources.WinningSound1);
-                //sound.Play();
             }
             else
             {
                 player.Open(new Uri(@"Resources\LosingSound.wav", UriKind.Relative));
-                player.Volume = 0.1;
+                player.Volume = 0.2;
                 player.Play();
-                //SoundPlayer sound = new SoundPlayer(Properties.Resources.LosingSound);
-                //sound.Play();
             }
-            gameViewModel.Player.Pot += totalPayout; //Returns nothing for the player because the have lost
-            return totalPayout;
         }
-        private int GetPayoutRatio(BetType type)
+        #endregion 
+        #region
+        /// <summary>
+        /// Goes to next round and if power up round launches powerup method
+        /// </summary>
+        public void NextRound()
         {
-            switch (type)
+            gameViewModel.Round++;
+            if(gameViewModel.NextPowerUp == 0)
             {
-                case Data.BetType.Straightup:
-                    return 35;
-                    
-                case Data.BetType.Split:
-                    return 17;
-
-                case Data.BetType.Basket: case Data.BetType.Street:
-                    return 11;
-
-                case Data.BetType.Corner:
-                    return 8;
-                case Data.BetType.Fivebet:
-                    return 3;
-
-                case Data.BetType.Sixline: case Data.BetType.Column: case Data.BetType.Dozen:
-                    return 2;
-
-                case Data.BetType.Odd: case Data.BetType.Even: case Data.BetType.Red: case Data.BetType.Black: case Data.BetType.Low: case Data.BetType.High:
-                    return 1;
+                gameViewModel.BoardViewModel.ChangeBorderColorPowerUp(-1);
+                gameViewModel.NextPowerUp = random.Next(3, 11);
+                gameViewModel.BonusRatioMessage = "";
             }
-            return 0;
+            gameViewModel.NextPowerUp--;
+            if(bonusRatio!=1)
+            bonusRatio = 1;
+            if (gameViewModel.NextPowerUp <= 0)
+            {
+                PowerUp();
+            }
         }
-      
-        public Bet CreateBet(Marker marker, Point point)// Handles inside bets
+        /// <summary>
+        /// Chooses a boradpiece to power up
+        /// </summary>
+        private void PowerUp()
+        {
+                poweredUpBoardPieceId = gameViewModel.BoardViewModel.CompleteBoard[6].BoardPieceNumber;
+                bonusRatio = random.Next(2, 5);
+                gameViewModel.BoardViewModel.ChangeBorderColorPowerUp(poweredUpBoardPieceId);
+                gameViewModel.BonusRatioMessage = $"This Round {gameViewModel.BoardViewModel.CompleteBoard[poweredUpBoardPieceId].BoardPieceLabel}" +
+                    $" is worth {bonusRatio}X more if betting on {gameViewModel.BoardViewModel.CompleteBoard[poweredUpBoardPieceId].Type}";
+
+        }
+        #endregion
+        #region
+        /// <summary>
+        /// Generates inside bets
+        /// </summary>
+        /// <param name="marker"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public Bet CreateBet(Marker marker, Point point)
         {
             
             List<int> numbers = new List<int>();
-            int numberToFind = 0;
+            int numberToFind;
             int row;
             int col;
             point.X = Math.Round(point.X);
@@ -222,11 +405,18 @@ namespace _007.Models
                 Mark = marker,
                 Type = betType,
                 Value = marker.Value,
+                PayoutRatio = GetPayoutRatio(betType),
                 Numbers = numbers
             };
             return bet;
         }
-        public Bet CreateBet(Marker marker, BetType betType, Point point)// handles outside bet
+        /// <summary>
+        /// Generates inside bets
+        /// </summary>
+        /// <param name="marker"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public Bet CreateBet(Marker marker, BetType betType, Point point)
         {
             List<int> numbers = new List<int>();
             switch (betType)
@@ -336,9 +526,11 @@ namespace _007.Models
                 Mark = marker,
                 Type = betType,
                 Value = marker.Value,
+                PayoutRatio = GetPayoutRatio(betType),
                 Numbers = numbers
             };
             return bet;
         }
+        #endregion
     }
 }
