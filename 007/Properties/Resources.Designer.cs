@@ -63,15 +63,6 @@ namespace _007.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream CasinoMusic {
-            get {
-                return ResourceManager.GetStream("CasinoMusic", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
-        /// </summary>
         internal static System.IO.UnmanagedMemoryStream LosingSound {
             get {
                 return ResourceManager.GetStream("LosingSound", resourceCulture);

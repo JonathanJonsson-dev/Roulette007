@@ -8,7 +8,7 @@ namespace _007.Commands
 {
     public class ShowInstructionsCommand : ICommand
     {
-        private PlayerViewModel playerViewModel;
+        private readonly PlayerViewModel playerViewModel;
         public event EventHandler CanExecuteChanged;
 
 
