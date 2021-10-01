@@ -51,7 +51,7 @@
                         </Grid.RowDefinitions>
                         <Label Content="{Binding Round}" ContentStringFormat="Current round: {0}" Grid.Row="0" FontSize="20"></Label>
                         <Label Content="{Binding NextPowerUp}" ContentStringFormat="Rounds until next power-up: {0}" Grid.Row="0" FontSize="20" Margin="0,30,0,0"></Label>
-                        <Label Content="{Binding BonusRatioMessage}" Grid.Row="0" FontSize="20" Margin="0,60,0,0"></Label>
+                        <Label Content="{Binding BonusRatioMessage}" Foreground="Goldenrod" Grid.Row="0" FontSize="20" Margin="0,60,0,0"></Label>
                         
                     </Grid>
                 </Grid>
