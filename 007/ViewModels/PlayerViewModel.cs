@@ -27,7 +27,7 @@ namespace _007.ViewModels
         public ICommand DisplaySetNameCommand { get; }
         
         public ShowInstructionsCommand ShowInstructionsCommand { get; }
-        public PlayerView PlayerView { get; set; }
+        
         
 
         public PlayerViewModel(GameViewModel gameViewModel)
