@@ -22,7 +22,7 @@
                 <RowDefinition Height="*"/>
           
             </Grid.RowDefinitions>
-            <Image Grid.ColumnSpan="3" Source="././Views/utilities/logo.png"/>
+            <Image Grid.ColumnSpan="3" Source="././Resources/logo.png"/>
 
             <ContentControl Content="{Binding CurrentViewModel}"
 
