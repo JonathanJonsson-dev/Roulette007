@@ -2,6 +2,7 @@
 using _007.Data;
 using _007.Models;
 using _007.Views;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -67,7 +68,16 @@ namespace _007.ViewModels
             SpinWheelCommand = new SpinWheelCommand(this.WheelViewModel);
             Name = "";
             Pot = 10000;
+            //LoadHighscore();
         }
+
+        private void LoadHighscore()
+        {
+            string jsonFilePath = @"C:\Users\jonss\source\repos\007\007\bin\Debug\netcoreapp3.1\highscores.json";
+            var test = JsonConvert.DeserializeObject(jsonFilePath);
+            
+        }
+
         public void SetPlayerName()
         {
 
