@@ -16,10 +16,6 @@ namespace _007.ViewModels
     public class PlayerViewModel : BaseViewModel
     {
 
-
-
-       
-
         public string Name { get; set; }
 
         public int Pot { get; set; }

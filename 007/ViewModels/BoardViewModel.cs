@@ -236,7 +236,9 @@ namespace _007.ViewModels
             }
 
         }
-       
+       /// <summary>
+       /// Fills the board with boardPieces based on odd even numbers. 
+       /// </summary>
         private void FillBoard()
         {
             for (int i = 0; i < 37; i++)

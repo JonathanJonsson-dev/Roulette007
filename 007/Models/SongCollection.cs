@@ -17,9 +17,5 @@ namespace _007.Models
                 new Song(){ Filepath = new Uri(@"Resources\Songs\PathwayToHaven.mp3", UriKind.Relative)},
                 new Song(){ Filepath = new Uri(@"Resources\Songs\ByYourSide.mp3", UriKind.Relative)}
             };
-
-        public SongCollection()
-        {
-        }
     }
 }
