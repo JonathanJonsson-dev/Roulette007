@@ -3,6 +3,7 @@ using _007.Data;
 using _007.Models;
 using _007.Views;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -68,14 +69,20 @@ namespace _007.ViewModels
             SpinWheelCommand = new SpinWheelCommand(this.WheelViewModel);
             Name = "";
             Pot = 10000;
-            //LoadHighscore();
+            LoadHighscore();
         }
 
         private void LoadHighscore()
         {
-            string jsonFilePath = @"C:\Users\jonss\source\repos\007\007\bin\Debug\netcoreapp3.1\highscores.json";
-            var test = JsonConvert.DeserializeObject(jsonFilePath);
-            
+
+            var jsonString = System.IO.File.ReadAllText(@"C:\Users\jonss\source\repos\007\007\bin\Debug\netcoreapp3.1\highscores.json");
+            var result = JsonConvert.DeserializeObject<List<Highscore>>(jsonString);
+
+            foreach (var item in result)
+            {
+                HighscorePiece highscorePiece = new HighscorePiece { PlayerName = item.PlayerName, Score = item.Score };
+                Highscores.Add(highscorePiece);
+            }
         }
 
         public void SetPlayerName()
