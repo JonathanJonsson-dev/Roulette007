@@ -64,8 +64,11 @@ namespace _007.ViewModels
                 $"This can be done multiple times as long as there is money left in your pot. " +
                 $"\n\n When you are happy with your bets, spin the wheel. " +
                 $"If your pot runs out of money, you can always restart the game. \n \nGood luck!";
+
+            UserMessenger messenger = new UserMessenger(message, title);
+            messenger.Show();
             
-            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
+            //MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         public void ShowRules() // method displaying a message box with basic rules and odds of each bet.
