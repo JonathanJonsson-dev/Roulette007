@@ -10,6 +10,7 @@
 
     </UserControl.Resources>
 
+
     <Border x:Name="MainBorder" Background="Transparent" 
             Height="350" Width="350">
         <Grid x:Name="MainGrid"  >
@@ -22,6 +23,7 @@
                 <Ellipse Height="500" 
                          Width="500"
                          Fill="Brown" Canvas.Top="-74" Canvas.Left="-51">
+
                     <Ellipse.RenderTransform>
                         <TranslateTransform X="25" Y="50"/>
                     </Ellipse.RenderTransform>
@@ -137,6 +139,7 @@
                 </Button>
                 <Line X1="0" Y1="0" X2="75" Y2="75" Stroke="Goldenrod" StrokeThickness="10" Canvas.Left="185" Canvas.Top="187"/>
                 <Line X1="0" Y1="00" X2="-75" Y2="75" Stroke="Goldenrod" StrokeThickness="10" Canvas.Left="260" Canvas.Top="187"/>
+
             </Canvas>
         </Grid>
     </Border>
