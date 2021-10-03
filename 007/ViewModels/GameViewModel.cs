@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
@@ -74,8 +75,7 @@ namespace _007.ViewModels
 
         private void LoadHighscore()
         {
-
-            var jsonString = System.IO.File.ReadAllText(@"C:\Users\jonss\source\repos\007\007\bin\Debug\netcoreapp3.1\highscores.json");
+            var jsonString = System.IO.File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "highscores.json"));
             var result = JsonConvert.DeserializeObject<List<Highscore>>(jsonString);
 
             foreach (var item in result)
