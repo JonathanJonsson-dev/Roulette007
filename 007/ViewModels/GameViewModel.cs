@@ -80,11 +80,11 @@ namespace _007.ViewModels
 
         public void SetPlayerName()
         {
+            string message = "To begin playing, please place your first bet and when you're ready, spin the wheel. \n \n \t Good luck!";
+            string title = $"Welcome {Name}!";
 
-
-            MessageBox.Show($"Welcome {Name}! To begin playing, please place your first bet and when you're ready, spin the wheel. \n \nGood luck!");
-
-
+            UserMessenger messenger = new UserMessenger(message, title);
+            messenger.Show();
         }
 
         public bool IsSetButtonEnabled() // method checking if a name has been entered

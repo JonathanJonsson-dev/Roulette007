@@ -27,6 +27,6 @@ namespace _007.Views
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
+        }        
     }
 }

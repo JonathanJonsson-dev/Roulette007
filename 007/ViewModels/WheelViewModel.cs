@@ -492,8 +492,7 @@ namespace _007.ViewModels
                 string title = "Outcome";
                 UserMessenger messenger = new UserMessenger(message, title);
                 messenger.Show();
-                //MessageBox.Show($"Winning Number is {WinningNumber} \n\n\r " +
-                //    $"Winning amount {winAmount}", "Win", MessageBoxButton.OK, MessageBoxImage.Information);
+                
                 //enables spin button once spinning is completed
                 wheel.btnSpin.IsEnabled = true;
                 gameViewModel.GameEngine.NextRound();

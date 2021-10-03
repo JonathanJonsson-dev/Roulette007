@@ -5,16 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_007.Views"
         mc:Ignorable="d"
-        Height="450" Width="800" FontSize="18">
+        SizeToContent="WidthAndHeight" MaxWidth="600" MaxHeight="600" FontSize="20">
 
     <Border BorderBrush="SaddleBrown" BorderThickness="5" Background="LightGray">
         <Grid Margin="10" Background="DarkSlateGray">
-            <Label x:Name="lblTitle" HorizontalAlignment="Center" Height="40" Margin="0,39,0,335" MinWidth="50"/>
-            <TextBlock x:Name="txbMessage" VerticalAlignment="Top" HorizontalAlignment="Center" 
-                       Margin="0 100 0 0" TextWrapping="Wrap"/>
-            <Button x:Name="btnOK" Content="OK" Width="100" Margin="0,314,0,50" FontSize="24" Height="40"
-                    HorizontalAlignment="Center" Background="LightGray" 
-                    BorderBrush="SaddleBrown" BorderThickness="2"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="1" x:Name="lblTitle" HorizontalAlignment="Center" Height="40" MinWidth="50" 
+                   FontWeight="Bold"/>
+            <ScrollViewer Margin="20 30 20 20" Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                <TextBlock  x:Name="txbMessage" VerticalAlignment="Top" HorizontalAlignment="Center" 
+                            TextWrapping="Wrap" Margin="10"/>
+            </ScrollViewer>
+            <Button Grid.Row="3" x:Name="btnOK" Content="OK" Width="100" FontSize="24" Height="40"
+                    HorizontalAlignment="Center" Background="LightGray" FontWeight="Bold"
+                    BorderBrush="SaddleBrown" BorderThickness="2" Click="btnOK_Click"/>
         </Grid>
     </Border>
 </Window>
