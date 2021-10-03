@@ -487,8 +487,12 @@ namespace _007.ViewModels
                 //Get Pay
                 winAmount = gameViewModel.GameEngine.GetPayout(gameViewModel.Bets);
                 //Update player
-                MessageBox.Show($"Winning Number is {WinningNumber} \n\n\r " +
-                    $"Winning amount {winAmount}", "Win", MessageBoxButton.OK, MessageBoxImage.Information);
+                string message = $"Winning Number is {WinningNumber} \n\n\r " +
+                    $"Winning amount {winAmount}";
+                string title = "Outcome";
+                UserMessenger messenger = new UserMessenger(message, title);
+                messenger.Show();
+                
                 //enables spin button once spinning is completed
                 wheel.btnSpin.IsEnabled = true;
                 gameViewModel.GameEngine.NextRound();

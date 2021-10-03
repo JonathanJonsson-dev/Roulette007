@@ -63,9 +63,10 @@ namespace _007.ViewModels
             string message = "To place a bet, drag selected marker onto the desired field. " +
                 $"This can be done multiple times as long as there is money left in your pot. " +
                 $"\n\n When you are happy with your bets, spin the wheel. " +
-                $"If your pot runs out of money, you can always restart the game. \n \nGood luck!";
-            
-            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
+                $"If your pot runs out of money, you can always restart the game. \n \n \t Good luck!";
+
+            UserMessenger messenger = new UserMessenger(message, title);
+            messenger.Show();
         }
 
         public void ShowRules() // method displaying a message box with basic rules and odds of each bet.
@@ -93,12 +94,11 @@ namespace _007.ViewModels
                 "\n ¤  Even or odd   1:1" +
                 "\n      -  betting on even or odd number. " +
                 "\n ¤  High or low    1:1" +
-                "\n      -  betting on 1 through 18 or 19 through 36.";
+                "\n      -  betting on 1 through 18 or 19 through 36." +
+                "\n \n \t Good luck!";
 
-           MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
+            UserMessenger messenger = new UserMessenger(message, title);
+            messenger.Show();
         }
-
-        
-
     }
 }

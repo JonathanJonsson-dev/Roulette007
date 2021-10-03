@@ -137,7 +137,6 @@
                         RenderTransformOrigin="0.633,1.455" Canvas.Left="149"
                         Command="{Binding SpinWheelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}">
                 </Button>
-
                 <Line X1="0" Y1="0" X2="75" Y2="75" Stroke="Goldenrod" StrokeThickness="10" Canvas.Left="185" Canvas.Top="187"/>
                 <Line X1="0" Y1="00" X2="-75" Y2="75" Stroke="Goldenrod" StrokeThickness="10" Canvas.Left="260" Canvas.Top="187"/>
 
