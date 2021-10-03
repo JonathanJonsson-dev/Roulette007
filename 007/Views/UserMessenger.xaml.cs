@@ -14,6 +14,7 @@ namespace _007.Views
 {
     /// <summary>
     /// Interaction logic for UserMessenger.xaml
+    /// Used to give user feedback
     /// </summary>
     public partial class UserMessenger : Window
     {
@@ -24,6 +25,11 @@ namespace _007.Views
             lblTitle.Content = title;
         }
 
+        /// <summary>
+        /// Closes window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
