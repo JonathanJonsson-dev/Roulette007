@@ -70,7 +70,15 @@ namespace _007.ViewModels
             SpinWheelCommand = new SpinWheelCommand(this.WheelViewModel);
             Name = "";
             Pot = 10000;
-            LoadHighscore();
+
+            try
+            {
+                LoadHighscore();
+            }
+            catch (Exception ex)
+            {
+                
+            }
         }
 
         private void LoadHighscore()
